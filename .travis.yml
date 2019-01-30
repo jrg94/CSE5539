@@ -21,7 +21,7 @@ deploy:
   api_key:
     secure: ${GITHUB_TOKEN}
   file:
-    - ./assignment01.pdf
+    - ./grifski-term-project-proposal.pdf
   skip_cleanup: true
   on:
     tags: true

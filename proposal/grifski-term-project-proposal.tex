@@ -60,7 +60,7 @@ some basic data analytics.
 The aim of this project is to explore different audio signal processing methods
 as a mode of data mining for the purposes of visualization. For example, I am
 interested in collecting data such as loudness, onset density, and auditory
-roughness~\cite{knuth}. In addition, I'd like to explore pitch and onset
+roughness~\cite{knuth}. In addition, I'd like to explore pitch, key, and onset
 detection.
 
 \section*{Method}
@@ -75,12 +75,26 @@ final version of the music data mining and visualization tool:
   \item Music file data modeling using Python classes
   \item Music file metadata mapping to data model
   \begin{itemize}
-     \item Length
-     \item Genre
-     \item Artist
-     \item Year
-     \item Bitrate
-   \end{itemize}
+    \item Length
+    \item Genre
+    \item Artist
+    \item Year
+    \item Bitrate
+  \end{itemize}
+  \item Mine music file for signal data
+  \begin{itemize}
+    \item Loudness
+    \item Auditory Roughness
+    \item Onset Density
+    \item Pitch
+    \item Key
+  \end{itemize}
+  \item Aggregate music data by category (see metadata)
+  \item Visualize aggregate music Data
+  \begin{itemize}
+    \item Average auditory roughness vs. genre
+    \item
+  \end{itemize}
 \end{itemize}
 
 \section*{Software and Hardware Requirements}

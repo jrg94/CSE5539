@@ -1,0 +1,141 @@
+\documentclass[12pt, a4paper]{article}
+\setlength{\oddsidemargin}{0.5cm}
+\setlength{\evensidemargin}{0.5cm}
+\setlength{\topmargin}{-1.6cm}
+\setlength{\leftmargin}{0.5cm}
+\setlength{\rightmargin}{0.5cm}
+\setlength{\textheight}{24.00cm}
+\setlength{\textwidth}{15.00cm}
+\parindent 0pt
+\parskip 5pt
+\pagestyle{plain}
+
+\title{Project Proposal}
+\author{}
+\date{}
+
+\newcommand{\namelistlabel}[1]{\mbox{#1}\hfil}
+\newenvironment{namelist}[1]{%1
+\begin{list}{}
+    {
+        \let\makelabel\namelistlabel
+        \settowidth{\labelwidth}{#1}
+        \setlength{\leftmargin}{1.1\labelwidth}
+    }
+  }{%1
+\end{list}}
+
+\begin{document}
+\maketitle
+
+\begin{namelist}{xxxxxxxxxxxx}
+\item[{\bf Title:}]
+	Music Data Mining for Data Visualization
+\item[{\bf Author:}]
+	Jeremy Grifski
+\item[{\bf Instructor:}]
+	Professor DeLiang Wang
+\end{namelist}
+
+\section*{Background}
+
+As a first-year PhD student, my research background is very limited. That said,
+I am interested in doing research in the area between music, education, gaming,
+and data visualization.
+
+To supplement these interests, I took three game development courses, a
+computer graphics course, and a modeling and simulation course during undergrad.
+In addition, I recently took a real-time rendering course, and I am
+currently taking a data visualization course and a graphics seminar.
+
+In terms of technical experience, I spent two years in industry working for
+General Electric Transportation as a part of the Edison Engineering Development
+Program. In the span of two years, I managed to rotate through various roles
+including software engineer and prognostics engineer. The first role allowed
+me to work on camera systems while the second role gave me experience with
+some basic data analytics.
+
+\section*{Aim}
+
+The aim of this project is to explore different audio signal processing methods
+as a mode of data mining for the purposes of visualization. For example, I am
+interested in collecting data such as loudness, onset density, and auditory
+roughness~\cite{jeong}. In addition, I'd like to explore pitch~\cite{cuadra}\cite{rabiner},
+key~\cite{zhu}\cite{chai}, and onset detection~\cite{bello}.
+
+In addition, with all the data, I'd like to do a bit of visualization to see
+if there are any interesting trends between music categories. For example,
+is rock music audio generally more rough than pop music? Do some artists
+leverage key changes more than others? How has loudness varied over the
+decades?
+
+\section*{Method}
+
+Over the course of the semester, there are several small tasks that I would like
+to complete. The list below details a set of features to be implemented in the
+final version of the music data mining and visualization tool:
+
+\begin{itemize}
+  \item Music directory selection
+  \item Recursive music directory traversal
+  \item Music file data modeling using Python classes
+  \item Music file metadata mapping to data model
+  \begin{itemize}
+    \item Length
+    \item Genre
+    \item Artist
+    \item Year
+    \item Bitrate
+  \end{itemize}
+  \item Mine music file for signal data
+  \begin{itemize}
+    \item Loudness
+    \item Auditory Roughness
+    \item Onset Density
+    \item Pitch
+    \item Key
+  \end{itemize}
+  \item Aggregate music data by category (see metadata)
+  \item Visualize filtered music data
+  \begin{itemize}
+    \item Average auditory roughness vs. genre
+    \item Average key change count vs. artist
+    \item Average loudness vs. time
+  \end{itemize}
+\end{itemize}
+
+Overall, the plan is to build a functioning audio data mining tool which can be
+leveraged for data visualization.
+
+\section*{Software and Hardware Requirements}
+
+For this project, I intend to use Python for both signal processing and
+visualization. Signal processing can be done using the scipy library, and
+visualization can be performed using any number of libraries such as
+matplotlib and vtk.
+
+In addition, I will need a rather large repository of music files. Luckily,
+I have plenty myself as well as access to Spotify Premium.
+
+\begin{thebibliography}{9}
+\bibitem{jeong} Jeong, Dasaem, and Juhan Nam. "Visualizing music in its entirety
+using acoustic features: Music flowgram." in Proceedings of the International
+Conference on Technologies for Music Notation and Representation-TENOR2016,
+Anglia Ruskin University. Anglia Ruskin University. 2016.
+\bibitem{cuadra} De La Cuadra, Patricio, Aaron S. Master, and Craig Sapp,
+"Efficient Pitch Detection Techniques for Interactive Music." ICMC. 2001.
+\bibitem{rabiner} Rabiner, Lawrence, et al. "A comparative performance study of several
+pitch detection algorithms." IEEE Transactions on Acoustics, Speech, and Signal
+Processing 24.5 (1976): 399-418.
+\bibitem{zhu} Zhu, Yongwei, Mohan S. Kankanhalli, and Sheng Gao. "Music key
+detection for musical audio." Multimedia Modelling Conference, 2005. MMM 2005.
+Proceedings of the 11th International. IEEE, 2005.
+\bibitem{chai} Chai, Wei, and Barry Vercoe. "Detection of Key Change in
+Classical Piano Music." ISMIR. 2005.
+\bibitem{bello} Bello, Juan Pablo, et al. "A tutorial on onset detection in
+music signals." IEEE Transactions on speech and audio processing 13.5 (2005):
+1035-1047.
+\end{thebibliography}
+
+
+\end{document}

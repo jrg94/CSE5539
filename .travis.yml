@@ -15,6 +15,7 @@ before_script: cd $TRAVIS_BUILD_DIR/proposal/
 
 script:
   - pdflatex --shell-escape ./grifski-term-project-proposal.tex
+  - pdflatex --shell-escape ./grifski-term-project-proposal.tex
 
 deploy:
   provider: releases

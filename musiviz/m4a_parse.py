@@ -45,6 +45,13 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _dref(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    atom_mapping["version"] = stream.read(1).decode()
+    atom_mapping["flags"] = stream.read(3).decode()
+    atom_mapping["number_of_entries"] = struct.unpack(">i", stream.read(4))[0]
+
+
 def _mdhd(atom: tuple, atom_mapping: dict):
     """
     Parses the media header (mdhd) fields.
@@ -255,5 +262,6 @@ def _get_parse_map() -> dict:
         "ftyp": _ftyp,
         "mvhd": _mvhd,
         "hdlr": _hdlr,
-        "mdhd": _mdhd
+        "mdhd": _mdhd,
+        "dref": _dref
     }

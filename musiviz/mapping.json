@@ -70,7 +70,10 @@
                     "dinf": {
                       "children": {
                         "dref": {
-                          "size": 28
+                          "flags": "\u0000\u0000\u0000",
+                          "number_of_entries": 1,
+                          "size": 28,
+                          "version": "\u0000"
                         }
                       },
                       "size": 36

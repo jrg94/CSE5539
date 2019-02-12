@@ -46,6 +46,13 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
 
 
 def _atom_parent(atom: tuple, root_mapping: dict):
+    """
+    The default parse mode for atoms.
+
+    :param atom: an atom tuple (size, type, data)
+    :param root_mapping: the dict mapping at the current depth
+    :return: None
+    """
     chunks = _read_sub_chunks(atom)
     chunk_mapping = _atom_mapping(chunks)
     root_mapping[atom[1]]["children"] = chunk_mapping

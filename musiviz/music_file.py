@@ -19,7 +19,13 @@ class MusicFile:
             moov_chunks = MusicFile.read_sub_chunks(moov_chunk)
             print("TRAK Chunks")
             trak_chunk = next(x for x in moov_chunks if x[1] == "trak")
-            MusicFile.read_sub_chunks(trak_chunk)
+            trak_chunks = MusicFile.read_sub_chunks(trak_chunk)
+            print("MDIA Chunks")
+            mdia_chunk = next(x for x in trak_chunks if x[1] == "mdia")
+            mdia_chunks = MusicFile.read_sub_chunks(mdia_chunk)
+            print("MINF Chunks")
+            minf_chunk = next(x for x in mdia_chunks if x[1] == "minf")
+            minf_chunks = MusicFile.read_sub_chunks(minf_chunk)
 
     @staticmethod
     def read_sub_chunks(chunk: tuple):

@@ -45,9 +45,28 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _mdhd(atom: tuple, atom_mapping: dict):
+    """
+    Parses the media header (mdhd) fields.
+
+    :param atom: the mdhd atom
+    :param atom_mapping: the mdhd atom mapping
+    :return: None
+    """
+    stream = io.BytesIO(atom[2])
+    atom_mapping["version"] = stream.read(1).decode()
+    atom_mapping["flags"] = stream.read(3).decode()  # Should be 0
+    atom_mapping["creation_time"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["modification_time"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["time_scale"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["duration"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["language"] = struct.unpack(">H", stream.read(2))[0]
+    atom_mapping["quality"] = struct.unpack(">H", stream.read(2))[0]
+
+
 def _hdlr(atom: tuple, atom_mapping: dict):
     """
-    PArses the handler (hdlr) fields.
+    Parses the handler (hdlr) fields.
 
     :param atom: the hdlr atom
     :param atom_mapping: the hdlr atom mapping
@@ -234,5 +253,6 @@ def _get_parse_map() -> dict:
         "udta": _atom_parent,
         "ftyp": _ftyp,
         "mvhd": _mvhd,
-        "hdlr": _hdlr
+        "hdlr": _hdlr,
+        "mdhd": _mdhd
     }

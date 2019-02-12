@@ -55,7 +55,15 @@
                   "version": "\u0000"
                 },
                 "mdhd": {
-                  "size": 32
+                  "creation_time": 268204751,
+                  "duration": 9423872,
+                  "flags": "\u0000\u0000\u0000",
+                  "language": 0,
+                  "modification_time": -758314095,
+                  "quality": 0,
+                  "size": 32,
+                  "time_scale": 44100,
+                  "version": "\u0000"
                 },
                 "minf": {
                   "children": {

@@ -45,6 +45,14 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _smhd(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    atom_mapping["version"] = stream.read(1).decode()
+    atom_mapping["flags"] = stream.read(3).decode()
+    atom_mapping["balance"] = struct.unpack(">H", stream.read(2))[0]
+    atom_mapping["reserved"] = struct.unpack(">H", stream.read(2))[0]
+
+
 def _dref(atom: tuple, atom_mapping: dict):
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
@@ -275,5 +283,6 @@ def _get_parse_map() -> dict:
         "mvhd": _mvhd,
         "hdlr": _hdlr,
         "mdhd": _mdhd,
-        "dref": _dref
+        "dref": _dref,
+        "smhd": _smhd
     }

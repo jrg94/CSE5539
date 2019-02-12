@@ -89,7 +89,11 @@
                       "size": 36
                     },
                     "smhd": {
-                      "size": 16
+                      "balance": 0,
+                      "flags": "\u0000\u0000\u0000",
+                      "reserved": 0,
+                      "size": 16,
+                      "version": "\u0000"
                     },
                     "stbl": {
                       "children": {

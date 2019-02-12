@@ -23,9 +23,17 @@ class MusicFile:
         with open(self.path, "rb") as music_file:
             os_file_size = os.path.getsize(self.path)
             file_chunks = MusicFile.read_chunks(music_file, os_file_size)
-            file_dict = MusicFile.atom_mapping(file_chunks)
-            MusicFile.traverse_atoms(file_chunks, file_dict)
-            print(json.dumps(file_dict, indent=2, sort_keys=True))
+            file_dict = self.create_root_dict(file_chunks)
+            MusicFile.traverse_atoms(file_chunks, file_dict["data"])
+            with open("mapping.json", "w") as f:
+                print(json.dumps(file_dict, indent=2, sort_keys=True), file=f)
+
+    def create_root_dict(self, file_chunks) -> dict:
+        root_dict = dict()
+        root_dict["source"] = self.path
+        root_dict["data"] = MusicFile.atom_mapping(file_chunks)
+        root_dict["size"] = os.path.getsize(self.path)
+        return root_dict
 
     @staticmethod
     def atom_mapping(atoms: list):

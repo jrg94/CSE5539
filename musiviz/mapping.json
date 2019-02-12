@@ -1,0 +1,81 @@
+{
+  "data": {
+    "free": {
+      "size": 478719
+    },
+    "ftyp": {
+      "size": 32
+    },
+    "mdat": {
+      "size": 7306310
+    },
+    "moov": {
+      "children": {
+        "mvhd": {
+          "size": 108
+        },
+        "trak": {
+          "children": {
+            "mdia": {
+              "children": {
+                "hdlr": {
+                  "size": 34
+                },
+                "mdhd": {
+                  "size": 32
+                },
+                "minf": {
+                  "children": {
+                    "dinf": {
+                      "size": 36
+                    },
+                    "smhd": {
+                      "size": 16
+                    },
+                    "stbl": {
+                      "children": {
+                        "stco": {
+                          "size": 1692
+                        },
+                        "stsc": {
+                          "size": 40
+                        },
+                        "stsd": {
+                          "size": 32886
+                        },
+                        "stsz": {
+                          "size": 36832
+                        },
+                        "stts": {
+                          "size": 24
+                        }
+                      },
+                      "size": 71482
+                    }
+                  },
+                  "size": 71542
+                }
+              },
+              "size": 71616
+            },
+            "tkhd": {
+              "size": 92
+            }
+          },
+          "size": 71716
+        },
+        "udta": {
+          "children": {
+            "meta": {
+              "size": 45981
+            }
+          },
+          "size": 45989
+        }
+      },
+      "size": 117821
+    }
+  },
+  "size": 7902882,
+  "source": "E:\\Plex\\Music\\Aaron West and The Roaring Twenties\\We Don't Have Each Other\\01 Our Apartment.m4a"
+}

@@ -45,6 +45,17 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _hdlr(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    atom_mapping["version"] = stream.read(1).decode()
+    atom_mapping["flags"] = struct.unpack(">i", stream.read(4))[0]  # Should be 0
+    atom_mapping["component_type"] = stream.read(4).decode()
+    atom_mapping["component_subtype"] = stream.read(4).decode()
+    atom_mapping["component_manufacturer"] = struct.unpack(">i", stream.read(4))[0]  # Should be 0
+    atom_mapping["component_flags"] = struct.unpack(">i", stream.read(4))[0]  # Should be 0
+    atom_mapping["component_flags_mask"] = struct.unpack(">i", stream.read(4))[0]  # Should be 0
+
+
 def _mvhd(atom: tuple, atom_mapping: dict):
     """
     Parse the movie header (mvhd) fields.
@@ -214,5 +225,6 @@ def _get_parse_map() -> dict:
         "stbl": _atom_parent,
         "udta": _atom_parent,
         "ftyp": _ftyp,
-        "mvhd": _mvhd
+        "mvhd": _mvhd,
+        "hdlr": _hdlr
     }

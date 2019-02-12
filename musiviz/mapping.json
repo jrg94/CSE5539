@@ -44,7 +44,14 @@
             "mdia": {
               "children": {
                 "hdlr": {
-                  "size": 34
+                  "component_flags": 0,
+                  "component_flags_mask": 0,
+                  "component_manufacturer": 0,
+                  "component_subtype": "oun\u0000",
+                  "component_type": "\u0000\u0000\u0000s",
+                  "flags": 0,
+                  "size": 34,
+                  "version": "\u0000"
                 },
                 "mdhd": {
                   "size": 32

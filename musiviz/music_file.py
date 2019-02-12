@@ -1,6 +1,7 @@
 import struct
 import os
 import io
+import json
 
 WORD_SIZE = 4
 
@@ -22,15 +23,29 @@ class MusicFile:
         with open(self.path, "rb") as music_file:
             os_file_size = os.path.getsize(self.path)
             file_chunks = MusicFile.read_chunks(music_file, os_file_size)
-            MusicFile.traverse_atoms(file_chunks)
+            file_dict = MusicFile.atom_mapping(file_chunks)
+            MusicFile.traverse_atoms(file_chunks, file_dict)
+            print(json.dumps(file_dict, indent=2, sort_keys=True))
 
     @staticmethod
-    def traverse_atoms(root_atoms: list):
+    def atom_mapping(atoms: list):
+        atom_dict = dict()
+        for atom in atoms:
+            atom_dict[atom[1]] = {
+                "size": atom[0]
+            }
+        return atom_dict
+
+    @staticmethod
+    def traverse_atoms(root_atoms: list, root_mapping: dict):
         for atom in root_atoms:
             if atom[1] in ATOMS:
                 print("Expanding %s atom" % atom[1])
                 chunks = MusicFile.read_sub_chunks(atom)
-                MusicFile.traverse_atoms(chunks)
+                chunk_mapping = MusicFile.atom_mapping(chunks)
+                root_mapping[atom[1]]["children"] = chunk_mapping
+                MusicFile.traverse_atoms(chunks, chunk_mapping)
+
 
     @staticmethod
     def read_sub_chunks(chunk: tuple) -> list:

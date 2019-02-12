@@ -46,6 +46,13 @@ class MusicFile:
 
     @staticmethod
     def traverse_atoms(root_atoms: list, root_mapping: dict):
+        """
+        A recursive atom exploration function.
+
+        :param root_atoms: a set of atoms
+        :param root_mapping: an atom meta data JSON
+        :return: None
+        """
         for atom in root_atoms:
             if atom[1] in ATOMS:
                 chunks = MusicFile.read_sub_chunks(atom)
@@ -55,12 +62,26 @@ class MusicFile:
 
     @staticmethod
     def read_sub_chunks(chunk: tuple) -> list:
+        """
+        A special method for parsing a stream that isn't from the
+        original file.
+
+        :param chunk: a tuple containing atom data
+        :return: a set of sub atoms
+        """
         byte_stream = io.BytesIO(chunk[2])
         chunks = MusicFile.read_chunks(byte_stream, chunk[0] - 8)
         return chunks
 
     @staticmethod
-    def read_chunks(stream: io.BytesIO, stream_size: int) -> list:
+    def read_chunks(stream, stream_size: int) -> list:
+        """
+        Iterates over a stream extracting atoms.
+
+        :param stream: a stream of bytes
+        :param stream_size: the stream size
+        :return: a list of atoms
+        """
         read_stream_size = 0
         stream_chunks = list()
         while read_stream_size < stream_size:
@@ -85,6 +106,12 @@ class MusicFile:
 
     @staticmethod
     def _read_header(music_file: io.BytesIO):
+        """
+        A helper method built for extracting 8 byte headers.
+
+        :param music_file: a set of bytes
+        :return: the size and data type of the header
+        """
         header_raw = music_file.read(HEADER_SIZE)
         size = MusicFile._get_size(header_raw[:4])
         data_type = ""
@@ -97,7 +124,7 @@ class MusicFile:
         """
         Grabs the size of the current chunk from a file.
 
-        :param music_file: an open music file
+        :param header_size_raw: a set of bytes representing size
         :return: the size of the current chunk in bytes
         """
         size_decoded = struct.unpack(">i", header_size_raw)[0]
@@ -108,7 +135,7 @@ class MusicFile:
         """
         Grabs the type of payload from a file.
 
-        :param music_file: an open music file
+        :param header_type_raw: a set of bytes representing type
         :return: the type as a string
         """
         return header_type_raw.decode("utf-8")

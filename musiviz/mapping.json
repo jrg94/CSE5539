@@ -68,6 +68,11 @@
                 "minf": {
                   "children": {
                     "dinf": {
+                      "children": {
+                        "dref": {
+                          "size": 28
+                        }
+                      },
                       "size": 36
                     },
                     "smhd": {

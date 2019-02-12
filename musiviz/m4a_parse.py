@@ -251,6 +251,7 @@ def _get_parse_map() -> dict:
         "minf": _atom_parent,
         "stbl": _atom_parent,
         "udta": _atom_parent,
+        "dinf": _atom_parent,
         "ftyp": _ftyp,
         "mvhd": _mvhd,
         "hdlr": _hdlr,

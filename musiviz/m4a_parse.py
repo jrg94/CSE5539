@@ -46,6 +46,13 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
 
 
 def _mvhd(atom: tuple, atom_mapping: dict):
+    """
+    Parse the movie header (mvhd) fields.
+
+    :param atom: the mvhd atom
+    :param atom_mapping: the mvhd atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()
@@ -68,7 +75,7 @@ def _mvhd(atom: tuple, atom_mapping: dict):
 
 def _ftyp(atom: tuple, atom_mapping: dict):
     """
-    Parses ftyp fields.
+    Parses the file type (ftyp) fields.
 
     :param atom: the current atom
     :param atom_mapping: the current atom mapping

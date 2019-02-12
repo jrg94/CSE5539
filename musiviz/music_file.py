@@ -11,7 +11,7 @@ ATOMS = [
     "mdia",
     "minf",
     "stbl",
-    "udta"
+    "udta",
 ]
 
 
@@ -40,7 +40,6 @@ class MusicFile:
     def traverse_atoms(root_atoms: list, root_mapping: dict):
         for atom in root_atoms:
             if atom[1] in ATOMS:
-                print("Expanding %s atom" % atom[1])
                 chunks = MusicFile.read_sub_chunks(atom)
                 chunk_mapping = MusicFile.atom_mapping(chunks)
                 root_mapping[atom[1]]["children"] = chunk_mapping
@@ -58,8 +57,6 @@ class MusicFile:
         stream_chunks = list()
         while read_stream_size < stream_size:
             chunk = MusicFile.read_chunk(stream)
-            print(chunk[:-1])
-            print(len(chunk[-1]))
             stream_chunks.append(chunk)
             read_stream_size += chunk[0]
         return stream_chunks
@@ -95,9 +92,7 @@ class MusicFile:
         :param music_file: an open music file
         :return: the size of the current chunk in bytes
         """
-        size_decoded = 0
-        if len(header_size_raw) != 0:
-            size_decoded = struct.unpack(">i", header_size_raw)[0]
+        size_decoded = struct.unpack(">i", header_size_raw)[0]
         return size_decoded
 
     @staticmethod

@@ -26,6 +26,12 @@ class MusicFile:
             print("MINF Chunks")
             minf_chunk = next(x for x in mdia_chunks if x[1] == "minf")
             minf_chunks = MusicFile.read_sub_chunks(minf_chunk)
+            print("STBL Chunks")  # Sample Table Atoms
+            stbl_chunk = next(x for x in minf_chunks if x[1] == "stbl")
+            stbl_chunks = MusicFile.read_sub_chunks(stbl_chunk)
+            print("UDTA Chunks")  # User Data
+            udta_chunk = next(x for x in moov_chunks if x[1] == "udta")
+            udta_chunks = MusicFile.read_sub_chunks(udta_chunk)
 
     @staticmethod
     def read_sub_chunks(chunk: tuple):

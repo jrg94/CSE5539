@@ -17,15 +17,18 @@ ATOMS = [
 
 class MusicFile:
 
-
-
     def __init__(self, path: str):
         self.path = path
 
     @staticmethod
     def get_parse_map():
         return {
-            "moov": MusicFile.atom_parent
+            "moov": MusicFile.atom_parent,
+            "trak": MusicFile.atom_parent,
+            "mdia": MusicFile.atom_parent,
+            "minf": MusicFile.atom_parent,
+            "stbl": MusicFile.atom_parent,
+            "udta": MusicFile.atom_parent
         }
 
     def decode(self):

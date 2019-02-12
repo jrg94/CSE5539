@@ -8,21 +8,21 @@ HEADER_SIZE = 8
 def decode(path: str) -> dict:
     with open(path, "rb") as music_file:
         os_file_size = os.path.getsize(path)
-        file_chunks = read_chunks(music_file, os_file_size)
-        file_dict = create_root_dict(path, file_chunks)
-        traverse_atoms(file_chunks, file_dict["data"])
+        file_chunks = _read_chunks(music_file, os_file_size)
+        file_dict = _create_root_dict(path, file_chunks)
+        _traverse_atoms(file_chunks, file_dict["data"])
     return file_dict
 
 
-def create_root_dict(path, file_chunks) -> dict:
+def _create_root_dict(path, file_chunks) -> dict:
     root_dict = dict()
     root_dict["source"] = path
-    root_dict["data"] = atom_mapping(file_chunks)
+    root_dict["data"] = _atom_mapping(file_chunks)
     root_dict["size"] = os.path.getsize(path)
     return root_dict
 
 
-def atom_mapping(atoms: list):
+def _atom_mapping(atoms: list):
     atom_dict = dict()
     for atom in atoms:
         atom_dict[atom[1]] = {
@@ -31,7 +31,7 @@ def atom_mapping(atoms: list):
     return atom_dict
 
 
-def traverse_atoms(root_atoms: list, root_mapping: dict):
+def _traverse_atoms(root_atoms: list, root_mapping: dict):
     """
     A recursive atom exploration function.
 
@@ -40,19 +40,19 @@ def traverse_atoms(root_atoms: list, root_mapping: dict):
     :return: None
     """
     for atom in root_atoms:
-        parse_map = get_parse_map()
+        parse_map = _get_parse_map()
         if atom[1] in parse_map:
             parse_map[atom[1]](atom, root_mapping)
 
 
-def atom_parent(atom: tuple, root_mapping: dict):
-    chunks = read_sub_chunks(atom)
-    chunk_mapping = atom_mapping(chunks)
+def _atom_parent(atom: tuple, root_mapping: dict):
+    chunks = _read_sub_chunks(atom)
+    chunk_mapping = _atom_mapping(chunks)
     root_mapping[atom[1]]["children"] = chunk_mapping
-    traverse_atoms(chunks, chunk_mapping)
+    _traverse_atoms(chunks, chunk_mapping)
 
 
-def read_sub_chunks(chunk: tuple) -> list:
+def _read_sub_chunks(chunk: tuple) -> list:
     """
     A special method for parsing a stream that isn't from the
     original file.
@@ -61,11 +61,11 @@ def read_sub_chunks(chunk: tuple) -> list:
     :return: a set of sub atoms
     """
     byte_stream = io.BytesIO(chunk[2])
-    chunks = read_chunks(byte_stream, chunk[0] - 8)
+    chunks = _read_chunks(byte_stream, chunk[0] - 8)
     return chunks
 
 
-def read_chunks(stream, stream_size: int) -> list:
+def _read_chunks(stream, stream_size: int) -> list:
     """
     Iterates over a stream extracting atoms.
 
@@ -76,13 +76,13 @@ def read_chunks(stream, stream_size: int) -> list:
     read_stream_size = 0
     stream_chunks = list()
     while read_stream_size < stream_size:
-        chunk = read_chunk(stream)
+        chunk = _read_chunk(stream)
         stream_chunks.append(chunk)
         read_stream_size += chunk[0]
     return stream_chunks
 
 
-def read_chunk(music_file: io.BytesIO) -> tuple:
+def _read_chunk(music_file: io.BytesIO) -> tuple:
     """
     Reads a chunk from an M4A file.
 
@@ -144,7 +144,7 @@ def _get_payload(music_file: io.BytesIO, payload_size: int) -> bytes:
     return payload
 
 
-def get_parse_map() -> dict:
+def _get_parse_map() -> dict:
     """
     Gets the parse map which contains all known atoms and a mapping
     to their parse function.
@@ -152,10 +152,10 @@ def get_parse_map() -> dict:
     :return: the parse map
     """
     return {
-        "moov": atom_parent,
-        "trak": atom_parent,
-        "mdia": atom_parent,
-        "minf": atom_parent,
-        "stbl": atom_parent,
-        "udta": atom_parent
+        "moov": _atom_parent,
+        "trak": _atom_parent,
+        "mdia": _atom_parent,
+        "minf": _atom_parent,
+        "stbl": _atom_parent,
+        "udta": _atom_parent
     }

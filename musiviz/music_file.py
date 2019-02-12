@@ -1,15 +1,5 @@
-import os
 import json
 from musiviz import m4a_parse
-
-ATOMS = [
-    "moov",
-    "trak",
-    "mdia",
-    "minf",
-    "stbl",
-    "udta",
-]
 
 
 class MusicFile:

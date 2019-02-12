@@ -51,15 +51,17 @@ def _dref(atom: tuple, atom_mapping: dict):
     atom_mapping["flags"] = stream.read(3).decode()
     atom_mapping["number_of_entries"] = struct.unpack(">i", stream.read(4))[0]
     atom_chunks = _read_chunks(stream, atom[0] - 16)
-    atom_mapping["children"] = dict()
+    atom_mapping["entries"] = list()
     for chunk in atom_chunks:
         stream = io.BytesIO(chunk[2])
-        atom_mapping["children"][chunk[1]] = dict()
-        chunk_mapping = atom_mapping["children"][chunk[1]]
+        entry_mapping = dict()
+        entry_mapping[chunk[1]] = dict()
+        chunk_mapping = entry_mapping[chunk[1]]
         chunk_mapping["size"] = chunk[0]
         chunk_mapping["version"] = stream.read(1).decode()
         chunk_mapping["flags"] = stream.read(3).decode()
         chunk_mapping["data"] = stream.read().decode()
+        atom_mapping["entries"].append(entry_mapping)
 
 
 def _mdhd(atom: tuple, atom_mapping: dict):

@@ -16,8 +16,17 @@ ATOMS = [
 
 
 class MusicFile:
+
+
+
     def __init__(self, path: str):
         self.path = path
+
+    @staticmethod
+    def get_parse_map():
+        return {
+            "moov": MusicFile.atom_parent
+        }
 
     def decode(self):
         with open(self.path, "rb") as music_file:
@@ -54,11 +63,16 @@ class MusicFile:
         :return: None
         """
         for atom in root_atoms:
-            if atom[1] in ATOMS:
-                chunks = MusicFile.read_sub_chunks(atom)
-                chunk_mapping = MusicFile.atom_mapping(chunks)
-                root_mapping[atom[1]]["children"] = chunk_mapping
-                MusicFile.traverse_atoms(chunks, chunk_mapping)
+            parse_map = MusicFile.get_parse_map()
+            if atom[1] in parse_map:
+                parse_map[atom[1]](atom, root_mapping)
+
+    @staticmethod
+    def atom_parent(atom: tuple, root_mapping: dict):
+        chunks = MusicFile.read_sub_chunks(atom)
+        chunk_mapping = MusicFile.atom_mapping(chunks)
+        root_mapping[atom[1]]["children"] = chunk_mapping
+        MusicFile.traverse_atoms(chunks, chunk_mapping)
 
     @staticmethod
     def read_sub_chunks(chunk: tuple) -> list:

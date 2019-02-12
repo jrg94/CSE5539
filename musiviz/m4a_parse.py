@@ -45,7 +45,21 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _mvhd(atom: tuple, atom_mapping: dict):
+    data = atom[2]
+    atom_mapping["version"] = data[:1].decode()
+    atom_mapping["flags"] = data[1:4].decode()
+    atom_mapping["creation_time"] = struct.unpack(">i", data[4:8])[0]
+
+
 def _ftyp(atom: tuple, atom_mapping: dict):
+    """
+    Parse ftyp fields.
+
+    :param atom: the current atom
+    :param atom_mapping: the current atom mapping
+    :return: None
+    """
     data = atom[2]
     atom_mapping["major_brand"] = data[:4].decode()
     atom_mapping["minor_version"] = struct.unpack(">i", data[4:8])[0]
@@ -178,5 +192,6 @@ def _get_parse_map() -> dict:
         "minf": _atom_parent,
         "stbl": _atom_parent,
         "udta": _atom_parent,
-        "ftyp": _ftyp
+        "ftyp": _ftyp,
+        "mvhd": _mvhd
     }

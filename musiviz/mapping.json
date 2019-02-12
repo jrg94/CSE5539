@@ -20,7 +20,10 @@
     "moov": {
       "children": {
         "mvhd": {
-          "size": 108
+          "creation_time": 268204751,
+          "flags": "\u0000\u0000\u0000",
+          "size": 108,
+          "version": "\u0000"
         },
         "trak": {
           "children": {

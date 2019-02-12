@@ -45,6 +45,13 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping)
 
 
+def _ftyp(atom: tuple, root_mapping: dict):
+    data = atom[2]
+    atom_mapping = root_mapping[atom[1]]
+    atom_mapping["major_brand"] = data[:4].decode()
+    #root_mapping["minor_version_year"] = data[4:6]
+
+
 def _atom_parent(atom: tuple, root_mapping: dict):
     """
     The default parse mode for atoms.
@@ -164,5 +171,6 @@ def _get_parse_map() -> dict:
         "mdia": _atom_parent,
         "minf": _atom_parent,
         "stbl": _atom_parent,
-        "udta": _atom_parent
+        "udta": _atom_parent,
+        "ftyp": _ftyp
     }

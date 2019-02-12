@@ -4,6 +4,15 @@ import io
 
 WORD_SIZE = 4
 
+ATOMS = [
+    "moov",
+    "trak",
+    "mdia",
+    "minf",
+    "stbl",
+    "udta"
+]
+
 
 class MusicFile:
     def __init__(self, path: str):
@@ -12,39 +21,25 @@ class MusicFile:
     def decode(self):
         with open(self.path, "rb") as music_file:
             os_file_size = os.path.getsize(self.path)
-            print("File Chunks")
             file_chunks = MusicFile.read_chunks(music_file, os_file_size)
-            print("MOOV Chunks")
-            moov_chunk = next(x for x in file_chunks if x[1] == "moov")
-            moov_chunks = MusicFile.read_sub_chunks(moov_chunk)
-            print("TRAK Chunks")
-            trak_chunk = next(x for x in moov_chunks if x[1] == "trak")
-            trak_chunks = MusicFile.read_sub_chunks(trak_chunk)
-            print("MDIA Chunks")
-            mdia_chunk = next(x for x in trak_chunks if x[1] == "mdia")
-            mdia_chunks = MusicFile.read_sub_chunks(mdia_chunk)
-            print("MINF Chunks")
-            minf_chunk = next(x for x in mdia_chunks if x[1] == "minf")
-            minf_chunks = MusicFile.read_sub_chunks(minf_chunk)
-            print("STBL Chunks")  # Sample Table Atoms
-            stbl_chunk = next(x for x in minf_chunks if x[1] == "stbl")
-            stbl_chunks = MusicFile.read_sub_chunks(stbl_chunk)
-            print("UDTA Chunks")  # User Data
-            udta_chunk = next(x for x in moov_chunks if x[1] == "udta")
-            udta_chunks = MusicFile.read_sub_chunks(udta_chunk)
-            print("META Chunks")
-            meta_chunk = next(x for x in udta_chunks if x[1] == "meta")
-            #meta_chunks = MusicFile.read_sub_chunks(meta_chunk)
-            print(meta_chunk)
+            MusicFile.traverse_atoms(file_chunks)
 
     @staticmethod
-    def read_sub_chunks(chunk: tuple):
+    def traverse_atoms(root_atoms: list):
+        for atom in root_atoms:
+            if atom[1] in ATOMS:
+                print("Expanding %s atom" % atom[1])
+                chunks = MusicFile.read_sub_chunks(atom)
+                MusicFile.traverse_atoms(chunks)
+
+    @staticmethod
+    def read_sub_chunks(chunk: tuple) -> list:
         byte_stream = io.BytesIO(chunk[2])
         chunks = MusicFile.read_chunks(byte_stream, chunk[0])
         return chunks
 
     @staticmethod
-    def read_chunks(stream, stream_size):
+    def read_chunks(stream, stream_size) -> list:
         read_stream_size = 0
         stream_chunks = list()
         while read_stream_size + 8 < stream_size:

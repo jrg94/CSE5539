@@ -49,12 +49,12 @@ def _ftyp(atom: tuple, atom_mapping: dict):
     data = atom[2]
     atom_mapping["major_brand"] = data[:4].decode()
     atom_mapping["minor_version"] = struct.unpack(">i", data[4:8])[0]
+    atom_mapping["compatible_brands"] = list()
     size = atom[0] - 16  # 8 for size and type and 8 for previous two reads
     bytes_read = 0
     while bytes_read < size:
         offset = 8 + bytes_read
-        index = int(bytes_read / 4)
-        atom_mapping["compatible_brands_%s" % index] = data[offset: offset + 4].decode()
+        atom_mapping["compatible_brands"].append(data[offset: offset + 4].decode())
         bytes_read += 4
 
 

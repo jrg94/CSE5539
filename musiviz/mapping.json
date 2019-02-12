@@ -4,10 +4,12 @@
       "size": 478719
     },
     "ftyp": {
-      "compatible_brands_0": "M4A ",
-      "compatible_brands_1": "mp42",
-      "compatible_brands_2": "isom",
-      "compatible_brands_3": "\u0000\u0000\u0000\u0000",
+      "compatible_brands": [
+        "M4A ",
+        "mp42",
+        "isom",
+        "\u0000\u0000\u0000\u0000"
+      ],
       "major_brand": "M4A ",
       "minor_version": 0,
       "size": 32

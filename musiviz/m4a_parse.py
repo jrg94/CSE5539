@@ -42,17 +42,23 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
     for atom in root_atoms:
         parse_map = _get_parse_map()
         if atom[1] in parse_map:
-            parse_map[atom[1]](atom, root_mapping)
+            parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
-def _ftyp(atom: tuple, root_mapping: dict):
+def _ftyp(atom: tuple, atom_mapping: dict):
     data = atom[2]
-    atom_mapping = root_mapping[atom[1]]
     atom_mapping["major_brand"] = data[:4].decode()
-    #root_mapping["minor_version_year"] = data[4:6]
+    atom_mapping["minor_version"] = struct.unpack(">i", data[4:8])[0]
+    size = atom[0] - 16  # 8 for size and type and 8 for previous two reads
+    bytes_read = 0
+    while bytes_read < size:
+        offset = 8 + bytes_read
+        index = int(bytes_read / 4)
+        atom_mapping["compatible_brands_%s" % index] = data[offset: offset + 4].decode()
+        bytes_read += 4
 
 
-def _atom_parent(atom: tuple, root_mapping: dict):
+def _atom_parent(atom: tuple, atom_mapping: dict):
     """
     The default parse mode for atoms.
 
@@ -62,7 +68,7 @@ def _atom_parent(atom: tuple, root_mapping: dict):
     """
     chunks = _read_sub_chunks(atom)
     chunk_mapping = _atom_mapping(chunks)
-    root_mapping[atom[1]]["children"] = chunk_mapping
+    atom_mapping["children"] = chunk_mapping
     _traverse_atoms(chunks, chunk_mapping)
 
 

@@ -13,16 +13,26 @@ class MusicFile:
         with open(self.path, "rb") as music_file:
             file_chunks = list()
             os_file_size = os.path.getsize(self.path)
-            read_file_size = 0
-            while read_file_size < os_file_size:
-                chunk = self.read_chunk(music_file)
-                print(chunk[:-1])
-                file_chunks.append(chunk)
-                read_file_size += chunk[0]
-            for chunk in file_chunks:
-                if chunk[1] == "moov":
-                    byte_stream = io.BytesIO(chunk[2])
-                    print(self.read_chunk(byte_stream))
+            file_chunks = MusicFile.read_chunks(music_file, os_file_size)
+            moov_chunk = next(x for x in file_chunks if x[1] == "moov")
+            MusicFile.read_moov(moov_chunk)
+
+    @staticmethod
+    def read_moov(chunk: tuple):
+        byte_stream = io.BytesIO(chunk[2])
+        chunks = MusicFile.read_chunks(byte_stream, chunk[0])
+        return chunks
+
+    @staticmethod
+    def read_chunks(stream, stream_size):
+        read_stream_size = 0
+        stream_chunks = list()
+        while read_stream_size + 8 < stream_size:
+            chunk = MusicFile.read_chunk(stream)
+            print(chunk[:-1])
+            stream_chunks.append(chunk)
+            read_stream_size += chunk[0]
+        return stream_chunks
 
     @staticmethod
     def read_chunk(music_file) -> tuple:

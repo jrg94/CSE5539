@@ -46,10 +46,14 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
 
 
 def _mvhd(atom: tuple, atom_mapping: dict):
-    data = atom[2]
-    atom_mapping["version"] = data[:1].decode()
-    atom_mapping["flags"] = data[1:4].decode()
-    atom_mapping["creation_time"] = struct.unpack(">i", data[4:8])[0]
+    stream = io.BytesIO(atom[2])
+    atom_mapping["version"] = stream.read(1).decode()
+    atom_mapping["flags"] = stream.read(3).decode()
+    atom_mapping["creation_time"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["modification_time"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["time_scale"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["duration"] = struct.unpack(">i", stream.read(4))[0]
+    #atom_mapping["preferred"]
 
 
 def _ftyp(atom: tuple, atom_mapping: dict):

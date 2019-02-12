@@ -21,8 +21,11 @@
       "children": {
         "mvhd": {
           "creation_time": 268204751,
+          "duration": 9423872,
           "flags": "\u0000\u0000\u0000",
+          "modification_time": -758314095,
           "size": 108,
+          "time_scale": 44100,
           "version": "\u0000"
         },
         "trak": {

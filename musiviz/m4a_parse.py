@@ -5,6 +5,15 @@ import os
 HEADER_SIZE = 8
 
 
+def decode(path: str) -> dict:
+    with open(path, "rb") as music_file:
+        os_file_size = os.path.getsize(path)
+        file_chunks = read_chunks(music_file, os_file_size)
+        file_dict = create_root_dict(path, file_chunks)
+        traverse_atoms(file_chunks, file_dict["data"])
+    return file_dict
+
+
 def create_root_dict(path, file_chunks) -> dict:
     root_dict = dict()
     root_dict["source"] = path

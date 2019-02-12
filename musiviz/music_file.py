@@ -11,14 +11,18 @@ class MusicFile:
 
     def decode(self):
         with open(self.path, "rb") as music_file:
-            file_chunks = list()
             os_file_size = os.path.getsize(self.path)
+            print("File Chunks")
             file_chunks = MusicFile.read_chunks(music_file, os_file_size)
+            print("MOOV Chunks")
             moov_chunk = next(x for x in file_chunks if x[1] == "moov")
-            MusicFile.read_moov(moov_chunk)
+            moov_chunks = MusicFile.read_sub_chunks(moov_chunk)
+            print("TRAK Chunks")
+            trak_chunk = next(x for x in moov_chunks if x[1] == "trak")
+            MusicFile.read_sub_chunks(trak_chunk)
 
     @staticmethod
-    def read_moov(chunk: tuple):
+    def read_sub_chunks(chunk: tuple):
         byte_stream = io.BytesIO(chunk[2])
         chunks = MusicFile.read_chunks(byte_stream, chunk[0])
         return chunks

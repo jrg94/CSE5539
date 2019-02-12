@@ -32,6 +32,10 @@ class MusicFile:
             print("UDTA Chunks")  # User Data
             udta_chunk = next(x for x in moov_chunks if x[1] == "udta")
             udta_chunks = MusicFile.read_sub_chunks(udta_chunk)
+            print("META Chunks")
+            meta_chunk = next(x for x in udta_chunks if x[1] == "meta")
+            #meta_chunks = MusicFile.read_sub_chunks(meta_chunk)
+            print(meta_chunk)
 
     @staticmethod
     def read_sub_chunks(chunk: tuple):

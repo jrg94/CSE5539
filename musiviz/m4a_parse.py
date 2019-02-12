@@ -46,14 +46,22 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
 
 
 def _hdlr(atom: tuple, atom_mapping: dict):
+    """
+    PArses the handler (hdlr) fields.
+
+    :param atom: the hdlr atom
+    :param atom_mapping: the hdlr atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
-    atom_mapping["flags"] = struct.unpack(">i", stream.read(4))[0]  # Should be 0
+    atom_mapping["flags"] = stream.read(3).decode() # Should be 0
     atom_mapping["component_type"] = stream.read(4).decode()
     atom_mapping["component_subtype"] = stream.read(4).decode()
     atom_mapping["component_manufacturer"] = struct.unpack(">i", stream.read(4))[0]  # Should be 0
     atom_mapping["component_flags"] = struct.unpack(">i", stream.read(4))[0]  # Should be 0
     atom_mapping["component_flags_mask"] = struct.unpack(">i", stream.read(4))[0]  # Should be 0
+    atom_mapping["component_name"] = stream.read().decode() # Reads what's left
 
 
 def _mvhd(atom: tuple, atom_mapping: dict):

@@ -46,12 +46,27 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
 
 
 def _esds(atom: tuple, atom_mapping: dict):
+    """
+    Parses an elementary stream descriptor (esds) atom.
+
+    :param atom: an esds atom
+    :param atom_mapping: an esds atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()
+    # TODO: atom_mapping["elementary_stream_descriptor"] = stream.read().decode()
 
 
 def _stsd(atom: tuple, atom_mapping: dict):
+    """
+    Parses a standard description (stds) atom.
+
+    :param atom: an stds atom
+    :param atom_mapping: an stds atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()

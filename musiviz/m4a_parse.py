@@ -64,11 +64,36 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _meta_item(atom: tuple, atom_mapping: list):
+    stream = io.BytesIO(atom[2])
+    meta_data = dict()
+    meta_data["meta_code"] = atom[1]
+    meta_data["size"] = atom[0]
+    data_atoms = _read_atoms(stream, atom[0] - 8)
+    for data_atom in data_atoms:
+        sub_stream = io.BytesIO(data_atom[2])
+        meta_data["version"] = sub_stream.read(1).decode()
+        meta_data["flags"] = sub_stream.read(3).decode()
+        meta_data["reserved"] = sub_stream.read(4).decode()
+        print(sub_stream.read())
+        #meta_data["data"] = sub_stream.read().decode()
+        #atom_mapping.append(meta_data)
+    atom_mapping.append(meta_data)
+
+
 def _ilst(atom: tuple, atom_mapping: dict):
+    """
+    Parses a meta data item list (ilst) atom.
+
+    :param atom: an ilst atom
+    :param atom_mapping: an ilst atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     sub_atoms = _read_atoms(stream, atom[0] - 8)
-    for atom in sub_atoms:
-        print(atom[:-1])
+    atom_mapping["entries"] = list()
+    for sub_atom in sub_atoms:
+        _meta_item(sub_atom, atom_mapping["entries"])
 
 
 def _meta_hdlr(atom: tuple, atom_mapping: dict):

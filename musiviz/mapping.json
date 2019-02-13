@@ -9853,6 +9853,176 @@
                   "version": "\u0000"
                 },
                 "ilst": {
+                  "entries": [
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "----",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 188,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "----",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 162,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "©nam",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 37,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "©ART",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 59,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "aART",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 59,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "©alb",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 48,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0000",
+                      "meta_code": "gnre",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 26,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0000",
+                      "meta_code": "trkn",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 32,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0000",
+                      "meta_code": "disk",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 30,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0015",
+                      "meta_code": "cpil",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 25,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "©day",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 44,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "apID",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 41,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "ownr",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 39,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0015",
+                      "meta_code": "cnID",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 28,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0015",
+                      "meta_code": "rtng",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 25,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0015",
+                      "meta_code": "atID",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 28,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0015",
+                      "meta_code": "plID",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 32,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0015",
+                      "meta_code": "geID",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 28,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0015",
+                      "meta_code": "stik",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 25,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "purd",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 43,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "sonm",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 37,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "soal",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 48,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\u0001",
+                      "meta_code": "soar",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 59,
+                      "version": "\u0000"
+                    },
+                    {
+                      "flags": "\u0000\u0000\r",
+                      "meta_code": "covr",
+                      "reserved": "\u0000\u0000\u0000\u0000",
+                      "size": 42736,
+                      "version": "\u0000"
+                    }
+                  ],
                   "size": 43887
                 }
               },

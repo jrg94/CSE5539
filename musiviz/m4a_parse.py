@@ -65,11 +65,26 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
 
 
 def _cpil(atom: tuple, atom_mapping: dict):
+    """
+    Parses a compilation (cpil) atom.
+
+    :param atom: a cpil atom
+    :param atom_mapping: a cpil atom mapping
+    :return:
+    """
     stream = io.BytesIO(atom[2])
+    atom_mapping["description"] = "Compilation"
     atom_mapping["data"] = struct.unpack(">?", stream.read(1))[0]
 
 
 def _meta_item_data(atom: tuple, atom_mapping: dict):
+    """
+    Parses a meta item data atom.
+
+    :param atom: a meta item data atom
+    :param atom_mapping: a meta item data atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = struct.unpack(">BBB", stream.read(3))[-1]
@@ -84,8 +99,14 @@ def _meta_item_data(atom: tuple, atom_mapping: dict):
             parse_map[atom_mapping["meta_code"]](sub_atom, atom_mapping)
 
 
-
 def _meta_item(atom: tuple, entries: list):
+    """
+    Parse a meta item atom.
+
+    :param atom: a meta item atom
+    :param entries: a meta item atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     meta_data = dict()
     meta_data["meta_code"] = atom[1]

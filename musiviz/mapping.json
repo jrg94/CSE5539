@@ -9917,6 +9917,7 @@
                     },
                     {
                       "data": false,
+                      "description": "Compilation",
                       "flags": 21,
                       "meta_code": "cpil",
                       "reserved": "\u0000\u0000\u0000\u0000",

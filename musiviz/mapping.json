@@ -124,6 +124,22 @@
                         "stsd": {
                           "entries": [
                             {
+                              "children": {
+                                "esds": {
+                                  "flags": "\u0000\u0000\u0000",
+                                  "size": 51,
+                                  "version": "\u0000"
+                                },
+                                "free": {
+                                  "size": 31568
+                                },
+                                "pinf": {
+                                  "size": 1200
+                                },
+                                "sbtd": {
+                                  "size": 15
+                                }
+                              },
                               "compression_id": 0,
                               "data_format": "mp4a",
                               "data_reference_index": 1,

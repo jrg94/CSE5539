@@ -50,13 +50,13 @@ def _stts(atom: tuple, atom_mapping: dict):
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()
     atom_mapping["number_of_entries"] = struct.unpack(">i", stream.read(4))[0]
-    atom_mapping["samples"] = list()
+    atom_mapping["entries"] = list()
     i = 0
     while i < atom_mapping["number_of_entries"]:
         time_to_sample_row = dict()
         time_to_sample_row["sample_count"] = struct.unpack(">i", stream.read(4))[0]
         time_to_sample_row["sample_duration"] = struct.unpack(">i", stream.read(4))[0]
-        atom_mapping["samples"].append(time_to_sample_row)
+        atom_mapping["entries"].append(time_to_sample_row)
         i += 1
 
 
@@ -73,10 +73,10 @@ def _stsz(atom: tuple, atom_mapping: dict):
     atom_mapping["flags"] = stream.read(3).decode()
     atom_mapping["sample_size"] = struct.unpack(">i", stream.read(4))[0]
     atom_mapping["number_of_entries"] = struct.unpack(">i", stream.read(4))[0]
-    atom_mapping["samples"] = list()
+    atom_mapping["entries"] = list()
     i = 0
     while i < atom_mapping["number_of_entries"]:
-        atom_mapping["samples"].append(struct.unpack(">i", stream.read(4))[0])
+        atom_mapping["entries"].append(struct.unpack(">i", stream.read(4))[0])
         i += 1
 
 
@@ -176,7 +176,11 @@ def _stco(atom: tuple, atom_mapping: dict):
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()
     atom_mapping["number_of_entries"] = struct.unpack(">i", stream.read(4))[0]
-    # TODO: read entries
+    atom_mapping["entries"] = list()
+    i = 0
+    while i < atom_mapping["number_of_entries"]:
+        atom_mapping["entries"].append(struct.unpack(">i", stream.read(4))[0])
+        i += 1
 
 
 def _smhd(atom: tuple, atom_mapping: dict):

@@ -46,6 +46,13 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
 
 
 def _smhd(atom: tuple, atom_mapping: dict):
+    """
+    Parse sound media information header (smhd) atoms.
+
+    :param atom: an smhd atom
+    :param atom_mapping: an smhd atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()
@@ -54,6 +61,13 @@ def _smhd(atom: tuple, atom_mapping: dict):
 
 
 def _dref(atom: tuple, atom_mapping: dict):
+    """
+    Parses data reference (dref) atoms.
+
+    :param atom: a dref atom
+    :param atom_mapping: a dref atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()

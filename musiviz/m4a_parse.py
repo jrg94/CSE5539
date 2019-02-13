@@ -64,6 +64,13 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _ilst(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    sub_atoms = _read_atoms(stream, atom[0] - 8)
+    for atom in sub_atoms:
+        print(atom[:-1])
+
+
 def _meta_hdlr(atom: tuple, atom_mapping: dict):
     """
     Parses a meta handler (hdlr) atom. Apparently, these
@@ -491,7 +498,7 @@ def _get_type(header_type_raw: bytes) -> str:
     :param header_type_raw: a set of bytes representing type
     :return: the type as a string
     """
-    return header_type_raw.decode("utf-8")
+    return header_type_raw.decode("latin-1")
 
 
 def _get_payload(music_file: io.BytesIO, payload_size: int) -> bytes:
@@ -534,5 +541,6 @@ def _get_parse_map() -> dict:
         "stsz": _stsz,
         "stts": _stts,
         "tkhd": _tkhd,
-        "meta": _meta
+        "meta": _meta,
+        "ilst": _ilst
     }

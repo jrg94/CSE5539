@@ -64,6 +64,33 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _tkhd(atom: tuple, atom_mapping: dict):
+    """
+    Parses a track header (tkhd) atom.
+
+    :param atom: a tkhd atom
+    :param atom_mapping: a tkhd atom mapping
+    :return: None
+    """
+    stream = io.BytesIO(atom[2])
+    atom_mapping["version"] = stream.read(1).decode()
+    atom_mapping["flags"] = stream.read(3).decode()
+    atom_mapping["creation_time"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["modification_time"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["track_id"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["reserved_1"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["duration"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["reserved_2"] = struct.unpack(">q", stream.read(8))[0]
+    atom_mapping["layer"] = struct.unpack(">H", stream.read(2))[0]
+    atom_mapping["alternate_group"] = struct.unpack(">H", stream.read(2))[0]
+    volume = struct.unpack(">bb", stream.read(2))
+    atom_mapping["volume"] = str(volume[0]) + "." + str(volume[1])
+    atom_mapping["reserved_3"] = struct.unpack(">H", stream.read(2))[0]
+    atom_mapping["matrix_structure"] = stream.read(36).decode()
+    atom_mapping["track_width"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["track_height"] = struct.unpack(">i", stream.read(4))[0]
+
+
 def _stts(atom: tuple, atom_mapping: dict):
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
@@ -461,5 +488,6 @@ def _get_parse_map() -> dict:
         "stsd": _stsd,
         "esds": _esds,
         "stsz": _stsz,
-        "stts": _stts
+        "stts": _stts,
+        "tkhd": _tkhd
     }

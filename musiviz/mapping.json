@@ -9813,7 +9813,22 @@
               "size": 71616
             },
             "tkhd": {
-              "size": 92
+              "alternate_group": 0,
+              "creation_time": 268204751,
+              "duration": 9423872,
+              "flags": "\u0000\u0000\u0001",
+              "layer": 0,
+              "matrix_structure": "\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000@\u0000\u0000\u0000",
+              "modification_time": -758314095,
+              "reserved_1": 0,
+              "reserved_2": 0,
+              "reserved_3": 0,
+              "size": 92,
+              "track_height": 0,
+              "track_id": 1,
+              "track_width": 0,
+              "version": "\u0000",
+              "volume": "1.0"
             }
           },
           "size": 71716

@@ -45,6 +45,21 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _stts(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    atom_mapping["version"] = stream.read(1).decode()
+    atom_mapping["flags"] = stream.read(3).decode()
+    atom_mapping["number_of_entries"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["samples"] = list()
+    i = 0
+    while i < atom_mapping["number_of_entries"]:
+        time_to_sample_row = dict()
+        time_to_sample_row["sample_count"] = struct.unpack(">i", stream.read(4))[0]
+        time_to_sample_row["sample_duration"] = struct.unpack(">i", stream.read(4))[0]
+        atom_mapping["samples"].append(time_to_sample_row)
+        i += 1
+
+
 def _stsz(atom: tuple, atom_mapping: dict):
     """
     Parses a sample size (stsz) atom.
@@ -422,5 +437,6 @@ def _get_parse_map() -> dict:
         "stsc": _stsc,
         "stsd": _stsd,
         "esds": _esds,
-        "stsz": _stsz
+        "stsz": _stsz,
+        "stts": _stts
     }

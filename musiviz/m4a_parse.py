@@ -4,6 +4,24 @@ import os
 
 HEADER_SIZE = 8
 
+MEDIA_TYPES = [
+    "Movie",
+    "Music",
+    "AudioBook",
+    "",
+    "",
+    "",
+    "Music Video",
+    "",
+    ""
+    "Movie",
+    "TV Show",
+    "Booklet",
+    "",
+    "",
+    "Ringtone"
+]
+
 RATINGS = [
     "None",
     "Explicit",
@@ -151,6 +169,13 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
         parse_map = _get_parse_map()
         if atom[1] in parse_map:
             parse_map[atom[1]](atom, root_mapping[atom[1]])
+
+
+def _stik(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    atom_mapping["description"] = "Media Type"
+    atom_mapping["data"] = struct.unpack(">B", stream.read())[0]
+    atom_mapping["tag"] = MEDIA_TYPES[atom_mapping["data"]]
 
 
 def _rtng(atom: tuple, atom_mapping: dict):
@@ -719,5 +744,6 @@ def _get_parse_map() -> dict:
         "ilst": _ilst,
         "cpil": _cpil,
         "gnre": _gnre,
-        "rtng": _rtng
+        "rtng": _rtng,
+        "stik": _stik
     }

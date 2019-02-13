@@ -4,6 +4,12 @@ import os
 
 HEADER_SIZE = 8
 
+RATINGS = [
+    "None",
+    "Explicit",
+    "Clean"
+]
+
 GENRES = [
     "Blues",
     "Classic Rock",
@@ -147,7 +153,21 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _rtng(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    atom_mapping["description"] = "Explicit/Clean Label"
+    atom_mapping["data"] = struct.unpack(">B", stream.read())[0]
+    atom_mapping["tag"] = RATINGS[atom_mapping["data"]]
+
+
 def _gnre(atom: tuple, atom_mapping: dict):
+    """
+    Parses a genre (gnre) atom.
+
+    :param atom: a grne atom
+    :param atom_mapping: a grne atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     atom_mapping["description"] = "Genre"
     atom_mapping["data"] = struct.unpack(">H", stream.read())[0]
@@ -698,5 +718,6 @@ def _get_parse_map() -> dict:
         "meta": _meta,
         "ilst": _ilst,
         "cpil": _cpil,
-        "gnre": _gnre
+        "gnre": _gnre,
+        "rtng": _rtng
     }

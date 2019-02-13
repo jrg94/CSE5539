@@ -9835,10 +9835,13 @@
         },
         "udta": {
           "children": {
+            "Xtra": {
+              "size": 53
+            },
             "meta": {
               "children": {
                 "free": {
-                  "size": 2048
+                  "size": 1995
                 },
                 "hdlr": {
                   "component_name": "\u0000",
@@ -9959,10 +9962,13 @@
                       "version": "\u0000"
                     },
                     {
+                      "data": 1,
+                      "description": "Explicit/Clean Label",
                       "flags": 21,
                       "meta_code": "rtng",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 25,
+                      "tag": "Explicit",
                       "version": "\u0000"
                     },
                     {
@@ -10036,7 +10042,7 @@
                   "size": 43887
                 }
               },
-              "size": 45981
+              "size": 45928
             }
           },
           "size": 45989

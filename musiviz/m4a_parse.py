@@ -45,6 +45,31 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _stsd(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    atom_mapping["version"] = stream.read(1).decode()
+    atom_mapping["flags"] = stream.read(3).decode()
+    atom_mapping["number_of_entries"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["entries"] = list()
+    i = 0
+    while i < atom_mapping["number_of_entries"]:
+        sample_description = dict()
+        sample_description["size"] = struct.unpack(">i", stream.read(4))[0]
+        sample_description["data_format"] = stream.read(4).decode()
+        sample_description["reserved"] = stream.read(6).decode()
+        sample_description["data_reference_index"] = struct.unpack(">H", stream.read(2))[0]
+        ######## Experimenting
+        sample_description["version"] = struct.unpack(">H", stream.read(2))[0]
+        sample_description["revision_level"] = struct.unpack(">H", stream.read(2))[0]
+        sample_description["vendor"] = struct.unpack(">i", stream.read(4))[0]
+        sample_description["number_of_channels"] = struct.unpack(">H", stream.read(2))[0]
+        sample_description["sample_size"] = struct.unpack(">H", stream.read(2))[0]
+
+        # TODO: get rest of data
+        atom_mapping["entries"].append(sample_description)
+        i += 1
+
+
 def _stsc(atom: tuple, atom_mapping: dict):
     """
     Parse sample-to-chunk (stsc) atoms.
@@ -66,7 +91,6 @@ def _stsc(atom: tuple, atom_mapping: dict):
         sample_to_chunk["sample_description_id"] = struct.unpack(">i", stream.read(4))[0]
         atom_mapping["entries"].append(sample_to_chunk)
         i += 1
-    # TODO: read entries
 
 
 def _stco(atom: tuple, atom_mapping: dict):
@@ -339,5 +363,6 @@ def _get_parse_map() -> dict:
         "dref": _dref,
         "smhd": _smhd,
         "stco": _stco,
-        "stsc": _stsc
+        "stsc": _stsc,
+        "stsd": _stsd
     }

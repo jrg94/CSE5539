@@ -6,6 +6,12 @@ HEADER_SIZE = 8
 
 
 def decode(path: str) -> dict:
+    """
+    The exposed decoding function which decodes a file at some path.
+
+    :param path: the path to a file
+    :return: the decoded file as a dictionary
+    """
     with open(path, "rb") as music_file:
         os_file_size = os.path.getsize(path)
         file_atoms = _read_atoms(music_file, os_file_size)
@@ -15,6 +21,13 @@ def decode(path: str) -> dict:
 
 
 def _create_root_dict(path, file_atoms) -> dict:
+    """
+    Creates the root dictionary.
+
+    :param path: the path to the files
+    :param file_atoms: the list of top-level atoms.
+    :return: a dictionary
+    """
     root_dict = dict()
     root_dict["source"] = path
     root_dict["data"] = _atom_mapping(file_atoms)
@@ -22,7 +35,13 @@ def _create_root_dict(path, file_atoms) -> dict:
     return root_dict
 
 
-def _atom_mapping(atoms: list):
+def _atom_mapping(atoms: list) -> dict:
+    """
+    Maps atoms to a dictionary.
+
+    :param atoms: a list of atoms
+    :return: a dictionary mapping
+    """
     atom_dict = dict()
     for atom in atoms:
         atom_dict[atom[1]] = {

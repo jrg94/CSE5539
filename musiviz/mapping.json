@@ -104,7 +104,22 @@
                           "version": "\u0000"
                         },
                         "stsc": {
-                          "size": 40
+                          "entries": [
+                            {
+                              "first_chunk": 1,
+                              "sample_description_id": 1,
+                              "samples_per_chunk": 22
+                            },
+                            {
+                              "first_chunk": 419,
+                              "sample_description_id": 1,
+                              "samples_per_chunk": 7
+                            }
+                          ],
+                          "flags": "\u0000\u0000\u0000",
+                          "number_of_entries": 2,
+                          "size": 40,
+                          "version": "\u0000"
                         },
                         "stsd": {
                           "size": 32886

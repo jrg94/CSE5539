@@ -171,6 +171,10 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _mdat(atom: tuple, atom_mapping: dict):
+    pass
+
+
 def _stik(atom: tuple, atom_mapping: dict):
     """
     Parses a media type (stik) atom.
@@ -758,5 +762,6 @@ def _get_parse_map() -> dict:
         "cpil": _cpil,
         "gnre": _gnre,
         "rtng": _rtng,
-        "stik": _stik
+        "stik": _stik,
+        "mdat": _mdat
     }

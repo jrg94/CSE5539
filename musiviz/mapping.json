@@ -9841,13 +9841,14 @@
                   "size": 2048
                 },
                 "hdlr": {
-                  "component_flags": 0,
-                  "component_flags_mask": 0,
-                  "component_manufacturer": 1634758764,
-                  "component_name": "\u0000\u0000",
-                  "component_subtype": "mdir",
-                  "component_type": "\u0000\u0000\u0000\u0000",
+                  "component_name": "\u0000",
+                  "component_type": "\u0000",
                   "flags": "\u0000\u0000\u0000",
+                  "handler_type": "mdir",
+                  "manufacturer": "appl",
+                  "predefined": 0,
+                  "reserved_2": 0,
+                  "reserved_3": 0,
                   "size": 34,
                   "version": "\u0000"
                 },

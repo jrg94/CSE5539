@@ -64,7 +64,35 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _meta_hdlr(atom: tuple, atom_mapping: dict):
+    """
+    Parses a meta handler (hdlr) atom. Apparently, these
+    are different from the regular hdlr atoms.
+
+    :param atom: a hdlr atom
+    :param atom_mapping: a hdlr atom mapping
+    :return: None
+    """
+    stream = io.BytesIO(atom[2])
+    atom_mapping["version"] = stream.read(1).decode()
+    atom_mapping["flags"] = stream.read(3).decode()
+    atom_mapping["predefined"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["handler_type"] = stream.read(4).decode()
+    atom_mapping["manufacturer"] = stream.read(4).decode()
+    atom_mapping["reserved_2"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["reserved_3"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["component_type"] = stream.read(1).decode()
+    atom_mapping["component_name"] = stream.read(1).decode()
+
+
 def _meta(atom: tuple, atom_mapping: dict):
+    """
+    Parses the meta atom
+
+    :param atom: a meta atom
+    :param atom_mapping: a meta atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     size = struct.unpack(">Q", stream.read(8))[0]
     data_type = stream.read(4).decode()
@@ -75,7 +103,9 @@ def _meta(atom: tuple, atom_mapping: dict):
     sub_atoms.append(hdlr_atom)
     children = _atom_mapping(sub_atoms)
     atom_mapping["children"] = children
+    sub_atoms.remove(hdlr_atom)
     _traverse_atoms(sub_atoms, children)
+    _meta_hdlr(hdlr_atom, children["hdlr"])
 
 
 def _tkhd(atom: tuple, atom_mapping: dict):

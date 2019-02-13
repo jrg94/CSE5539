@@ -64,6 +64,20 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _meta(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    size = struct.unpack(">Q", stream.read(8))[0]
+    data_type = stream.read(4).decode()
+    data = stream.read(size - 8)
+    hdlr_atom = (size, data_type, data)
+    remaining_size = atom[0] - size - 12
+    sub_atoms = _read_atoms(stream, remaining_size)
+    sub_atoms.append(hdlr_atom)
+    children = _atom_mapping(sub_atoms)
+    atom_mapping["children"] = children
+    _traverse_atoms(sub_atoms, children)
+
+
 def _tkhd(atom: tuple, atom_mapping: dict):
     """
     Parses a track header (tkhd) atom.
@@ -489,5 +503,6 @@ def _get_parse_map() -> dict:
         "esds": _esds,
         "stsz": _stsz,
         "stts": _stts,
-        "tkhd": _tkhd
+        "tkhd": _tkhd,
+        "meta": _meta
     }

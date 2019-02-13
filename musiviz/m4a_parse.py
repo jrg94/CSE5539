@@ -238,16 +238,15 @@ def _meta_item_data(atom: tuple, atom_mapping: dict):
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = struct.unpack(">BBB", stream.read(3))[-1]
     atom_mapping["reserved"] = stream.read(4).decode()
+    parse_map = _get_parse_map()
+    remaining_size = atom[0] - 16
     if atom_mapping["flags"] == 1:  # text
         atom_mapping["data"] = stream.read().decode()
-    else:
-        remaining_size = atom[0] - 16
+    elif atom_mapping["meta_code"] in parse_map:
         sub_atom = (remaining_size, atom_mapping["meta_code"], stream.read())
-        parse_map = _get_parse_map()
-        print(atom_mapping["meta_code"])
-        print(sub_atom[2])
-        if atom_mapping["meta_code"] in parse_map:
-            parse_map[atom_mapping["meta_code"]](sub_atom, atom_mapping)
+        parse_map[atom_mapping["meta_code"]](sub_atom, atom_mapping)
+    else:
+        atom_mapping["data"] = struct.unpack(">" + str(remaining_size) + "B", stream.read())
 
 
 def _meta_item(atom: tuple, entries: list):

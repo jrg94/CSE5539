@@ -4,6 +4,89 @@ import os
 
 HEADER_SIZE = 8
 
+GENRES = [
+    "Blues",
+    "Classic Rock",
+    "Country",
+    "Dance",
+    "Disco",
+    "Funk",
+    "Grunge",
+    "Hip-Hop",
+    "Jazz",
+    "Metal",
+    "New Age",
+    "Oldies",
+    "Other",
+    "Pop",
+    "R & B",
+    "Rap",
+    "Reggae",
+    "Rock",
+    "Techno",
+    "Industrial",
+    "Alternative",
+    "Ska",
+    "Death Metal",
+    "Pranks",
+    "Soundtrack",
+    "Euro - Techno",
+    "Ambient",
+    "Trip - Hop",
+    "Vocal",
+    "Jazz + Funk",
+    "Fusion",
+    "Trance",
+    "Classical",
+    "Instrumental",
+    "Acid",
+    "House",
+    "Game",
+    "Sound Clip",
+    "Gospel",
+    "Noise",
+    "AlternRock",
+    "Bass",
+    "Soul",
+    "Punk",
+    "Space",
+    "Meditative",
+    "Instrumental Pop",
+    "Instrumental Rock",
+    "Ethnic",
+    "Gothic",
+    "Darkwave",
+    "Techno - Industrial",
+    "Electronic",
+    "Pop - Folk",
+    "Eurodance",
+    "Dream",
+    "Southern Rock",
+    "Comedy",
+    "Cult",
+    "Gangsta",
+    "Top 40",
+    "Christian Rap",
+    "Pop / Funk",
+    "Jungle",
+    "Native American",
+    "Cabaret",
+    "New Wave",
+    "Psychadelic",
+    "Rave",
+    "Showtunes",
+    "Trailer",
+    "Lo - Fi",
+    "Tribal",
+    "Acid Punk",
+    "Acid Jazz",
+    "Polka",
+    "Retro",
+    "Musical",
+    "Rock & Roll",
+    "Hard Rock"
+]
+
 
 def decode(path: str) -> dict:
     """
@@ -64,6 +147,13 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _gnre(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    atom_mapping["description"] = "Genre"
+    atom_mapping["data"] = struct.unpack(">H", stream.read())[0]
+    atom_mapping["tag"] = GENRES[atom_mapping["data"] - 1]
+
+
 def _cpil(atom: tuple, atom_mapping: dict):
     """
     Parses a compilation (cpil) atom.
@@ -74,7 +164,7 @@ def _cpil(atom: tuple, atom_mapping: dict):
     """
     stream = io.BytesIO(atom[2])
     atom_mapping["description"] = "Compilation"
-    atom_mapping["data"] = struct.unpack(">?", stream.read(1))[0]
+    atom_mapping["data"] = struct.unpack(">?", stream.read())[0]
 
 
 def _meta_item_data(atom: tuple, atom_mapping: dict):
@@ -95,6 +185,8 @@ def _meta_item_data(atom: tuple, atom_mapping: dict):
         remaining_size = atom[0] - 16
         sub_atom = (remaining_size, atom_mapping["meta_code"], stream.read())
         parse_map = _get_parse_map()
+        print(atom_mapping["meta_code"])
+        print(sub_atom[2])
         if atom_mapping["meta_code"] in parse_map:
             parse_map[atom_mapping["meta_code"]](sub_atom, atom_mapping)
 
@@ -412,13 +504,13 @@ def _hdlr(atom: tuple, atom_mapping: dict):
     """
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
-    atom_mapping["flags"] = stream.read(3).decode() # Should be 0
+    atom_mapping["flags"] = stream.read(3).decode()  # Should be 0
     atom_mapping["component_type"] = stream.read(4).decode()
     atom_mapping["component_subtype"] = stream.read(4).decode()
     atom_mapping["component_manufacturer"] = struct.unpack(">i", stream.read(4))[0]  # Should be 0
     atom_mapping["component_flags"] = struct.unpack(">i", stream.read(4))[0]  # Should be 0
     atom_mapping["component_flags_mask"] = struct.unpack(">i", stream.read(4))[0]  # Should be 0
-    atom_mapping["component_name"] = stream.read().decode() # Reads what's left
+    atom_mapping["component_name"] = stream.read().decode()  # Reads what's left
 
 
 def _mvhd(atom: tuple, atom_mapping: dict):
@@ -605,5 +697,6 @@ def _get_parse_map() -> dict:
         "tkhd": _tkhd,
         "meta": _meta,
         "ilst": _ilst,
-        "cpil": _cpil
+        "cpil": _cpil,
+        "gnre": _gnre
     }

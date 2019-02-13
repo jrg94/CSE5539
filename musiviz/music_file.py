@@ -16,7 +16,7 @@ class MusicFile:
         self._raw_json = m4a_parse.decode(self.path)
         self._populate_fields()
         self._output_parse()
-        
+
     def _output_parse(self):
         data_dir = "data\\" + "\\".join(self.path.split("\\")[-3:-1])
         json_name = self.path.split("\\")[-1].replace(".m4a", ".json")

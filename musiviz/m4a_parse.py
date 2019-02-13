@@ -45,6 +45,21 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _stco(atom: tuple, atom_mapping: dict):
+    """
+    Parses chunk offset (stco) atoms.
+
+    :param atom: an stco atom
+    :param atom_mapping: an stco atom mapping
+    :return: None
+    """
+    stream = io.BytesIO(atom[2])
+    atom_mapping["version"] = stream.read(1).decode()
+    atom_mapping["flags"] = stream.read(3).decode()
+    atom_mapping["number_of_entries"] = struct.unpack(">i", stream.read(4))[0]
+    # TODO: read entries
+
+
 def _smhd(atom: tuple, atom_mapping: dict):
     """
     Parse sound media information header (smhd) atoms.
@@ -298,5 +313,6 @@ def _get_parse_map() -> dict:
         "hdlr": _hdlr,
         "mdhd": _mdhd,
         "dref": _dref,
-        "smhd": _smhd
+        "smhd": _smhd,
+        "stco": _stco
     }

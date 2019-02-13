@@ -98,7 +98,10 @@
                     "stbl": {
                       "children": {
                         "stco": {
-                          "size": 1692
+                          "flags": "\u0000\u0000\u0000",
+                          "number_of_entries": 419,
+                          "size": 1692,
+                          "version": "\u0000"
                         },
                         "stsc": {
                           "size": 40

@@ -64,21 +64,37 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
-def _meta_item(atom: tuple, atom_mapping: list):
+def _cpil(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    atom_mapping["data"] = struct.unpack(">?", stream.read(1))[0]
+
+
+def _meta_item_data(atom: tuple, atom_mapping: dict):
+    stream = io.BytesIO(atom[2])
+    atom_mapping["version"] = stream.read(1).decode()
+    atom_mapping["flags"] = struct.unpack(">BBB", stream.read(3))[-1]
+    atom_mapping["reserved"] = stream.read(4).decode()
+    if atom_mapping["flags"] == 1:  # text
+        atom_mapping["data"] = stream.read().decode()
+    else:
+        remaining_size = atom[0] - 16
+        sub_atom = (remaining_size, atom_mapping["meta_code"], stream.read())
+        parse_map = _get_parse_map()
+        if atom_mapping["meta_code"] in parse_map:
+            parse_map[atom_mapping["meta_code"]](sub_atom, atom_mapping)
+
+
+
+def _meta_item(atom: tuple, entries: list):
     stream = io.BytesIO(atom[2])
     meta_data = dict()
     meta_data["meta_code"] = atom[1]
     meta_data["size"] = atom[0]
     data_atoms = _read_atoms(stream, atom[0] - 8)
     for data_atom in data_atoms:
-        sub_stream = io.BytesIO(data_atom[2])
-        meta_data["version"] = sub_stream.read(1).decode()
-        meta_data["flags"] = sub_stream.read(3).decode()
-        meta_data["reserved"] = sub_stream.read(4).decode()
-        print(sub_stream.read())
-        #meta_data["data"] = sub_stream.read().decode()
-        #atom_mapping.append(meta_data)
-    atom_mapping.append(meta_data)
+        if meta_data["meta_code"] != "----":
+            _meta_item_data(data_atom, meta_data)
+    entries.append(meta_data)
 
 
 def _ilst(atom: tuple, atom_mapping: dict):
@@ -567,5 +583,6 @@ def _get_parse_map() -> dict:
         "stts": _stts,
         "tkhd": _tkhd,
         "meta": _meta,
-        "ilst": _ilst
+        "ilst": _ilst,
+        "cpil": _cpil
     }

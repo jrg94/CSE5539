@@ -9855,168 +9855,174 @@
                 "ilst": {
                   "entries": [
                     {
-                      "flags": "\u0000\u0000\u0001",
                       "meta_code": "----",
-                      "reserved": "\u0000\u0000\u0000\u0000",
-                      "size": 188,
-                      "version": "\u0000"
+                      "size": 188
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
                       "meta_code": "----",
-                      "reserved": "\u0000\u0000\u0000\u0000",
-                      "size": 162,
-                      "version": "\u0000"
+                      "size": 162
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
+                      "data": "Our Apartment",
+                      "flags": 1,
                       "meta_code": "©nam",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 37,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
+                      "data": "Aaron West and The Roaring Twenties",
+                      "flags": 1,
                       "meta_code": "©ART",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 59,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
+                      "data": "Aaron West and The Roaring Twenties",
+                      "flags": 1,
                       "meta_code": "aART",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 59,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
+                      "data": "We Don't Have Each Other",
+                      "flags": 1,
                       "meta_code": "©alb",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 48,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0000",
+                      "flags": 0,
                       "meta_code": "gnre",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 26,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0000",
+                      "flags": 0,
                       "meta_code": "trkn",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 32,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0000",
+                      "flags": 0,
                       "meta_code": "disk",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 30,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0015",
+                      "data": false,
+                      "flags": 21,
                       "meta_code": "cpil",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 25,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
+                      "data": "2014-07-08T07:00:00Z",
+                      "flags": 1,
                       "meta_code": "©day",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 44,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
+                      "data": "jrg94od@gmail.com",
+                      "flags": 1,
                       "meta_code": "apID",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 41,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
+                      "data": "Jeremy Griffith",
+                      "flags": 1,
                       "meta_code": "ownr",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 39,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0015",
+                      "flags": 21,
                       "meta_code": "cnID",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 28,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0015",
+                      "flags": 21,
                       "meta_code": "rtng",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 25,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0015",
+                      "flags": 21,
                       "meta_code": "atID",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 28,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0015",
+                      "flags": 21,
                       "meta_code": "plID",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 32,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0015",
+                      "flags": 21,
                       "meta_code": "geID",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 28,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0015",
+                      "flags": 21,
                       "meta_code": "stik",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 25,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
+                      "data": "2014-07-08 20:12:19",
+                      "flags": 1,
                       "meta_code": "purd",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 43,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
+                      "data": "Our Apartment",
+                      "flags": 1,
                       "meta_code": "sonm",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 37,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
+                      "data": "We Don't Have Each Other",
+                      "flags": 1,
                       "meta_code": "soal",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 48,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\u0001",
+                      "data": "Aaron West and The Roaring Twenties",
+                      "flags": 1,
                       "meta_code": "soar",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 59,
                       "version": "\u0000"
                     },
                     {
-                      "flags": "\u0000\u0000\r",
+                      "flags": 13,
                       "meta_code": "covr",
                       "reserved": "\u0000\u0000\u0000\u0000",
                       "size": 42736,

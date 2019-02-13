@@ -1,7 +1,9 @@
 import json
-from musiviz import m4a_parse
-import pathlib
 import os
+import pathlib
+
+from musiviz import m4a_parse
+
 
 class MusicFile:
 

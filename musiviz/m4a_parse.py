@@ -172,6 +172,13 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
 
 
 def _stik(atom: tuple, atom_mapping: dict):
+    """
+    Parses a media type (stik) atom.
+
+    :param atom: a stik atom
+    :param atom_mapping: a stik atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     atom_mapping["description"] = "Media Type"
     atom_mapping["data"] = struct.unpack(">B", stream.read())[0]
@@ -179,6 +186,13 @@ def _stik(atom: tuple, atom_mapping: dict):
 
 
 def _rtng(atom: tuple, atom_mapping: dict):
+    """
+    Parses a rating (rtng) atom.
+
+    :param atom: an rtng atom
+    :param atom_mapping: an rtng atom mapping
+    :return: None
+    """
     stream = io.BytesIO(atom[2])
     atom_mapping["description"] = "Explicit/Clean Label"
     atom_mapping["data"] = struct.unpack(">B", stream.read())[0]

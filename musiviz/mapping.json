@@ -124,12 +124,14 @@
                         "stsd": {
                           "entries": [
                             {
+                              "compression_id": 0,
                               "data_format": "mp4a",
                               "data_reference_index": 1,
                               "number_of_channels": 2,
+                              "packet_size": 0,
                               "reserved": "\u0000\u0000\u0000\u0000\u0000\u0000",
                               "revision_level": 0,
-                              "sample_size": 16,
+                              "sample_size": 44100,
                               "size": 32870,
                               "vendor": 0,
                               "version": 0

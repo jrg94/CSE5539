@@ -8,16 +8,16 @@ HEADER_SIZE = 8
 def decode(path: str) -> dict:
     with open(path, "rb") as music_file:
         os_file_size = os.path.getsize(path)
-        file_chunks = _read_chunks(music_file, os_file_size)
-        file_dict = _create_root_dict(path, file_chunks)
-        _traverse_atoms(file_chunks, file_dict["data"])
+        file_atoms = _read_atoms(music_file, os_file_size)
+        file_dict = _create_root_dict(path, file_atoms)
+        _traverse_atoms(file_atoms, file_dict["data"])
     return file_dict
 
 
-def _create_root_dict(path, file_chunks) -> dict:
+def _create_root_dict(path, file_atoms) -> dict:
     root_dict = dict()
     root_dict["source"] = path
-    root_dict["data"] = _atom_mapping(file_chunks)
+    root_dict["data"] = _atom_mapping(file_atoms)
     root_dict["size"] = os.path.getsize(path)
     return root_dict
 
@@ -87,17 +87,17 @@ def _dref(atom: tuple, atom_mapping: dict):
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()
     atom_mapping["number_of_entries"] = struct.unpack(">i", stream.read(4))[0]
-    atom_chunks = _read_chunks(stream, atom[0] - 16)
+    sub_atoms = _read_atoms(stream, atom[0] - 16)
     atom_mapping["entries"] = list()
-    for chunk in atom_chunks:
-        stream = io.BytesIO(chunk[2])
+    for atom in sub_atoms:
+        stream = io.BytesIO(atom[2])
         entry_mapping = dict()
-        entry_mapping[chunk[1]] = dict()
-        chunk_mapping = entry_mapping[chunk[1]]
-        chunk_mapping["size"] = chunk[0]
-        chunk_mapping["version"] = stream.read(1).decode()
-        chunk_mapping["flags"] = stream.read(3).decode()
-        chunk_mapping["data"] = stream.read().decode()
+        entry_mapping[atom[1]] = dict()
+        sub_atom_mapping = entry_mapping[atom[1]]
+        sub_atom_mapping["size"] = atom[0]
+        sub_atom_mapping["version"] = stream.read(1).decode()
+        sub_atom_mapping["flags"] = stream.read(3).decode()
+        sub_atom_mapping["data"] = stream.read().decode()
         atom_mapping["entries"].append(entry_mapping)
 
 
@@ -195,26 +195,26 @@ def _atom_parent(atom: tuple, atom_mapping: dict):
     :param root_mapping: the dict mapping at the current depth
     :return: None
     """
-    chunks = _read_sub_chunks(atom)
-    chunk_mapping = _atom_mapping(chunks)
-    atom_mapping["children"] = chunk_mapping
-    _traverse_atoms(chunks, chunk_mapping)
+    sub_atoms = _read_sub_atoms(atom)
+    sub_atom_mapping = _atom_mapping(sub_atoms)
+    atom_mapping["children"] = sub_atom_mapping
+    _traverse_atoms(sub_atoms, sub_atom_mapping)
 
 
-def _read_sub_chunks(chunk: tuple) -> list:
+def _read_sub_atoms(atom: tuple) -> list:
     """
     A special method for parsing a stream that isn't from the
     original file.
 
-    :param chunk: a tuple containing atom data
+    :param atom: a tuple containing atom data
     :return: a set of sub atoms
     """
-    byte_stream = io.BytesIO(chunk[2])
-    chunks = _read_chunks(byte_stream, chunk[0] - 8)
-    return chunks
+    byte_stream = io.BytesIO(atom[2])
+    atoms = _read_atoms(byte_stream, atom[0] - 8)
+    return atoms
 
 
-def _read_chunks(stream, stream_size: int) -> list:
+def _read_atoms(stream, stream_size: int) -> list:
     """
     Iterates over a stream extracting atoms.
 
@@ -223,20 +223,20 @@ def _read_chunks(stream, stream_size: int) -> list:
     :return: a list of atoms
     """
     read_stream_size = 0
-    stream_chunks = list()
+    stream_atoms = list()
     while read_stream_size < stream_size:
-        chunk = _read_chunk(stream)
-        stream_chunks.append(chunk)
-        read_stream_size += chunk[0]
-    return stream_chunks
+        atom = _read_atom(stream)
+        stream_atoms.append(atom)
+        read_stream_size += atom[0]
+    return stream_atoms
 
 
-def _read_chunk(music_file: io.BytesIO) -> tuple:
+def _read_atom(music_file: io.BytesIO) -> tuple:
     """
-    Reads a chunk from an M4A file.
+    Reads an atom from an M4A file.
 
     :param music_file: an open music file
-    :return: a tuple defining this chunk
+    :return: a tuple defining this atom
     """
     size, data_type = _read_header(music_file)
     payload = b''
@@ -262,10 +262,10 @@ def _read_header(music_file: io.BytesIO):
 
 def _get_size(header_size_raw: bytes) -> int:
     """
-    Grabs the size of the current chunk from a file.
+    Grabs the size of the current atom from a file.
 
     :param header_size_raw: a set of bytes representing size
-    :return: the size of the current chunk in bytes
+    :return: the size of the current atom in bytes
     """
     size_decoded = struct.unpack(">i", header_size_raw)[0]
     return size_decoded

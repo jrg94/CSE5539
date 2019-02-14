@@ -17,6 +17,7 @@ class MusicFile:
         self.track_number = None
         self.total_tracks = None
         self.content_rating = None
+        self.sample_rate = None
         self.owner = None
         self.purchase_date = None
 
@@ -26,8 +27,8 @@ class MusicFile:
                     "Artist: %s\n"
                     "Album: %s\n"
                     "Genre: %s\n"
-                    "Track Number: %s\n"
-                    "Total Tracks: %s\n"
+                    "Track Number: %s / %s\n"
+                    "Sample Rate: %s Hz\n"
                     "Content Rating: %s\n"
                     "Owner: %s\n"
                     "Purchase Date: %s"
@@ -39,6 +40,7 @@ class MusicFile:
             self.genre,
             self.track_number,
             self.total_tracks,
+            self.sample_rate,
             self.content_rating,
             self.owner,
             self.purchase_date
@@ -77,6 +79,11 @@ class MusicFile:
         :return: None
         """
         self._extract_meta_data()
+        self._extract_technical_data()
+
+    def _extract_technical_data(self):
+        movie_header = self._raw_json["data"]["moov"]["children"]["mvhd"]
+        self.sample_rate = movie_header["time_scale"]
 
     def _extract_meta_data(self):
         """

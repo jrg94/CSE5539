@@ -1,6 +1,7 @@
 import json
 import os
 import pathlib
+import datetime
 
 from musiviz import m4a_parse
 
@@ -18,6 +19,7 @@ class MusicFile:
         self.total_tracks = None
         self.content_rating = None
         self.sample_rate = None
+        self.length = None
         self.owner = None
         self.purchase_date = None
 
@@ -29,6 +31,7 @@ class MusicFile:
                     "Genre: %s\n"
                     "Track Number: %s / %s\n"
                     "Sample Rate: %s Hz\n"
+                    "Length: %s\n"
                     "Content Rating: %s\n"
                     "Owner: %s\n"
                     "Purchase Date: %s"
@@ -41,6 +44,7 @@ class MusicFile:
             self.track_number,
             self.total_tracks,
             self.sample_rate,
+            self.length,
             self.content_rating,
             self.owner,
             self.purchase_date
@@ -81,9 +85,26 @@ class MusicFile:
         self._extract_meta_data()
         self._extract_technical_data()
 
+    @staticmethod
+    def _calculate_duration(duration: int, sample_rate: int) -> str:
+        """
+        A helper function which outputs a HH:MM:SS string given
+        some duration in time scale units and sample rate in Hz.
+
+        :param duration: length of song in time scale units
+        :param sample_rate: sample rate of song in Hz
+        :return: the length of the song as a string
+        """
+        length_in_seconds = duration / sample_rate
+        m, s = divmod(length_in_seconds, 60)
+        h, m = divmod(m, 60)
+        return "%02d:%02d:%02d" % (h, m, s)
+
     def _extract_technical_data(self):
         movie_header = self._raw_json["data"]["moov"]["children"]["mvhd"]
         self.sample_rate = movie_header["time_scale"]
+        duration = movie_header["duration"]
+        self.length = MusicFile._calculate_duration(duration, self.sample_rate)
 
     def _extract_meta_data(self):
         """

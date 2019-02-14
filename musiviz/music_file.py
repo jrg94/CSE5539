@@ -14,19 +14,25 @@ class MusicFile:
         self.title = None
         self.artist = None
         self.album = None
+        self.content_rating = None
+        self.owner = None
 
     def __str__(self):
         output = (
                     "Title: %s\n"
                     "Artist: %s\n"
                     "Album: %s\n"
-                    "Genre: %s"
+                    "Genre: %s\n"
+                    "Content Rating: %s\n"
+                    "Owner: %s"
                   )
         formatting = (
             self.title,
             self.artist,
             self.album,
-            self.genre
+            self.genre,
+            self.content_rating,
+            self.owner
         )
         return output % formatting
 
@@ -61,12 +67,10 @@ class MusicFile:
         entries = self._raw_json["data"]["moov"]["children"]["udta"]["children"]["meta"]["children"]["ilst"]["entries"]
         self.genre = MusicFile._get_meta_value(entries, "gnre", "tag")
         self.title = MusicFile._get_meta_value(entries, "©nam")
-        artist_meta_data = next((entry for entry in entries if entry["meta_code"] == "©ART"))
-        self.artist = artist_meta_data["data"]
-        album_meta_data = next((entry for entry in entries if entry["meta_code"] == "©alb"))
-        self.album = album_meta_data["data"]
-        owner_meta_data = next((entry for entry in entries if entry["meta_code"] == "ownr"))
-        self.album = owner_meta_data["data"]
+        self.artist = MusicFile._get_meta_value(entries, "©ART")
+        self.album = MusicFile._get_meta_value(entries, "©alb")
+        self.owner = MusicFile._get_meta_value(entries, "ownr")
+        self.content_rating = MusicFile._get_meta_value(entries, "rtng", "tag")
 
     @staticmethod
     def _get_meta_value(entries: list, meta: str, key: str = "data"):
@@ -78,5 +82,8 @@ class MusicFile:
         :param key: the key for retrieve data
         :return: the meta value
         """
-        meta_data = next((entry for entry in entries if entry["meta_code"] == meta))
-        return meta_data[key]
+        try:
+            meta_data = next((entry for entry in entries if entry["meta_code"] == meta))
+            return meta_data[key]
+        except StopIteration:
+            return None

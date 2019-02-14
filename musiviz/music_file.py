@@ -59,11 +59,24 @@ class MusicFile:
         :return: None
         """
         entries = self._raw_json["data"]["moov"]["children"]["udta"]["children"]["meta"]["children"]["ilst"]["entries"]
-        genre_meta_data = next((entry for entry in entries if entry["meta_code"] == "gnre"))
-        self.genre = genre_meta_data["tag"]
-        title_meta_data = next((entry for entry in entries if entry["meta_code"] == "©nam"))
-        self.title = title_meta_data["data"]
+        self.genre = MusicFile._get_meta_value(entries, "gnre", "tag")
+        self.title = MusicFile._get_meta_value(entries, "©nam")
         artist_meta_data = next((entry for entry in entries if entry["meta_code"] == "©ART"))
         self.artist = artist_meta_data["data"]
         album_meta_data = next((entry for entry in entries if entry["meta_code"] == "©alb"))
         self.album = album_meta_data["data"]
+        owner_meta_data = next((entry for entry in entries if entry["meta_code"] == "ownr"))
+        self.album = owner_meta_data["data"]
+
+    @staticmethod
+    def _get_meta_value(entries: list, meta: str, key: str = "data"):
+        """
+        A helper function for retrieving the first instance of some meta key from a list.
+
+        :param entries: a list of meta entries
+        :param meta: a meta key such as genre or apID
+        :param key: the key for retrieve data
+        :return: the meta value
+        """
+        meta_data = next((entry for entry in entries if entry["meta_code"] == meta))
+        return meta_data[key]

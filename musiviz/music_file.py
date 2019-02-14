@@ -13,16 +13,19 @@ class MusicFile:
         self.genre = None
         self.title = None
         self.artist = None
+        self.album = None
 
     def __str__(self):
         output = (
                     "Title: %s\n"
                     "Artist: %s\n"
+                    "Album: %s\n"
                     "Genre: %s"
                   )
         formatting = (
             self.title,
             self.artist,
+            self.album,
             self.genre
         )
         return output % formatting
@@ -42,11 +45,16 @@ class MusicFile:
             print(json.dumps(self._raw_json, indent=2, sort_keys=True, ensure_ascii=False), file=f)
 
     def _populate_fields(self):
+        """
+        A helper method which maps raw json data to various song fields.
+
+        :return: None
+        """
         self._extract_meta_data()
 
     def _extract_meta_data(self):
         """
-        Extracts the genre from the json data.
+        Extracts meta data from the json data.
 
         :return: None
         """
@@ -55,5 +63,7 @@ class MusicFile:
         self.genre = genre_meta_data["tag"]
         title_meta_data = next((entry for entry in entries if entry["meta_code"] == "©nam"))
         self.title = title_meta_data["data"]
-        title_meta_data = next((entry for entry in entries if entry["meta_code"] == "©ART"))
-        self.artist = title_meta_data["data"]
+        artist_meta_data = next((entry for entry in entries if entry["meta_code"] == "©ART"))
+        self.artist = artist_meta_data["data"]
+        album_meta_data = next((entry for entry in entries if entry["meta_code"] == "©alb"))
+        self.album = album_meta_data["data"]

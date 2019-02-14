@@ -46,6 +46,12 @@ class MusicFile:
         return output % formatting
 
     def load(self):
+        """
+        Loads a music file into a dictionary, populates the various
+        MusicFile fields, and outputs the results to a json file.
+
+        :return: None
+        """
         self._raw_json = m4a_parse.decode(self.path)
         self._populate_fields()
         self._output_parse()
@@ -53,6 +59,11 @@ class MusicFile:
         print(self)
 
     def _output_parse(self):
+        """
+        A helper method which dumps the raw json to a file.
+
+        :return: None
+        """
         data_dir = "data\\" + "\\".join(self.path.split("\\")[-3:-1])
         json_name = self.path.split("\\")[-1].replace(".m4a", ".json")
         pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)

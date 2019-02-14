@@ -85,6 +85,12 @@ class MusicFile:
         self._extract_meta_data()
         self._extract_technical_data()
 
+    def _extract_technical_data(self):
+        movie_header = self._raw_json["data"]["moov"]["children"]["mvhd"]
+        self.sample_rate = movie_header["time_scale"]
+        duration = movie_header["duration"]
+        self.length = MusicFile._calculate_duration(duration, self.sample_rate)
+
     @staticmethod
     def _calculate_duration(duration: int, sample_rate: int) -> str:
         """
@@ -99,12 +105,6 @@ class MusicFile:
         m, s = divmod(length_in_seconds, 60)
         h, m = divmod(m, 60)
         return "%02d:%02d:%02d" % (h, m, s)
-
-    def _extract_technical_data(self):
-        movie_header = self._raw_json["data"]["moov"]["children"]["mvhd"]
-        self.sample_rate = movie_header["time_scale"]
-        duration = movie_header["duration"]
-        self.length = MusicFile._calculate_duration(duration, self.sample_rate)
 
     def _extract_meta_data(self):
         """

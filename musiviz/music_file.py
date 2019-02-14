@@ -16,6 +16,7 @@ class MusicFile:
         self.album = None
         self.content_rating = None
         self.owner = None
+        self.purchase_date = None
 
     def __str__(self):
         output = (
@@ -24,7 +25,8 @@ class MusicFile:
                     "Album: %s\n"
                     "Genre: %s\n"
                     "Content Rating: %s\n"
-                    "Owner: %s"
+                    "Owner: %s\n"
+                    "Purchase Date: %s"
                   )
         formatting = (
             self.title,
@@ -32,7 +34,8 @@ class MusicFile:
             self.album,
             self.genre,
             self.content_rating,
-            self.owner
+            self.owner,
+            self.purchase_date
         )
         return output % formatting
 
@@ -71,6 +74,7 @@ class MusicFile:
         self.album = MusicFile._get_meta_value(entries, "©alb")
         self.owner = MusicFile._get_meta_value(entries, "ownr")
         self.content_rating = MusicFile._get_meta_value(entries, "rtng", "tag")
+        self.purchase_date = MusicFile._get_meta_value(entries, "purd")
 
     @staticmethod
     def _get_meta_value(entries: list, meta: str, key: str = "data"):

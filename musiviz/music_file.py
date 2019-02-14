@@ -14,6 +14,8 @@ class MusicFile:
         self.title = None
         self.artist = None
         self.album = None
+        self.track_number = None
+        self.total_tracks = None
         self.content_rating = None
         self.owner = None
         self.purchase_date = None
@@ -24,6 +26,8 @@ class MusicFile:
                     "Artist: %s\n"
                     "Album: %s\n"
                     "Genre: %s\n"
+                    "Track Number: %s\n"
+                    "Total Tracks: %s\n"
                     "Content Rating: %s\n"
                     "Owner: %s\n"
                     "Purchase Date: %s"
@@ -33,6 +37,8 @@ class MusicFile:
             self.artist,
             self.album,
             self.genre,
+            self.track_number,
+            self.total_tracks,
             self.content_rating,
             self.owner,
             self.purchase_date
@@ -75,6 +81,9 @@ class MusicFile:
         self.owner = MusicFile._get_meta_value(entries, "ownr")
         self.content_rating = MusicFile._get_meta_value(entries, "rtng", "tag")
         self.purchase_date = MusicFile._get_meta_value(entries, "purd")
+        track_number_data = MusicFile._get_meta_value(entries, "trkn")
+        self.track_number = track_number_data[3]
+        self.total_tracks = track_number_data[5]
 
     @staticmethod
     def _get_meta_value(entries: list, meta: str, key: str = "data"):

@@ -66,8 +66,6 @@ class MusicFile:
         self._raw_json = m4a_parse.decode(self.path)
         self._populate_fields()
         self._output_parse()
-        print("*********")
-        print(self)
 
     def _output_parse(self):
         """

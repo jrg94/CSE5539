@@ -586,12 +586,12 @@ def _mvhd(atom: tuple, atom_mapping: dict):
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()
-    atom_mapping["creation_time"] = struct.unpack(">i", stream.read(4))[0]
-    atom_mapping["modification_time"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["creation_time"] = struct.unpack(">I", stream.read(4))[0]
+    atom_mapping["modification_time"] = struct.unpack(">I", stream.read(4))[0]
     atom_mapping["time_scale"] = struct.unpack(">i", stream.read(4))[0]
     atom_mapping["duration"] = struct.unpack(">i", stream.read(4))[0]
-    atom_mapping["preferred_rate"] = struct.unpack(">f", stream.read(4))[0]
-    atom_mapping["preferred_volume"] = struct.unpack(">e", stream.read(2))[0]
+    atom_mapping["preferred_rate"] = struct.unpack(">HH", stream.read(4))
+    atom_mapping["preferred_volume"] = struct.unpack(">BB", stream.read(2))
     atom_mapping["reserved"] = stream.read(10).decode()
     atom_mapping["matrix_structure"] = stream.read(36).decode()
     atom_mapping["preview_time"] = struct.unpack(">i", stream.read(4))[0]
@@ -600,7 +600,7 @@ def _mvhd(atom: tuple, atom_mapping: dict):
     atom_mapping["selection_time"] = struct.unpack(">i", stream.read(4))[0]
     atom_mapping["selection_duration"] = struct.unpack(">i", stream.read(4))[0]
     atom_mapping["current_time"] = struct.unpack(">i", stream.read(4))[0]
-    atom_mapping["next_track_id"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["next_track_id"] = struct.unpack(">I", stream.read(4))[0]
 
 
 def _ftyp(atom: tuple, atom_mapping: dict):

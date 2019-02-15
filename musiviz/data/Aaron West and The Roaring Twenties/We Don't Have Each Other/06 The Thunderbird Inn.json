@@ -20,16 +20,22 @@
     "moov": {
       "children": {
         "mvhd": {
-          "creation_time": -939754801,
+          "creation_time": 3355212495,
           "current_time": 0,
           "duration": 8780800,
           "flags": "\u0000\u0000\u0000",
           "matrix_structure": "\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000@\u0000\u0000\u0000",
-          "modification_time": -758314063,
+          "modification_time": 3536653233,
           "next_track_id": 2,
           "poster_time": 0,
-          "preferred_rate": 9.183549615799121e-41,
-          "preferred_volume": 1.52587890625e-05,
+          "preferred_rate": [
+            1,
+            0
+          ],
+          "preferred_volume": [
+            1,
+            0
+          ],
           "preview_duration": 0,
           "preview_time": 0,
           "reserved": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",

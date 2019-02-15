@@ -1,5 +1,6 @@
 import struct
 import io
+import base64
 import os
 
 HEADER_SIZE = 8
@@ -172,7 +173,7 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
 
 
 def _mdat(atom: tuple, atom_mapping: dict):
-    pass
+    atom_mapping["data"] = base64.encodebytes(atom[2]).decode("ascii")
 
 
 def _stik(atom: tuple, atom_mapping: dict):
@@ -431,8 +432,8 @@ def _stsd(atom: tuple, atom_mapping: dict):
         if sample_description["version"] == 0:
             _stsd_version_one(stream, sample_description)
             sub_atoms = _read_atoms(stream, sample_description["size"] - 36)
-            sample_description["children"] = _atom_mapping(sub_atoms)
-            _traverse_atoms(sub_atoms, sample_description["children"])
+            sample_description = _atom_mapping(sub_atoms)
+            _traverse_atoms(sub_atoms, sample_description)
         atom_mapping["entries"].append(sample_description)
         i += 1
 
@@ -586,12 +587,12 @@ def _mvhd(atom: tuple, atom_mapping: dict):
     stream = io.BytesIO(atom[2])
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()
-    atom_mapping["creation_time"] = struct.unpack(">i", stream.read(4))[0]
-    atom_mapping["modification_time"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["creation_time"] = struct.unpack(">I", stream.read(4))[0]
+    atom_mapping["modification_time"] = struct.unpack(">I", stream.read(4))[0]
     atom_mapping["time_scale"] = struct.unpack(">i", stream.read(4))[0]
     atom_mapping["duration"] = struct.unpack(">i", stream.read(4))[0]
-    atom_mapping["preferred_rate"] = struct.unpack(">f", stream.read(4))[0]
-    atom_mapping["preferred_volume"] = struct.unpack(">e", stream.read(2))[0]
+    atom_mapping["preferred_rate"] = struct.unpack(">HH", stream.read(4))
+    atom_mapping["preferred_volume"] = struct.unpack(">BB", stream.read(2))
     atom_mapping["reserved"] = stream.read(10).decode()
     atom_mapping["matrix_structure"] = stream.read(36).decode()
     atom_mapping["preview_time"] = struct.unpack(">i", stream.read(4))[0]
@@ -600,7 +601,7 @@ def _mvhd(atom: tuple, atom_mapping: dict):
     atom_mapping["selection_time"] = struct.unpack(">i", stream.read(4))[0]
     atom_mapping["selection_duration"] = struct.unpack(">i", stream.read(4))[0]
     atom_mapping["current_time"] = struct.unpack(">i", stream.read(4))[0]
-    atom_mapping["next_track_id"] = struct.unpack(">i", stream.read(4))[0]
+    atom_mapping["next_track_id"] = struct.unpack(">I", stream.read(4))[0]
 
 
 def _ftyp(atom: tuple, atom_mapping: dict):
@@ -744,6 +745,8 @@ def _get_parse_map() -> dict:
         "stbl": _atom_parent,
         "udta": _atom_parent,
         "dinf": _atom_parent,
+        "pinf": _atom_parent,
+        "schi": _atom_parent,
         "ftyp": _ftyp,
         "mvhd": _mvhd,
         "hdlr": _hdlr,

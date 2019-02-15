@@ -1,5 +1,6 @@
 import struct
 import io
+import base64
 import os
 
 HEADER_SIZE = 8
@@ -172,7 +173,7 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
 
 
 def _mdat(atom: tuple, atom_mapping: dict):
-    pass
+    atom_mapping["data"] = base64.encodebytes(atom[2]).decode("ascii")
 
 
 def _stik(atom: tuple, atom_mapping: dict):

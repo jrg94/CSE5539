@@ -24,6 +24,7 @@ class MusicFile:
         self._chunk_offset_table = None
         self._sample_to_chunk_table = None
         self._sample_size_table = None
+        self._time_to_sample_table = None
 
     def __str__(self):
         output = (
@@ -93,7 +94,8 @@ class MusicFile:
         self._chunk_offset_table = sample_tables["stco"]["entries"]
         self._sample_to_chunk_table = sample_tables["stsc"]["entries"]
         self._sample_size_table = sample_tables["stsz"]["entries"]
-        print(self._sample_size_table)
+        self._time_to_sample_table = sample_tables["stts"]["entries"]
+        print(self._time_to_sample_table)
 
     def _extract_technical_data(self):
         """

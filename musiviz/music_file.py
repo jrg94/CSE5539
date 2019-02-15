@@ -21,6 +21,8 @@ class MusicFile:
         self.length = None
         self.owner = None
         self.purchase_date = None
+        self._chunk_offset_table = None
+        self._sample_to_chunk_table = None
 
     def __str__(self):
         output = (
@@ -83,8 +85,20 @@ class MusicFile:
         """
         self._extract_meta_data()
         self._extract_technical_data()
+        self._extract_sample_tables()
+
+    def _extract_sample_tables(self):
+        sample_tables = self._raw_json["data"]["moov"]["children"]["trak"]["children"]["mdia"]["children"]["minf"]["children"]["stbl"]["children"]
+        self._chunk_offset_table = sample_tables["stco"]["entries"]
+        self._sample_to_chunk_table = sample_tables["stsc"]["entries"]
+        print(self._sample_to_chunk_table)
 
     def _extract_technical_data(self):
+        """
+        Extracts technical data from the movie header.
+
+        :return: None
+        """
         movie_header = self._raw_json["data"]["moov"]["children"]["mvhd"]
         self.sample_rate = movie_header["time_scale"]
         duration = movie_header["duration"]

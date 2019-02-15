@@ -551,64 +551,51 @@
                         "stsd": {
                           "entries": [
                             {
-                              "children": {
-                                "esds": {
-                                  "flags": "\u0000\u0000\u0000",
-                                  "size": 51,
-                                  "version": "\u0000"
-                                },
-                                "free": {
-                                  "size": 31568
-                                },
-                                "pinf": {
-                                  "children": {
-                                    "frma": {
-                                      "size": 12
-                                    },
-                                    "schi": {
-                                      "children": {
-                                        "cert": {
-                                          "size": 12
-                                        },
-                                        "chtb": {
-                                          "size": 640
-                                        },
-                                        "name": {
-                                          "size": 264
-                                        },
-                                        "righ": {
-                                          "size": 88
-                                        },
-                                        "user": {
-                                          "size": 12
-                                        }
-                                      },
-                                      "size": 1024
-                                    },
-                                    "schm": {
-                                      "size": 20
-                                    },
-                                    "sign": {
-                                      "size": 136
-                                    }
-                                  },
-                                  "size": 1200
-                                },
-                                "sbtd": {
-                                  "size": 15
-                                }
+                              "esds": {
+                                "flags": "\u0000\u0000\u0000",
+                                "size": 51,
+                                "version": "\u0000"
                               },
-                              "compression_id": 0,
-                              "data_format": "mp4a",
-                              "data_reference_index": 1,
-                              "number_of_channels": 2,
-                              "packet_size": 0,
-                              "reserved": "\u0000\u0000\u0000\u0000\u0000\u0000",
-                              "revision_level": 0,
-                              "sample_size": 44100,
-                              "size": 32870,
-                              "vendor": 0,
-                              "version": 0
+                              "free": {
+                                "size": 31568
+                              },
+                              "pinf": {
+                                "children": {
+                                  "frma": {
+                                    "size": 12
+                                  },
+                                  "schi": {
+                                    "children": {
+                                      "cert": {
+                                        "size": 12
+                                      },
+                                      "chtb": {
+                                        "size": 640
+                                      },
+                                      "name": {
+                                        "size": 264
+                                      },
+                                      "righ": {
+                                        "size": 88
+                                      },
+                                      "user": {
+                                        "size": 12
+                                      }
+                                    },
+                                    "size": 1024
+                                  },
+                                  "schm": {
+                                    "size": 20
+                                  },
+                                  "sign": {
+                                    "size": 136
+                                  }
+                                },
+                                "size": 1200
+                              },
+                              "sbtd": {
+                                "size": 15
+                              }
                             }
                           ],
                           "flags": "\u0000\u0000\u0000",

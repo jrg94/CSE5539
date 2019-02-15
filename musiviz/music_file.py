@@ -1,6 +1,7 @@
 import json
 import os
 import pathlib
+import base64
 
 from musiviz import m4a_parse
 
@@ -9,7 +10,6 @@ class MusicFile:
 
     def __init__(self, path: str):
         self.path = path
-        self._raw_json = None
         self.genre = None
         self.title = None
         self.artist = None
@@ -21,10 +21,12 @@ class MusicFile:
         self.length = None
         self.owner = None
         self.purchase_date = None
+        self._raw_json = None
         self._chunk_offset_table = None
         self._sample_to_chunk_table = None
         self._sample_size_table = None
         self._time_to_sample_table = None
+        self._music_data = None
 
     def __str__(self):
         output = (
@@ -88,14 +90,28 @@ class MusicFile:
         self._extract_meta_data()
         self._extract_technical_data()
         self._extract_sample_tables()
+        self._extract_raw_music_data()
+
+    def _extract_raw_music_data(self):
+        """
+        Extracts base 64 music data and decodes it into the raw bytes.
+
+        :return: None
+        """
+        encoded_music_data = self._raw_json["data"]["mdat"]["data"]
+        self._music_data = base64.b64decode(encoded_music_data)
 
     def _extract_sample_tables(self):
+        """
+        Loads sample table data into MusicFile.
+
+        :return: None
+        """
         sample_tables = self._raw_json["data"]["moov"]["children"]["trak"]["children"]["mdia"]["children"]["minf"]["children"]["stbl"]["children"]
         self._chunk_offset_table = sample_tables["stco"]["entries"]
         self._sample_to_chunk_table = sample_tables["stsc"]["entries"]
         self._sample_size_table = sample_tables["stsz"]["entries"]
         self._time_to_sample_table = sample_tables["stts"]["entries"]
-        print(self._time_to_sample_table)
 
     def _extract_technical_data(self):
         """

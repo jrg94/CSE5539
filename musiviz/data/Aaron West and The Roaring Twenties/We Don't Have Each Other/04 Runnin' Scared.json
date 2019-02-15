@@ -522,6 +522,20 @@
                                   "size": 31568
                                 },
                                 "pinf": {
+                                  "children": {
+                                    "frma": {
+                                      "size": 12
+                                    },
+                                    "schi": {
+                                      "size": 1024
+                                    },
+                                    "schm": {
+                                      "size": 20
+                                    },
+                                    "sign": {
+                                      "size": 136
+                                    }
+                                  },
                                   "size": 1200
                                 },
                                 "sbtd": {

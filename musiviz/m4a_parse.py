@@ -745,6 +745,7 @@ def _get_parse_map() -> dict:
         "udta": _atom_parent,
         "dinf": _atom_parent,
         "pinf": _atom_parent,
+        "schi": _atom_parent,
         "ftyp": _ftyp,
         "mvhd": _mvhd,
         "hdlr": _hdlr,

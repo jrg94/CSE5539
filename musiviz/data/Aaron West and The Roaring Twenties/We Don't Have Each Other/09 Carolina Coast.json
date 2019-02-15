@@ -740,6 +740,23 @@
                                       "size": 12
                                     },
                                     "schi": {
+                                      "children": {
+                                        "cert": {
+                                          "size": 12
+                                        },
+                                        "chtb": {
+                                          "size": 640
+                                        },
+                                        "name": {
+                                          "size": 264
+                                        },
+                                        "righ": {
+                                          "size": 88
+                                        },
+                                        "user": {
+                                          "size": 12
+                                        }
+                                      },
                                       "size": 1024
                                     },
                                     "schm": {

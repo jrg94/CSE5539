@@ -22,11 +22,13 @@ class MusicFile:
         self.length = None
         self.owner = None
         self.purchase_date = None
+        self.number_of_channels = None
         self._raw_json = None
         self._chunk_offset_table = None
         self._sample_to_chunk_table = None
         self._sample_size_table = None
         self._time_to_sample_table = None
+        self._sample_description_table = None
         self._music_data = None
 
     def __str__(self):
@@ -108,8 +110,8 @@ class MusicFile:
         :return: None
         """
         self._extract_meta_data()
-        self._extract_technical_data()
         self._extract_sample_tables()
+        self._extract_technical_data()
         self._extract_raw_music_data()
 
     def _extract_raw_music_data(self):
@@ -132,6 +134,7 @@ class MusicFile:
         self._sample_to_chunk_table = sample_tables["stsc"]["entries"]
         self._sample_size_table = sample_tables["stsz"]["entries"]
         self._time_to_sample_table = sample_tables["stts"]["entries"]
+        self._sample_description_table = sample_tables["stsd"]["entries"]
 
     def _extract_technical_data(self):
         """
@@ -143,6 +146,7 @@ class MusicFile:
         self.sample_rate = movie_header["time_scale"]
         duration = movie_header["duration"]
         self.length = MusicFile._calculate_duration(duration, self.sample_rate)
+        self.number_of_channels = self._sample_description_table[0]["number_of_channels"]
 
     @staticmethod
     def _calculate_duration(duration: int, sample_rate: int) -> str:

@@ -452,7 +452,7 @@ def _stsd_version_one(stream: io.BytesIO, sample_description: dict):
     sample_description["sample_size"] = struct.unpack(">H", stream.read(2))[0]
     sample_description["compression_id"] = struct.unpack(">H", stream.read(2))[0]
     sample_description["packet_size"] = struct.unpack(">H", stream.read(2))[0]
-    sample_description["sample_size"] = struct.unpack(">HH", stream.read(4))[0]
+    sample_description["sample_rate"] = struct.unpack(">HH", stream.read(4))[0]
 
 
 def _stsc(atom: tuple, atom_mapping: dict):

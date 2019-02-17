@@ -19,6 +19,7 @@ class MusicFile:
         self.total_tracks = None
         self.content_rating = None
         self.sample_rate = None
+        self.sample_size = None
         self.length = None
         self.owner = None
         self.purchase_date = None
@@ -147,6 +148,7 @@ class MusicFile:
         duration = movie_header["duration"]
         self.length = MusicFile._calculate_duration(duration, self.sample_rate)
         self.number_of_channels = self._sample_description_table[0]["number_of_channels"]
+        self.sample_size = self._sample_description_table[0]["sample_size"]
 
     @staticmethod
     def _calculate_duration(duration: int, sample_rate: int) -> str:

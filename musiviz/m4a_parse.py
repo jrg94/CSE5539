@@ -432,8 +432,8 @@ def _stsd(atom: tuple, atom_mapping: dict):
         if sample_description["version"] == 0:
             _stsd_version_one(stream, sample_description)
             sub_atoms = _read_atoms(stream, sample_description["size"] - 36)
-            sample_description = _atom_mapping(sub_atoms)
-            _traverse_atoms(sub_atoms, sample_description)
+            sample_description["children"] = _atom_mapping(sub_atoms)
+            _traverse_atoms(sub_atoms, sample_description["children"])
         atom_mapping["entries"].append(sample_description)
         i += 1
 

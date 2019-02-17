@@ -100,19 +100,6 @@ class MusicFile:
         pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)
         with open(os.path.join(data_dir, json_name), "w") as f:
             print(json.dumps(self._raw_json, indent=2, sort_keys=True, ensure_ascii=False), file=f)
-        with wave.open(os.path.join(data_dir, wav_name), "wb") as wav:
-            wav.setnchannels(1)
-            wav.setframerate(44100)
-            wav.setsampwidth(1)
-            wav.writeframes(self._music_data)
-            #i = 0
-            #wav.setnchannels(2)
-            #wav.setframerate(44100)
-            #for row in self._sample_size_table:
-                #print(row)
-                #wav.setsampwidth(row)
-                #wav.writeframes(self._music_data[i: i + row])
-                #i += row
 
     def _populate_fields(self):
         """

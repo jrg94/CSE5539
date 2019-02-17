@@ -2,6 +2,7 @@ import json
 import os
 import pathlib
 import base64
+import wave
 
 from musiviz import m4a_parse
 
@@ -67,6 +68,26 @@ class MusicFile:
         self._populate_fields()
         self._output_parse()
 
+    @staticmethod
+    def _a_tone():
+        import wave, struct, math
+
+        sampleRate = 44100.0  # hertz
+        duration = 1.0  # seconds
+        frequency = 440.0  # hertz
+
+        wavef = wave.open('sound.wav', 'w')
+        wavef.setnchannels(1)  # mono
+        wavef.setsampwidth(2)
+        wavef.setframerate(sampleRate)
+
+        for i in range(int(duration * sampleRate)):
+            value = int(32767.0 * math.cos(frequency * math.pi * float(i) / float(sampleRate)))
+            data = struct.pack('<h', value)
+            wavef.writeframesraw(data)
+
+        wavef.close()
+
     def _output_parse(self):
         """
         A helper method which dumps the raw json to a file.
@@ -75,9 +96,23 @@ class MusicFile:
         """
         data_dir = "data\\" + "\\".join(self.path.split("\\")[-3:-1])
         json_name = self.path.split("\\")[-1].replace(".m4a", ".json")
+        wav_name = self.path.split("\\")[-1].replace(".m4a", ".wav")
         pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)
         with open(os.path.join(data_dir, json_name), "w") as f:
             print(json.dumps(self._raw_json, indent=2, sort_keys=True, ensure_ascii=False), file=f)
+        with wave.open(os.path.join(data_dir, wav_name), "wb") as wav:
+            wav.setnchannels(1)
+            wav.setframerate(44100)
+            wav.setsampwidth(1)
+            wav.writeframes(self._music_data)
+            #i = 0
+            #wav.setnchannels(2)
+            #wav.setframerate(44100)
+            #for row in self._sample_size_table:
+                #print(row)
+                #wav.setsampwidth(row)
+                #wav.writeframes(self._music_data[i: i + row])
+                #i += row
 
     def _populate_fields(self):
         """

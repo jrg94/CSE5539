@@ -6,4 +6,7 @@ SAMPLE_PATH = "E:\\Plex\\Music\\Aaron West and The Roaring Twenties\\We Don't Ha
 if __name__ == '__main__':
     for path, dirs, files in os.walk(SAMPLE_PATH):
         for file in files:
-            MusicFile(os.path.join(path, file)).load()
+            curr = MusicFile(os.path.join(path, file))
+            curr.load()
+
+    curr.test_audio()

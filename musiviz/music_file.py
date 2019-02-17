@@ -3,6 +3,7 @@ import os
 import pathlib
 import base64
 import wave
+import struct
 
 from musiviz import m4a_parse
 
@@ -71,23 +72,21 @@ class MusicFile:
         self._populate_fields()
         self._output_parse()
 
-    @staticmethod
-    def _a_tone():
-        import wave, struct, math
-
-        sampleRate = 44100.0  # hertz
-        duration = 1.0  # seconds
-        frequency = 440.0  # hertz
+    def test_audio(self):
 
         wavef = wave.open('sound.wav', 'w')
-        wavef.setnchannels(1)  # mono
-        wavef.setsampwidth(2)
-        wavef.setframerate(sampleRate)
+        wavef.setnchannels(self.number_of_channels)  # mono
+        wavef.setsampwidth(int(self.sample_size / 8))
+        wavef.setframerate(self.sample_rate)
 
-        for i in range(int(duration * sampleRate)):
-            value = int(32767.0 * math.cos(frequency * math.pi * float(i) / float(sampleRate)))
-            data = struct.pack('<h', value)
-            wavef.writeframesraw(data)
+        i = 0
+        sample_size = int(self.sample_size / 8)
+        while i < len(self._music_data):
+            raw_sample = self._music_data[i: i + sample_size]
+            if len(raw_sample) == 2:
+                sample = struct.unpack(">H", raw_sample)[0]
+                wavef.writeframes(struct.pack("<H", sample))
+            i += sample_size
 
         wavef.close()
 
@@ -99,7 +98,6 @@ class MusicFile:
         """
         data_dir = "data\\" + "\\".join(self.path.split("\\")[-3:-1])
         json_name = self.path.split("\\")[-1].replace(".m4a", ".json")
-        wav_name = self.path.split("\\")[-1].replace(".m4a", ".wav")
         pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)
         with open(os.path.join(data_dir, json_name), "w") as f:
             print(json.dumps(self._raw_json, indent=2, sort_keys=True, ensure_ascii=False), file=f)

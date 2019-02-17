@@ -74,18 +74,19 @@ class MusicFile:
 
     def test_audio(self):
 
-        wavef = wave.open('sound.wav', 'w')
+        wavef = wave.open('sound.wav', 'wb')
         wavef.setnchannels(self.number_of_channels)  # mono
         wavef.setsampwidth(int(self.sample_size / 8))
         wavef.setframerate(self.sample_rate)
 
         i = 0
+        output = b''
         sample_size = int(self.sample_size / 8)
         while i < len(self._music_data):
             raw_sample = self._music_data[i: i + sample_size]
             if len(raw_sample) == 2:
-                sample = struct.unpack(">H", raw_sample)[0]
-                wavef.writeframes(struct.pack("<H", sample))
+                sample = struct.unpack(">h", raw_sample)[0]
+                wavef.writeframes(struct.pack("<h", sample))
             i += sample_size
 
         wavef.close()

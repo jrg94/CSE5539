@@ -3,7 +3,7 @@ import os
 import pathlib
 import base64
 import wave
-import struct
+import io
 
 from musiviz import m4a_parse
 
@@ -83,24 +83,14 @@ class MusicFile:
         wave_file.setsampwidth(int(self.sample_size / 8))
         wave_file.setframerate(self.sample_rate)
 
-        i = 0
-        for sample_size in self._sample_size_table:
-            sample = self._music_data[i: i + sample_size]
-            j = 0
-            while j < 1024:
-                start = (4 * j) % sample_size
-                end = (4 * j + 4) % sample_size
-                if end < start:
-                    frame = sample[start:] + sample[:end]
-                else:
-                    frame = sample[start: end]
-                big_endian = struct.unpack(">hh", frame)
-                little_endian = struct.pack("<hh", *big_endian)
-                wave_file.writeframes(frame)
-                j += 1
-            i += sample_size
+        music_stream = io.BytesIO(self._music_data)
 
-        print(i)
+        for sample_size in self._sample_size_table:
+            sample = music_stream.read(sample_size)
+            sample *= 1024
+            sample = sample[:4096]
+            wave_file.writeframes(sample)
+
         wave_file.close()
 
     def persist(self):

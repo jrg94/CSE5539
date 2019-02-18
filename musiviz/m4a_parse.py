@@ -413,6 +413,7 @@ def _esds(atom: tuple, atom_mapping: dict):
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()
     # TODO: atom_mapping["elementary_stream_descriptor"] = stream.read().decode()
+    # https://raw.githubusercontent.com/OpenAnsible/rust-mp4/master/docs/ISO_IEC_14496-14_2003-11-15.pdf
 
 
 def _stsd(atom: tuple, atom_mapping: dict):

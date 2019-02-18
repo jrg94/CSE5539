@@ -10,5 +10,4 @@ if __name__ == '__main__':
             curr = MusicFile(os.path.join(path, file))
             curr.load()
 
-    print("Writing audio")
-    curr.test_audio()
+    curr.to_wav()

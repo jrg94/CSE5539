@@ -70,9 +70,13 @@ class MusicFile:
         """
         self._raw_json = m4a_parse.decode(self.path)
         self._populate_fields()
-        self._output_parse()
 
-    def test_audio(self):
+    def to_wav(self):
+        """
+        Convert music data to wav file.
+
+        :return: None
+        """
 
         wavef = wave.open('sound.wav', 'wb')
         wavef.setnchannels(self.number_of_channels)  # mono
@@ -91,7 +95,7 @@ class MusicFile:
 
         wavef.close()
 
-    def _output_parse(self):
+    def persist(self):
         """
         A helper method which dumps the raw json to a file.
 

@@ -4,6 +4,7 @@ import pathlib
 import base64
 import wave
 import io
+import struct
 
 from musiviz import m4a_parse
 
@@ -79,7 +80,7 @@ class MusicFile:
         """
 
         wave_file = wave.open('sound.wav', 'wb')
-        wave_file.setnchannels(self.number_of_channels)  # mono
+        wave_file.setnchannels(self.number_of_channels)
         wave_file.setsampwidth(int(self.sample_size / 8))
         wave_file.setframerate(self.sample_rate)
 
@@ -87,8 +88,10 @@ class MusicFile:
 
         for sample_size in self._sample_size_table:
             sample = music_stream.read(sample_size)
-            sample *= 1024
+            sample *= 4096
             sample = sample[:4096]
+            sample = struct.unpack(">" + str(2048) + "h", sample)
+            sample = struct.pack("<" + str(2048) + "h", *sample)
             wave_file.writeframes(sample)
 
         wave_file.close()

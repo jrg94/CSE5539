@@ -5,6 +5,7 @@ import base64
 import wave
 import io
 import struct
+from pydub import AudioSegment
 
 from musiviz import m4a_parse
 
@@ -73,6 +74,17 @@ class MusicFile:
         self._populate_fields()
 
     def to_wav(self):
+        """
+        Converts input file to wave
+
+        :return:
+        """
+        data_dir = "data\\" + "\\".join(self.path.split("\\")[-3:-1])
+        pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)
+        wav_name = self.path.split("\\")[-1].replace(".m4a", ".wav")
+        AudioSegment.from_file(self.path).export(os.path.join(data_dir, wav_name), format="wav")
+
+    def to_wav_by_hand(self):
         """
         Convert music data to wav file.
 

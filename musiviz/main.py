@@ -8,7 +8,6 @@ if __name__ == '__main__':
     for path, dirs, files in os.walk(SAMPLE_PATH):
         for file in files:
             curr = MusicFile(os.path.join(path, file))
-            curr.load()
+            curr.to_wav()
+            #curr.load()
             #curr.persist()
-
-    curr.to_wav()

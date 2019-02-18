@@ -72,6 +72,21 @@ class MusicFile:
         """
         self._raw_json = m4a_parse.decode(self.path)
         self._populate_fields()
+        self._clear_overhead()
+
+    def _clear_overhead(self):
+        """
+        Empties variables of unused memory.
+
+        :return: None
+        """
+        self._raw_json = None
+        self._chunk_offset_table = None
+        self._sample_to_chunk_table = None
+        self._sample_size_table = None
+        self._time_to_sample_table = None
+        self._sample_description_table = None
+        self._music_data = None
 
     def to_wav(self):
         """

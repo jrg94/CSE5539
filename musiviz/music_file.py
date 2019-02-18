@@ -86,16 +86,21 @@ class MusicFile:
         i = 0
         for sample_size in self._sample_size_table:
             sample = self._music_data[i: i + sample_size]
-            if not len(sample) % 2 == 0:
-                print("Before:" + str(len(sample)))
-                sample = sample[:len(sample) - 1]
-                print("After:" + str(len(sample)))
-            big_endian_sample = struct.unpack(">" + str(len(sample) // 2) + "h", sample)
-            little_endian_sample = struct.pack("<" + str(len(sample) // 2) + "h", *big_endian_sample)
-            little_endian_sample *= int(1024 / (sample_size / 4))
-            wave_file.writeframes(little_endian_sample)
+            j = 0
+            while j < 1024:
+                start = (4 * j) % sample_size
+                end = (4 * j + 4) % sample_size
+                if end < start:
+                    frame = sample[start:] + sample[:end]
+                else:
+                    frame = sample[start: end]
+                big_endian = struct.unpack(">hh", frame)
+                little_endian = struct.pack("<hh", *big_endian)
+                wave_file.writeframes(frame)
+                j += 1
             i += sample_size
 
+        print(i)
         wave_file.close()
 
     def persist(self):

@@ -84,18 +84,17 @@ class MusicFile:
         wave_file.setframerate(self.sample_rate)
 
         i = 0
-        sample_count = int(len(self._music_data) / 2)
-        big_endian_music = struct.unpack(">" + str(sample_count) + "hx", self._music_data)
-        little_endian_music = struct.pack("<" + str(sample_count) + "hx", *big_endian_music)
-        wave_file.writeframes(little_endian_music)
-
-        #sample_size = int(self.sample_size / 8)
-        #while i < len(self._music_data):
-            #raw_sample = self._music_data[i: i + sample_size]
-            #if len(raw_sample) == 2:
-                #sample = struct.unpack(">h", raw_sample)[0]
-                #wave_file.writeframes(struct.pack("<h", sample))
-            #i += sample_size
+        for sample_size in self._sample_size_table:
+            sample = self._music_data[i: i + sample_size]
+            if not len(sample) % 2 == 0:
+                print("Before:" + str(len(sample)))
+                sample = sample[:len(sample) - 1]
+                print("After:" + str(len(sample)))
+            big_endian_sample = struct.unpack(">" + str(len(sample) // 2) + "h", sample)
+            little_endian_sample = struct.pack("<" + str(len(sample) // 2) + "h", *big_endian_sample)
+            little_endian_sample *= int(1024 / (sample_size / 4))
+            wave_file.writeframes(little_endian_sample)
+            i += sample_size
 
         wave_file.close()
 

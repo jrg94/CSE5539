@@ -172,7 +172,18 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
             parse_map[atom[1]](atom, root_mapping[atom[1]])
 
 
+def _frma(atom: tuple, atom_mapping: dict):
+    atom_mapping["data_format"] = atom[2].decode()
+
+
 def _mdat(atom: tuple, atom_mapping: dict):
+    """
+    Extracts mdat data and encodes it using base64.
+
+    :param atom: an mdat atom
+    :param atom_mapping: an mdat atom mapping
+    :return: None
+    """
     atom_mapping["data"] = base64.encodebytes(atom[2]).decode("ascii")
 
 
@@ -406,6 +417,7 @@ def _esds(atom: tuple, atom_mapping: dict):
     atom_mapping["version"] = stream.read(1).decode()
     atom_mapping["flags"] = stream.read(3).decode()
     # TODO: atom_mapping["elementary_stream_descriptor"] = stream.read().decode()
+    # https://raw.githubusercontent.com/OpenAnsible/rust-mp4/master/docs/ISO_IEC_14496-14_2003-11-15.pdf
 
 
 def _stsd(atom: tuple, atom_mapping: dict):
@@ -432,8 +444,8 @@ def _stsd(atom: tuple, atom_mapping: dict):
         if sample_description["version"] == 0:
             _stsd_version_one(stream, sample_description)
             sub_atoms = _read_atoms(stream, sample_description["size"] - 36)
-            sample_description = _atom_mapping(sub_atoms)
-            _traverse_atoms(sub_atoms, sample_description)
+            sample_description["children"] = _atom_mapping(sub_atoms)
+            _traverse_atoms(sub_atoms, sample_description["children"])
         atom_mapping["entries"].append(sample_description)
         i += 1
 
@@ -446,13 +458,13 @@ def _stsd_version_one(stream: io.BytesIO, sample_description: dict):
     :param sample_description:
     :return:
     """
-    sample_description["revision_level"] = struct.unpack(">H", stream.read(2))[0]
+    sample_description["revision_level"] = struct.unpack(">h", stream.read(2))[0]
     sample_description["vendor"] = struct.unpack(">i", stream.read(4))[0]
-    sample_description["number_of_channels"] = struct.unpack(">H", stream.read(2))[0]
-    sample_description["sample_size"] = struct.unpack(">H", stream.read(2))[0]
-    sample_description["compression_id"] = struct.unpack(">H", stream.read(2))[0]
-    sample_description["packet_size"] = struct.unpack(">H", stream.read(2))[0]
-    sample_description["sample_size"] = struct.unpack(">HH", stream.read(4))[0]
+    sample_description["number_of_channels"] = struct.unpack(">h", stream.read(2))[0]
+    sample_description["sample_size"] = struct.unpack(">h", stream.read(2))[0]
+    sample_description["compression_id"] = struct.unpack(">h", stream.read(2))[0]
+    sample_description["packet_size"] = struct.unpack(">h", stream.read(2))[0]
+    sample_description["sample_rate"] = struct.unpack(">HH", stream.read(4))[0]
 
 
 def _stsc(atom: tuple, atom_mapping: dict):
@@ -704,7 +716,7 @@ def _get_size(header_size_raw: bytes) -> int:
     :param header_size_raw: a set of bytes representing size
     :return: the size of the current atom in bytes
     """
-    size_decoded = struct.unpack(">i", header_size_raw)[0]
+    size_decoded = struct.unpack(">I", header_size_raw)[0]
     return size_decoded
 
 
@@ -766,5 +778,6 @@ def _get_parse_map() -> dict:
         "gnre": _gnre,
         "rtng": _rtng,
         "stik": _stik,
-        "mdat": _mdat
+        "mdat": _mdat,
+        "frma": _frma
     }

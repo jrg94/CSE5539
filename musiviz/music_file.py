@@ -2,6 +2,10 @@ import json
 import os
 import pathlib
 import base64
+import wave
+import io
+import struct
+from pydub import AudioSegment
 
 from musiviz import m4a_parse
 
@@ -18,14 +22,17 @@ class MusicFile:
         self.total_tracks = None
         self.content_rating = None
         self.sample_rate = None
+        self.sample_size = None
         self.length = None
         self.owner = None
         self.purchase_date = None
+        self.number_of_channels = None
         self._raw_json = None
         self._chunk_offset_table = None
         self._sample_to_chunk_table = None
         self._sample_size_table = None
         self._time_to_sample_table = None
+        self._sample_description_table = None
         self._music_data = None
 
     def __str__(self):
@@ -65,9 +72,43 @@ class MusicFile:
         """
         self._raw_json = m4a_parse.decode(self.path)
         self._populate_fields()
-        self._output_parse()
 
-    def _output_parse(self):
+    def to_wav(self):
+        """
+        Converts input file to wave
+
+        :return:
+        """
+        data_dir = "data\\" + "\\".join(self.path.split("\\")[-3:-1])
+        pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)
+        wav_name = self.path.split("\\")[-1].replace(".m4a", ".wav")
+        AudioSegment.from_file(self.path).export(os.path.join(data_dir, wav_name), format="wav")
+
+    def to_wav_by_hand(self):
+        """
+        Convert music data to wav file.
+
+        :return: None
+        """
+
+        wave_file = wave.open('sound.wav', 'wb')
+        wave_file.setnchannels(self.number_of_channels)
+        wave_file.setsampwidth(int(self.sample_size / 8))
+        wave_file.setframerate(self.sample_rate)
+
+        music_stream = io.BytesIO(self._music_data)
+
+        for sample_size in self._sample_size_table:
+            sample = music_stream.read(sample_size)
+            sample *= 4096
+            sample = sample[:4096]
+            sample = struct.unpack(">" + str(2048) + "h", sample)
+            sample = struct.pack("<" + str(2048) + "h", *sample)
+            wave_file.writeframes(sample)
+
+        wave_file.close()
+
+    def persist(self):
         """
         A helper method which dumps the raw json to a file.
 
@@ -86,8 +127,8 @@ class MusicFile:
         :return: None
         """
         self._extract_meta_data()
-        self._extract_technical_data()
         self._extract_sample_tables()
+        self._extract_technical_data()
         self._extract_raw_music_data()
 
     def _extract_raw_music_data(self):
@@ -110,6 +151,7 @@ class MusicFile:
         self._sample_to_chunk_table = sample_tables["stsc"]["entries"]
         self._sample_size_table = sample_tables["stsz"]["entries"]
         self._time_to_sample_table = sample_tables["stts"]["entries"]
+        self._sample_description_table = sample_tables["stsd"]["entries"]
 
     def _extract_technical_data(self):
         """
@@ -121,6 +163,8 @@ class MusicFile:
         self.sample_rate = movie_header["time_scale"]
         duration = movie_header["duration"]
         self.length = MusicFile._calculate_duration(duration, self.sample_rate)
+        self.number_of_channels = self._sample_description_table[0]["number_of_channels"]
+        self.sample_size = self._sample_description_table[0]["sample_size"]
 
     @staticmethod
     def _calculate_duration(duration: int, sample_rate: int) -> str:

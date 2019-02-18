@@ -712,7 +712,7 @@ def _get_size(header_size_raw: bytes) -> int:
     :param header_size_raw: a set of bytes representing size
     :return: the size of the current atom in bytes
     """
-    size_decoded = struct.unpack(">i", header_size_raw)[0]
+    size_decoded = struct.unpack(">I", header_size_raw)[0]
     return size_decoded
 
 

@@ -78,19 +78,27 @@ class MusicFile:
         :return: None
         """
 
+        print(self)
+        print(len(self._music_data))
+
         wave_file = wave.open('sound.wav', 'wb')
         wave_file.setnchannels(self.number_of_channels)  # mono
         wave_file.setsampwidth(int(self.sample_size / 8))
         wave_file.setframerate(self.sample_rate)
 
         i = 0
-        sample_size = int(self.sample_size / 8)
-        while i < len(self._music_data):
-            raw_sample = self._music_data[i: i + sample_size]
-            if len(raw_sample) == 2:
-                sample = struct.unpack(">h", raw_sample)[0]
-                wave_file.writeframes(struct.pack("<h", sample))
-            i += sample_size
+        sample_count = int(len(self._music_data) / 2)
+        big_endian_music = struct.unpack(">" + str(sample_count) + "hx", self._music_data)
+        little_endian_music = struct.pack("<" + str(sample_count) + "hx", *big_endian_music)
+        wave_file.writeframes(little_endian_music)
+
+        #sample_size = int(self.sample_size / 8)
+        #while i < len(self._music_data):
+            #raw_sample = self._music_data[i: i + sample_size]
+            #if len(raw_sample) == 2:
+                #sample = struct.unpack(">h", raw_sample)[0]
+                #wave_file.writeframes(struct.pack("<h", sample))
+            #i += sample_size
 
         wave_file.close()
 

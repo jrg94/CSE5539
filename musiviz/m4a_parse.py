@@ -173,6 +173,13 @@ def _traverse_atoms(root_atoms: list, root_mapping: dict):
 
 
 def _mdat(atom: tuple, atom_mapping: dict):
+    """
+    Extracts mdat data and encodes it using base64.
+
+    :param atom: an mdat atom
+    :param atom_mapping: an mdat atom mapping
+    :return: None
+    """
     atom_mapping["data"] = base64.encodebytes(atom[2]).decode("ascii")
 
 

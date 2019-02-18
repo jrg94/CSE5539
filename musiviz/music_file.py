@@ -78,9 +78,6 @@ class MusicFile:
         :return: None
         """
 
-        print(self)
-        print(len(self._music_data))
-
         wave_file = wave.open('sound.wav', 'wb')
         wave_file.setnchannels(self.number_of_channels)  # mono
         wave_file.setsampwidth(int(self.sample_size / 8))

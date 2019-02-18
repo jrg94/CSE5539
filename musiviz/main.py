@@ -9,6 +9,6 @@ if __name__ == '__main__':
         for file in files:
             curr = MusicFile(os.path.join(path, file))
             curr.load()
-            #curr.persist()
+            curr.persist()
 
     curr.to_wav()

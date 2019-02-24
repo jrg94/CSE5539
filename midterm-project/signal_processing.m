@@ -16,7 +16,3 @@ for channel = 1:CHANNELS
        end
    end
 end
-
-plot(acg)
-
-% correlogram(ar0_grid, 325, L, K, 64)

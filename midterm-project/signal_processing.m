@@ -6,6 +6,6 @@ TIME_STEPS = 325;
 CHANNELS = 64;
 
 ar0 = load("data/ar0.dat");
-ar0_grid = reshape(ar0, [325, 64]);
+ar0_grid = reshape(ar0, [325, 64]).';
 
-autocorrelation(ar0_grid, 1, 1, K, L)
+correlogram(ar0_grid, 325, L, K, 64)

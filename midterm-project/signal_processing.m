@@ -8,8 +8,10 @@ ar0 = load("data/ar0.dat");
 
 % Running autocorrelation
 for i = 1:64
+    sum = 0; 
     for j = 1:325
-        k = ((i - 1) * 325) + j;
-        ar0(k);
+        index = ((i - 1) * 325) + j;
+        r = ar0(index); % Hair cell model output
+        
     end
 end

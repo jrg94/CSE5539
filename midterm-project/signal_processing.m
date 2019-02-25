@@ -9,7 +9,15 @@ LOWER_FQ = 80; % Hz
 UPPER_FQ = 4000; % Hz
 
 ar0 = load("data/ar0.dat");
-ar0_grid = reshape(ar0, [325, 64]).';
+
+ar0_grid = zeros(CHANNELS, TIME_STEPS);
+for time_step = 1:TIME_STEPS
+    for channel = 1:CHANNELS
+        index = (channel -  1) * CHANNELS + time_step
+        ar0_grid(channel, time_step) = ar0(index);
+    end
+end
+    
 
 acg = zeros(MAX_DELAY, CHANNELS);
 summary = zeros(MAX_DELAY);

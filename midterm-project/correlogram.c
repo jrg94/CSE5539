@@ -348,7 +348,7 @@ void main (int argc, char **argv)
         int frame, win, delay;
         int cat;
 
-        while ((opt=getopt(argc,argv,"Hl:u:n:v")) != EOF)
+        while ((opt=getopt(argc,argv,"Hl:u:n:v")) != EOF) {
                 switch(opt) {
                 case 'H': help(); ok=FALSE; break;
                 case 'l': lowerCF = atoi(optarg); break;
@@ -357,8 +357,11 @@ void main (int argc, char **argv)
                 case 'v': verboseOutput=TRUE; break;
                 case '?': ok = FALSE;
                 }
+        }
 
-        if (ok==FALSE) exit(0);
+        if (ok == FALSE) {
+                exit(0);
+        }
 
         initOuterMiddleEar();
         initChannels(lowerCF,upperCF,numChannels);
@@ -368,27 +371,30 @@ void main (int argc, char **argv)
 
         tim=0; frame=0;
         while (scanf("%f",&sigVal)!=EOF) {
-                for (chan=0; chan<numChannels; chan++)
+                for (chan=0; chan<numChannels; chan++) {
                         updateCochlea(&cochlea[chan],sigVal,tim);
+                }
                 tim++;
                 if ((tim % OFFSET)==0) {
-                        fprintf(stderr,"computing correlogram at T=%d\n",tim);
-                        for (chan=0; chan<numChannels; chan++)
+                        fprintf(stderr, "computing correlogram at T=%d\n", tim);
+                        for (chan=0; chan<numChannels; chan++) {
                                 for (delay=0; delay<MAX_DELAY; delay++) {
                                         acg[delay][chan]=0.0;
-                                        for (win=0; win<MAX_WINDOW; win++)
-                                                acg[delay][chan]+=getBufferVal(&cochlea[chan],win)*getBufferVal(&cochlea[chan],win+delay);
+                                        for (win=0; win<MAX_WINDOW; win++) {
+                                                acg[delay][chan] += getBufferVal(&cochlea[chan],win)*getBufferVal(&cochlea[chan],win+delay);
+                                        }
                                 }
-                        sprintf(fname,"ACG.%03d",frame);
+                        }
+                        sprintf(fname, "ACG.%03d", frame);
                         frame++;
-                        fprintf(stderr,"%s\n",fname);
-                        ofp=fopen(fname,"w");
-                        if (ofp==NULL) {
-                                fprintf(stderr,"could not open file %s\n",fname);
+                        fprintf(stderr, "%s\n", fname);
+                        ofp = fopen(fname,"w");
+                        if (ofp == NULL) {
+                                fprintf(stderr, "could not open file %s\n", fname);
                                 exit(0);
                         }
-                        fprintf(ofp,"%d %d\n",MAX_DELAY,numChannels);
-                        for (chan=0; chan<numChannels; chan++)
+                        fprintf(ofp, "%d %d\n", MAX_DELAY, numChannels);
+                        for (chan = 0; chan < numChannels; chan++)
                                 for (delay=0; delay<MAX_DELAY; delay++)
                                         fprintf(ofp,"%1.2f\n",acg[delay][chan]/(MAX_WINDOW*50.0));
                         fclose(ofp);

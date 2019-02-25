@@ -8,7 +8,7 @@ SAMPLING_FQ = 10000; % Hz
 LOWER_FQ = 80; % Hz
 UPPER_FQ = 4000; % Hz
 
-ar0 = normalize(load("data/ar0.dat"));
+ar0 = load("data/ar0.dat");
 ar0_grid = reshape(ar0, [64, 325]); 
 
 % acg = wang(ar0_grid, MAX_DELAY, CHANNELS, MAX_WINDOW);

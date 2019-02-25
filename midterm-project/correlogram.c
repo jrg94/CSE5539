@@ -354,7 +354,7 @@ void main (int argc, char **argv)
                 case 'l': lowerCF = atoi(optarg); break;
                 case 'u': upperCF = atoi(optarg); break;
                 case 'n': numChannels = atoi(optarg); break;
-                case 'v': verboseOutput=TRUE; break;
+                case 'v': verboseOutput = TRUE; break;
                 case '?': ok = FALSE;
                 }
         }
@@ -364,18 +364,18 @@ void main (int argc, char **argv)
         }
 
         initOuterMiddleEar();
-        initChannels(lowerCF,upperCF,numChannels);
+        initChannels(lowerCF, upperCF, numChannels);
         initHairCells();
 
         /* do the filtering */
 
         tim=0; frame=0;
-        while (scanf("%f",&sigVal)!=EOF) {
+        while (scanf("%f", &sigVal) != EOF) {
                 for (chan=0; chan<numChannels; chan++) {
                         updateCochlea(&cochlea[chan],sigVal,tim);
                 }
                 tim++;
-                if ((tim % OFFSET)==0) {
+                if ((tim % OFFSET) == 0) {
                         fprintf(stderr, "computing correlogram at T=%d\n", tim);
                         for (chan=0; chan<numChannels; chan++) {
                                 for (delay=0; delay<MAX_DELAY; delay++) {
@@ -394,9 +394,11 @@ void main (int argc, char **argv)
                                 exit(0);
                         }
                         fprintf(ofp, "%d %d\n", MAX_DELAY, numChannels);
-                        for (chan = 0; chan < numChannels; chan++)
-                                for (delay=0; delay<MAX_DELAY; delay++)
+                        for (chan = 0; chan < numChannels; chan++) {
+                                for (delay=0; delay<MAX_DELAY; delay++) {
                                         fprintf(ofp,"%1.2f\n",acg[delay][chan]/(MAX_WINDOW*50.0));
+                                }
+                        }
                         fclose(ofp);
                 }
         }

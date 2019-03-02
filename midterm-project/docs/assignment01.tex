@@ -179,8 +179,20 @@ Finally, all I had to do was find the index of the maximum value between 45 and
 125 ms in the summary correlogram. This was accomplished using the max function
 in MATLAB which returns both the value and the index of the max value in the
 summary correlogram. Using the index, I was able to find the fundamental
-frequency through its inverse. For "ar0.dat", the fundamental frequency was
-100 Hz. Meanwhile for "er4.dat", the fundamental frequency was 126.5823 Hz.
+frequency through its inverse. Below is the chunk of code I used to perform
+fundamental frequency detection:
+
+\begin{minted}{matlab}
+function f = fundamental_frequency(SAMPLING_FQ, F0_MIN, F0_MAX, summary)
+    starting_bound = int64(SAMPLING_FQ / F0_MAX);
+    ending_bound = int64(SAMPLING_FQ / F0_MIN);
+    [~, i] = max(summary(starting_bound:ending_bound));
+    f = (1.0 / double(i + starting_bound - 1)) * SAMPLING_FQ;
+end
+\end{minted}
+
+For "ar0.dat", the fundamental frequency was 100 Hz. Meanwhile for "er4.dat",
+the fundamental frequency was 126.5823 Hz.
 
 \end{homeworkProblem}
 

@@ -141,6 +141,14 @@ for a particular filter.
 From there, I generated both a correlogram and a summary correlogram from the
 matrix. To do so, I created a correlogram matrix of size 125x64. Naturally,
 the 64 corresponds to the channel number and 125 corresponds to the maximum lag.
+To populate the correlogram matrix, I iterated over each channel and delay
+to accumulate the autocorrelation for the given window. In this case, I had to
+perform 200 sums for the 200 step window.
+
+While producing the correlogram, I also took the opportunity to create the
+summary correlogram. The summary correlogram is produced by accumulating
+autocorrelations across channels. As a result, the final graph is a single curve
+which contains information that can be used for peak detection.
 
 \end{homeworkProblem}
 

@@ -5,6 +5,8 @@
 \usepackage{minted}
 \usepackage{color}
 \usepackage[english]{babel}
+\usepackage{graphicx}
+\graphicspath{ {../assets/} }
 
 %
 % Basic Document Settings
@@ -167,6 +169,15 @@ function [acg, summary] = correlogram(data, MAX_DELAY, CHANNELS, MAX_WINDOW)
     end
 end
 \end{minted}
+
+The following images are the summary correlograms generated from the output
+of the code above:
+
+\begin{figure}[H]
+\includegraphics[scale=.75]{ar0-summary-correlogram}
+\includegraphics[scale=.75]{er4-summary-correlogram}
+\centering
+\end{figure}
 
 To perform peak detection, I had to determine safe bounds for searching. After
 all, each time step in the lag corresponds to a frequency, and time steps at

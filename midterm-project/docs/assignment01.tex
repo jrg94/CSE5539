@@ -136,7 +136,11 @@ to the output of the 64 gammatone filters.
 In order to parse the file, I used a combination of MATLAB's load and reshape
 functions. These functions allowed me to convert each data file from a stream
 to a 64x325 matrix. To be clear, each row contained the entire time series data
-for a particular filter.  
+for a particular filter.
+
+From there, I generated both a correlogram and a summary correlogram from the
+matrix. To do so, I created a correlogram matrix of size 125x64. Naturally,
+the 64 corresponds to the channel number and 125 corresponds to the maximum lag.
 
 \end{homeworkProblem}
 

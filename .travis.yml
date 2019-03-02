@@ -11,7 +11,7 @@ cache:
     - /tmp/texlive
     - $HOME/.texlive
 
-before_script: cd $TRAVIS_BUILD_DIR/proposal/
+before_script: cd $TRAVIS_BUILD_DIR/term-project/proposal/
 
 script:
   - pdflatex --shell-escape ./grifski-term-project-proposal.tex

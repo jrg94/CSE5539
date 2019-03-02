@@ -15,6 +15,7 @@ ar0_grid = reshape(ar0, [64, 325]);
 
 starting_bound = int64(SAMPLING_FQ / F0_MAX);
 ending_bound = int64(SAMPLING_FQ / F0_MIN);
+max(summary(starting_bound:ending_bound, 1))
 
 plot(summary)
 xlabel("Lag Index")

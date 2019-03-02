@@ -47,14 +47,14 @@
 %
 
 \newcommand{\enterProblemHeader}[1]{
-    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
-    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{}{Assignment \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Assignment \arabic{#1} (continued)}{Assignment \arabic{#1} continued on next page\ldots}\nobreak{}
 }
 
 \newcommand{\exitProblemHeader}[1]{
-    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Assignment \arabic{#1} (continued)}{Assignment \arabic{#1} continued on next page\ldots}\nobreak{}
     \stepcounter{#1}
-    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+    \nobreak\extramarks{Assignment \arabic{#1}}{}\nobreak{}
 }
 
 \setcounter{secnumdepth}{0}
@@ -149,13 +149,15 @@ perform 200 sums for the 200 step window. The following images are the
 resulting correlograms using the first 20 odd-numbered channels:
 
 \begin{figure}[H]
-\includegraphics[scale=.25]{ar0-correlogram}
-\centering
+  \caption{The ar0 Correlogram}
+  \includegraphics[scale=.25]{ar0-correlogram}
+  \centering
 \end{figure}
 
 \begin{figure}[H]
-\includegraphics[scale=.25]{er4-correlogram}
-\centering
+  \caption{The er4 Correlogram}
+  \includegraphics[scale=.25]{er4-correlogram}
+  \centering
 \end{figure}
 
 While producing the correlogram, I also took the opportunity to create the

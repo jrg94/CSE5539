@@ -11,7 +11,7 @@ UPPER_FQ = 4000; % Hz
 ar0 = load("data/ar0.dat");
 ar0_grid = reshape(ar0, [64, 325]); 
 
-[acg, summary] = wang(ar0_grid, MAX_DELAY, CHANNELS, MAX_WINDOW);
+[acg, summary] = correlogram(ar0_grid, MAX_DELAY, CHANNELS, MAX_WINDOW);
 f0_ar0 = fundamental_frequency(SAMPLING_FQ, F0_MIN, F0_MAX, summary);
 
 plot(summary)

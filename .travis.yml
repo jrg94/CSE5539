@@ -25,7 +25,7 @@ deploy:
     secure: ${GITHUB_TOKEN}
   file:
     - $TRAVIS_BUILD_DIR/term-project/proposal/grifski-term-project-proposal.pdf
-    - $TRAVIS_BUILD_DIR/midterm-project/docs/assignment01.tex
+    - $TRAVIS_BUILD_DIR/midterm-project/docs/assignment01.pdf
     
   skip_cleanup: true
   on:

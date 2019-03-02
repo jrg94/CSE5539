@@ -131,7 +131,12 @@ files contained the result of some signal processing using a bank of gammatone
 filters and the Meddis hair cell model. In terms of formatting, each file
 contained 64x325 data points. Specifically, the data was organized in order
 of 325 time steps. For each time step, there were 64 data points corresponding
-to the output of the 64 gammatone filters. 
+to the output of the 64 gammatone filters.
+
+In order to parse the file, I used a combination of MATLAB's load and reshape
+functions. These functions allowed me to convert each data file from a stream
+to a 64x325 matrix. To be clear, each row contained the entire time series data
+for a particular filter.  
 
 \end{homeworkProblem}
 

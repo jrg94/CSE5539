@@ -12,9 +12,12 @@ f0_ar0 = fundamental_frequency(SAMPLING_FQ, F0_MIN, F0_MAX, summary);
 
 er4 = load("data/er4.dat");
 er4_grid = reshape(er4, [64, 325]); 
-[~, summary] = correlogram(er4_grid, MAX_DELAY, CHANNELS, MAX_WINDOW);
+[acg, summary] = correlogram(er4_grid, MAX_DELAY, CHANNELS, MAX_WINDOW);
 f0_er4 = fundamental_frequency(SAMPLING_FQ, F0_MIN, F0_MAX, summary);
 
-plot(summary);
-title("Summary Correlogram: er4");
+normA = acg - min(acg(:));
+normA = normA ./ max(normA(:));
+
+stackedplot(fliplr(normA(:, 1:2:40)));
+title("Correlogram: er4");
 xlabel("Time Lab (ms)");

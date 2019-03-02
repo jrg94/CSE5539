@@ -145,7 +145,14 @@ matrix. To do so, I created a correlogram matrix of size 125x64. Naturally,
 the 64 corresponds to the channel number and 125 corresponds to the maximum lag.
 To populate the correlogram matrix, I iterated over each channel and delay
 to accumulate the autocorrelation for the given window. In this case, I had to
-perform 200 sums for the 200 step window.
+perform 200 sums for the 200 step window. The following images are the
+resulting correlograms using the first 20 odd-numbered channels:
+
+\begin{figure}[H]
+\includegraphics[scale=.25]{ar0-correlogram}
+\includegraphics[scale=.25]{er4-correlogram}
+\centering
+\end{figure}
 
 While producing the correlogram, I also took the opportunity to create the
 summary correlogram. The summary correlogram is produced by accumulating

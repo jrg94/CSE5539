@@ -13,5 +13,8 @@ ar0_grid = reshape(ar0, [64, 325]);
 
 [acg, summary] = wang(ar0_grid, MAX_DELAY, CHANNELS, MAX_WINDOW);
 
+starting_bound = int64(SAMPLING_FQ / F0_MAX);
+ending_bound = int64(SAMPLING_FQ / F0_MIN);
+
 plot(summary)
 xlabel("Lag Index")

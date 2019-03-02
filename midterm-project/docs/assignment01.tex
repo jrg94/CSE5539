@@ -150,6 +150,20 @@ summary correlogram. The summary correlogram is produced by accumulating
 autocorrelations across channels. As a result, the final graph is a single curve
 which contains information that can be used for peak detection.
 
+To perform peak detection, I had to determine safe bounds for searching. After
+all, each time step in the lag corresponds to a frequency, and time steps at
+0 would constitute a division by 0. Naturally, I wouldn't want to make the
+mistake of including values close to 0. Instead, I chose to limit the range
+to frequencies between 80 Hz and 222 Hz. These values correspond to time lags
+of 125 and 45 respectively.
+
+Finally, all I had to do was find the index of the maximum value between 45 and
+125 ms in the summary correlogram. This was accomplished using the max function
+in MATLAB which returns both the value and the index of the max value in the
+summary correlogram. Using the index, I was able to find the fundamental
+frequency through its inverse. For "ar0.dat", the fundamental frequency was
+100 Hz. Meanwhile for "er4.dat", the fundamental frequency was 126.5823 Hz.
+
 \end{homeworkProblem}
 
 \pagebreak

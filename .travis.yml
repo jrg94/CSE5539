@@ -11,18 +11,22 @@ cache:
     - /tmp/texlive
     - $HOME/.texlive
 
-before_script: cd $TRAVIS_BUILD_DIR/proposal/
-
 script:
+  - cd $TRAVIS_BUILD_DIR/term-project/proposal/
   - pdflatex --shell-escape ./grifski-term-project-proposal.tex
   - pdflatex --shell-escape ./grifski-term-project-proposal.tex
+  - cd $TRAVIS_BUILD_DIR/midterm-project/docs/
+  - pdflatex --shell-escape ./assignment01.tex
+  - pdflatex --shell-escape ./assignment01.tex
 
 deploy:
   provider: releases
   api_key:
     secure: ${GITHUB_TOKEN}
   file:
-    - ./grifski-term-project-proposal.pdf
+    - $TRAVIS_BUILD_DIR/term-project/proposal/grifski-term-project-proposal.pdf
+    - $TRAVIS_BUILD_DIR/midterm-project/docs/assignment01.tex
+    
   skip_cleanup: true
   on:
     tags: true

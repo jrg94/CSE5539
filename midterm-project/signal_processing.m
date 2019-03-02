@@ -12,11 +12,7 @@ ar0 = load("data/ar0.dat");
 ar0_grid = reshape(ar0, [64, 325]); 
 
 [acg, summary] = wang(ar0_grid, MAX_DELAY, CHANNELS, MAX_WINDOW);
-
-starting_bound = int64(SAMPLING_FQ / F0_MAX);
-ending_bound = int64(SAMPLING_FQ / F0_MIN);
-[m, i] = max(summary(starting_bound:ending_bound));
-frequency = (1.0 / double(i + starting_bound - 1)) * SAMPLING_FQ
+f0_ar0 = fundamental_frequency(SAMPLING_FQ, F0_MIN, F0_MAX, summary);
 
 plot(summary)
 xlabel("Lag Index")

@@ -1,41 +1,54 @@
-from musiparse.music_file_set import MusicFileSet
 import os
 
+from musiparse.music_file_set import MusicFileSet
+from musiparse import m4a_parse
+
+OUT_PATH = "..\\data\\%s_%d.json"
 SAMPLE_PATH = "E:\\Plex\\Music"
+GENRE_TIERS = [5, 25, 100]
+MASTER_TIERS = [100, 500, 1000]
 
 
-def master_json_dump(limit: int, genre=None):
+def master_json_dump(limit: int):
     """
     Dumps JSON of all songs meeting some genre up to some limit.
 
     :param limit: the maximum number of songs to store
-    :param genre: the genre of songs to store
     :return: None
     """
-    print("Begin: %d %s songs" % (limit, genre))
-    music_set = MusicFileSet()
-    if genre:
-        path = "..\\data\\%s_%d.json" % (genre.lower(), limit)
-    else:
-        path = "..\\data\\master_%d.json" % limit
+    print("*** %d songs ***" % limit)
+    path = OUT_PATH % ("master", limit)
     if not os.path.exists(path):
-        music_set.add_all(SAMPLE_PATH, limit=limit, genre=genre)
+        music_set = MusicFileSet()
+        music_set.add_all(SAMPLE_PATH, limit=limit)
         music_set.to_json(path)
+        generate_genre_samples(music_set)
+
+
+def generate_genre_samples(music_set: MusicFileSet):
+    """
+    From a music file set, we dump all the associated subset to files.
+
+    :param music_set: a set of music files data
+    :return: None
+    """
+    for genre in m4a_parse.GENRES:
+        genre_set = music_set.filter_by_genre(genre)
+        for tier in GENRE_TIERS:
+            sub_genre_set = genre_set.truncate(tier)
+            path = OUT_PATH % (genre.lower(), tier)
+            if len(sub_genre_set.collection) == tier:
+                sub_genre_set.to_json(path)
 
 
 def dump_all_data():
-    master_json_dump(5, "Jazz")
-    master_json_dump(25, "Jazz")
-    #master_json_dump(100, "Jazz")
-    master_json_dump(5, "Rock")
-    master_json_dump(25, "Rock")
-    #master_json_dump(100, "Rock")
-    master_json_dump(5, "Alternative")
-    master_json_dump(25, "Alternative")
-    #master_json_dump(100, "Alternative")
-    master_json_dump(100)
-    master_json_dump(500)
-    master_json_dump(1000)
+    """
+    A convenience function for dumping json data of music.
+
+    :return: None
+    """
+    for tier in MASTER_TIERS:
+        master_json_dump(tier)
 
 
 def main():

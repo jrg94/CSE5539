@@ -92,7 +92,12 @@ class MusicFile:
         self._sample_description_table = None
         self._music_data = None
 
-    def _get_data_dir(self):
+    def _get_data_dir(self) -> str:
+        """
+        A helper method for getting the data directory for this song.
+
+        :return: a path to this song in the data directory
+        """
         return "data\\" + "\\".join(self.path.split("\\")[-3:-1])
 
     def to_wav(self):

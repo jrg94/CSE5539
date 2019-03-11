@@ -30,5 +30,11 @@ class MusicFileSet:
         return json.dumps([file.__dict__ for file in self.collection], indent=4)
 
     def to_json(self, path: str):
+        """
+        Dumps the set of music files to JSON for interpretation in D3.
+
+        :param path: a path to a string file
+        :return: None
+        """
         with open(path, "w") as out:
             json.dump([file.__dict__ for file in self.collection], out, indent=4)

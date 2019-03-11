@@ -6,7 +6,7 @@ from musiparse import m4a_parse
 OUT_PATH = "..\\data\\%s_%d.json"
 SAMPLE_PATH = "E:\\Plex\\Music"
 GENRE_TIERS = [5, 25, 100]
-MASTER_TIERS = [100, 500, 1000]
+MASTER_TIERS = [100, 500, 1000, 5000]
 
 
 def master_json_dump(limit: int):

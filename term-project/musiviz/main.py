@@ -1,4 +1,3 @@
-from musiviz.music_file import MusicFile
 from musiviz.music_file_set import MusicFileSet
 import os
 
@@ -11,7 +10,7 @@ def main():
         for file in files:
             if file.split(".")[-1] == "m4a":
                 music_set.add(os.path.join(path, file))
-    print(music_set)
+    print(music_set.as_json_text())
 
 
 if __name__ == '__main__':

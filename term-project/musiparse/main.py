@@ -1,5 +1,3 @@
-import os
-
 from musiparse.music_file_set import MusicFileSet
 
 SAMPLE_PATH = "E:\\Plex\\Music"
@@ -7,8 +5,8 @@ SAMPLE_PATH = "E:\\Plex\\Music"
 
 def main():
     music_set = MusicFileSet()
-    music_set.add_all(SAMPLE_PATH, limit=5)
-    music_set.to_json("..\\data\\master.json")
+    music_set.add_all(SAMPLE_PATH, limit=5, genre="Jazz")
+    music_set.to_json("..\\data\\jazz_5.json")
 
 
 if __name__ == '__main__':

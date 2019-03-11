@@ -38,11 +38,11 @@ class MusicFileSet:
         for path, dirs, files in os.walk(path):
             for file in files:
                 if file.split(".")[-1] == "m4a":
-                    print("Processing '%s'" % file)
+                    count += 1
+                    print("Processing #%d: '%s'" % (count, file))
                     try:
                         self.add(os.path.join(path, file), genre)
-                        count += 1
-                        if limit and count >= limit:
+                        if limit and len(self.collection) >= limit:
                             return
                     except:
                         print("- Failed to process '%s'" % file)

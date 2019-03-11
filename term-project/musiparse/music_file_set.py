@@ -1,4 +1,4 @@
-from musiviz.music_file import MusicFile
+from musiparse.music_file import MusicFile
 import json
 
 

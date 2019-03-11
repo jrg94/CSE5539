@@ -1,4 +1,4 @@
-from musiviz.music_file_set import MusicFileSet
+from musiparse.music_file_set import MusicFileSet
 import os
 
 SAMPLE_PATH = "E:\\Plex\\Music"
@@ -14,7 +14,7 @@ def main():
                     music_set.add(os.path.join(path, file))
                 except:
                     print("- Failed to process '%s'" % file)
-    music_set.to_json("data\\master.json")
+    music_set.to_json("..\\data\\master.json")
 
 
 if __name__ == '__main__':

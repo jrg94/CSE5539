@@ -7,7 +7,7 @@ import io
 import struct
 from pydub import AudioSegment
 
-from musiviz import m4a_parse
+from musiparse import m4a_parse
 
 
 class MusicFile:
@@ -101,7 +101,7 @@ class MusicFile:
 
         :return: a path to this song in the data directory
         """
-        return "data\\" + "\\".join(self.path.split("\\")[-3:-1])
+        return "..\\data\\" + "\\".join(self.path.split("\\")[-3:-1])
 
     def to_wav(self):
         """

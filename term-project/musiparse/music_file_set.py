@@ -1,4 +1,5 @@
 import json
+import os
 
 from musiparse.music_file import MusicFile
 
@@ -11,16 +12,35 @@ class MusicFileSet:
     def __str__(self):
         return "*************\n".join([str(file) for file in self.collection])
 
-    def add(self, path: str):
+    def add(self, path: str, genre=None):
         """
         Adds a song by path to the collection.
 
         :param path: the file path of the song
+        :param genre: a genre filter
         :return: None
         """
         song = MusicFile(path)
         song.load()
-        self.collection.append(song)
+        if not genre or genre == song.genre:
+            self.collection.append(song)
+
+    def add_all(self, path: str, genre=None):
+        """
+        A convenience method for adding all files from a path recursively.
+
+        :param path: a path of files
+        :param genre: the genre to filter by
+        :return: None
+        """
+        for path, dirs, files in os.walk(path):
+            for file in files:
+                if file.split(".")[-1] == "m4a":
+                    print("Processing '%s'" % file)
+                    try:
+                        self.add(os.path.join(path, file), genre)
+                    except:
+                        print("- Failed to process '%s'" % file)
 
     def as_json_text(self) -> str:
         """

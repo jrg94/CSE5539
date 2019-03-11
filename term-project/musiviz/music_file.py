@@ -27,6 +27,7 @@ class MusicFile:
         self.owner = None
         self.purchase_date = None
         self.number_of_channels = None
+        self.dBFS = None
         self._raw_json = None
         self._chunk_offset_table = None
         self._sample_to_chunk_table = None
@@ -145,6 +146,11 @@ class MusicFile:
         self._extract_sample_tables()
         self._extract_technical_data()
         self._extract_raw_music_data()
+        self._extract_data_via_pydub()
+
+    def _extract_data_via_pydub(self):
+        song = AudioSegment.from_file(self.path)
+        self.dBFS = song.dBFS
 
     def _extract_raw_music_data(self):
         """

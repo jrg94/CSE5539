@@ -21,13 +21,14 @@ class MusicFile:
         self.track_number = None
         self.total_tracks = None
         self.content_rating = None
-        self.sample_rate = None
-        self.sample_size = None
-        self.length = None
         self.owner = None
         self.purchase_date = None
-        self.number_of_channels = None
-        self.dBFS = None
+        self.sample_rate = None  # Number of samples per second (Hz)
+        self.sample_size = None  # Number of bytes in each sample
+        self.length = None  # Duration of song in seconds
+        self.number_of_channels = None  # Mono = 1; Stereo = 2
+        self.dBFS = None  # Loudness of song
+        self.rms = None  # Loudness of song
         self._raw_json = None
         self._chunk_offset_table = None
         self._sample_to_chunk_table = None
@@ -151,6 +152,7 @@ class MusicFile:
     def _extract_data_via_pydub(self):
         song = AudioSegment.from_file(self.path)
         self.dBFS = song.dBFS
+        self.rms = song.rms
 
     def _extract_raw_music_data(self):
         """

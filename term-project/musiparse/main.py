@@ -7,7 +7,7 @@ SAMPLE_PATH = "E:\\Plex\\Music"
 
 def main():
     music_set = MusicFileSet()
-    music_set.add_all(SAMPLE_PATH)
+    music_set.add_all(SAMPLE_PATH, limit=5)
     music_set.to_json("..\\data\\master.json")
 
 

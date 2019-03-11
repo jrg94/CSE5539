@@ -25,20 +25,25 @@ class MusicFileSet:
         if not genre or genre == song.genre:
             self.collection.append(song)
 
-    def add_all(self, path: str, genre=None):
+    def add_all(self, path: str, genre=None, limit=None):
         """
         A convenience method for adding all files from a path recursively.
 
         :param path: a path of files
         :param genre: the genre to filter by
+        :param limit: the max number of items to read
         :return: None
         """
+        count = 0
         for path, dirs, files in os.walk(path):
             for file in files:
                 if file.split(".")[-1] == "m4a":
                     print("Processing '%s'" % file)
                     try:
                         self.add(os.path.join(path, file), genre)
+                        count += 1
+                        if limit and count >= limit:
+                            return
                     except:
                         print("- Failed to process '%s'" % file)
 

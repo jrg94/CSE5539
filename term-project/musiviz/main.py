@@ -10,7 +10,7 @@ def main():
         for file in files:
             if file.split(".")[-1] == "m4a":
                 music_set.add(os.path.join(path, file))
-    print(music_set.as_json_text())
+    music_set.to_json("example.json")
 
 
 if __name__ == '__main__':

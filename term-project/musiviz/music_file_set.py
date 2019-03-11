@@ -28,3 +28,7 @@ class MusicFileSet:
         :return: the music set as json
         """
         return json.dumps([file.__dict__ for file in self.collection], indent=4)
+
+    def to_json(self, path: str):
+        with open(path, "w") as out:
+            json.dump([file.__dict__ for file in self.collection], out, indent=4)

@@ -92,13 +92,16 @@ class MusicFile:
         self._sample_description_table = None
         self._music_data = None
 
+    def _get_data_dir(self):
+        return "data\\" + "\\".join(self.path.split("\\")[-3:-1])
+
     def to_wav(self):
         """
         Converts input file to wave
 
         :return:
         """
-        data_dir = "data\\" + "\\".join(self.path.split("\\")[-3:-1])
+        data_dir = self._get_data_dir()
         pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)
         wav_name = self.path.split("\\")[-1].replace(".m4a", ".wav")
         AudioSegment.from_file(self.path).export(os.path.join(data_dir, wav_name), format="wav")
@@ -133,7 +136,7 @@ class MusicFile:
 
         :return: None
         """
-        data_dir = "data\\" + "\\".join(self.path.split("\\")[-3:-1])
+        data_dir = self._get_data_dir()
         json_name = self.path.split("\\")[-1].replace(".m4a", ".json")
         pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)
         with open(os.path.join(data_dir, json_name), "w") as f:

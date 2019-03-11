@@ -1,5 +1,6 @@
-from musiparse.music_file import MusicFile
 import json
+
+from musiparse.music_file import MusicFile
 
 
 class MusicFileSet:

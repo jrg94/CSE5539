@@ -1,5 +1,6 @@
-from musiparse.music_file_set import MusicFileSet
 import os
+
+from musiparse.music_file_set import MusicFileSet
 
 SAMPLE_PATH = "E:\\Plex\\Music"
 

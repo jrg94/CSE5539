@@ -1,10 +1,11 @@
+import base64
+import io
 import json
 import os
 import pathlib
-import base64
-import wave
-import io
 import struct
+import wave
+
 from pydub import AudioSegment
 
 from musiparse import m4a_parse
@@ -28,7 +29,7 @@ class MusicFile:
         self.length = None  # Duration of song in seconds
         self.number_of_channels = None  # Mono = 1; Stereo = 2
         self.dBFS = None  # Loudness of song
-        self.max_dBFS = None # Loudness of song (peak)
+        self.max_dBFS = None  # Loudness of song (peak)
         self.rms = None  # Loudness of song (average)
         self.max_amplitude = None  # Highest amplitude of any sample
         self._raw_json = None
@@ -41,17 +42,17 @@ class MusicFile:
 
     def __str__(self):
         output = (
-                    "Title: %s\n"
-                    "Artist: %s\n"
-                    "Album: %s\n"
-                    "Genre: %s\n"
-                    "Track Number: %s / %s\n"
-                    "Sample Rate: %s Hz\n"
-                    "Length: %s\n"
-                    "Content Rating: %s\n"
-                    "Owner: %s\n"
-                    "Purchase Date: %s\n"
-                  )
+            "Title: %s\n"
+            "Artist: %s\n"
+            "Album: %s\n"
+            "Genre: %s\n"
+            "Track Number: %s / %s\n"
+            "Sample Rate: %s Hz\n"
+            "Length: %s\n"
+            "Content Rating: %s\n"
+            "Owner: %s\n"
+            "Purchase Date: %s\n"
+        )
         formatting = (
             self.title,
             self.artist,
@@ -189,7 +190,9 @@ class MusicFile:
 
         :return: None
         """
-        sample_tables = self._raw_json["data"]["moov"]["children"]["trak"]["children"]["mdia"]["children"]["minf"]["children"]["stbl"]["children"]
+        sample_tables = \
+        self._raw_json["data"]["moov"]["children"]["trak"]["children"]["mdia"]["children"]["minf"]["children"]["stbl"][
+            "children"]
         self._chunk_offset_table = sample_tables["stco"]["entries"]
         self._sample_to_chunk_table = sample_tables["stsc"]["entries"]
         self._sample_size_table = sample_tables["stsz"]["entries"]

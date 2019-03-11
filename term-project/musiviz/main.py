@@ -11,4 +11,4 @@ if __name__ == '__main__':
                 curr = MusicFile(os.path.join(path, file))
                 curr.load()
                 print("**********")
-                print(curr)
+                print(curr.as_json_text())

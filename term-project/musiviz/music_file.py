@@ -50,7 +50,7 @@ class MusicFile:
                     "Length: %s\n"
                     "Content Rating: %s\n"
                     "Owner: %s\n"
-                    "Purchase Date: %s"
+                    "Purchase Date: %s\n"
                   )
         formatting = (
             self.title,
@@ -66,6 +66,9 @@ class MusicFile:
             self.purchase_date
         )
         return output % formatting
+
+    def __repr__(self):
+        return self.__str__()
 
     def load(self):
         """

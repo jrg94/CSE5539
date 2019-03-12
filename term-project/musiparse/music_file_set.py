@@ -12,6 +12,20 @@ class MusicFileSet:
     def __str__(self):
         return "*************\n".join([str(file) for file in self.collection])
 
+    def load_from_json(self, file_path: str):
+        """
+        A helper method for generating a MusicFileSet from json.
+
+        :param file_path: a file path to a json file
+        :return: None
+        """
+        with open(file_path) as f:
+            collection = json.load(f)
+            for item in collection:
+                music_file = MusicFile(item["path"])
+                music_file.__dict__ = item
+                self.collection.append(music_file)
+
     def filter_by_genre(self, genre: str) -> 'MusicFileSet':
         """
         Generates a new MusicFileSet from the original collection.

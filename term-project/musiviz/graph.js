@@ -8,6 +8,59 @@ d3.select("body").append("svg")
 
 var svg = d3.select("svg");
 
+function genreHistogram(data) {
+
+    var mapping = []
+    data.forEach(function(d) {
+        var found = false;
+        for (var i = 0; i < mapping.length && !found; i++) {
+            if (mapping[i].genre == d.genre) {
+                mapping[i].count += 1;
+                found = true;
+            }
+        }
+        if (!found) {
+            mapping.push({"genre": d.genre, "count": 1})
+        }
+    });
+    mapping.sort((a, b) => a.count - b.count)
+    mapping.filter((d) => d.genre != null)
+    console.log(mapping)
+
+    var xScale = d3.scaleBand()
+        .domain(mapping.map(function(d) { return d.genre; }))
+        .range([padding, width - padding * 2])
+        .padding(.1);
+
+    var yScale = d3.scaleLinear()
+        .domain([0, d3.max(mapping, function (d) { return d.count; })])
+        .range([height - padding, padding]);
+
+    svg.append("g")
+	    .attr("transform", "translate(0," + (height - padding) + ")")
+	    .call(d3.axisBottom(xScale))
+
+	// Draw y-axis
+    svg.append("g")
+    	.attr("transform", "translate(" + padding + ", 0)")
+        .call(d3.axisLeft(yScale));
+
+    svg.selectAll(".bar")
+        .data(mapping)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function (d) {
+            return xScale(d.genre);
+        })
+        .attr("y", function (d) {
+            return yScale(d.count);
+        })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function (d) {
+            return height - yScale(d.count) - padding;
+        });
+}
+
 /**
  * Generates the release date vs. duration graph on the current SVG.
  *

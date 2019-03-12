@@ -9,9 +9,7 @@ d3.select("body").append("svg")
 
 var svg = d3.select("svg");
 
-d3.json("../data/master_5000.json").then(lengthVsDate);
-
-function lengthVsDate(data) {
+function releaseDateVsDuration(data) {
     data = data.filter(filter)
 
     data.forEach(function(d) {

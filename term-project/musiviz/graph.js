@@ -101,6 +101,15 @@ function releaseDateVsDuration(data) {
             return d;
         });
 
+    // Draw title
+    svg.append("text")
+	   .attr("class", "title")
+	   .attr("dy", padding / 2)
+	   .attr("dx", ((width/2) - padding / 2))
+	   .style("text-anchor", "middle")
+	   .style("font-size", "20px")
+       .style("text-decoration", "underline")
+	   .text("Purchase Date vs. Duration")
 }
 
 /**

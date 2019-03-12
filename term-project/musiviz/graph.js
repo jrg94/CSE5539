@@ -290,6 +290,11 @@ function drawTitle(title) {
 	    .text(title)
 }
 
+/**
+ * Draws a legend on the master svg
+ *
+ * @param {Object} colorScale - a color scale
+ */
 function drawLegend(colorScale) {
     // Create legend
     var legend = svg.selectAll(".legend")

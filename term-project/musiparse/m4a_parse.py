@@ -1,7 +1,7 @@
-import struct
-import io
 import base64
+import io
 import os
+import struct
 
 HEADER_SIZE = 8
 

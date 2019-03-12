@@ -1,13 +1,14 @@
+import base64
+import io
 import json
 import os
 import pathlib
-import base64
-import wave
-import io
 import struct
+import wave
+
 from pydub import AudioSegment
 
-from musiviz import m4a_parse
+from musiparse import m4a_parse
 
 
 class MusicFile:
@@ -21,12 +22,16 @@ class MusicFile:
         self.track_number = None
         self.total_tracks = None
         self.content_rating = None
-        self.sample_rate = None
-        self.sample_size = None
-        self.length = None
         self.owner = None
         self.purchase_date = None
-        self.number_of_channels = None
+        self.sample_rate = None  # Number of samples per second (Hz)
+        self.sample_size = None  # Number of bytes in each sample
+        self.length = None  # Duration of song in seconds
+        self.number_of_channels = None  # Mono = 1; Stereo = 2
+        self.dBFS = None  # Loudness of song
+        self.max_dBFS = None  # Loudness of song (peak)
+        self.rms = None  # Loudness of song (average)
+        self.max_amplitude = None  # Highest amplitude of any sample
         self._raw_json = None
         self._chunk_offset_table = None
         self._sample_to_chunk_table = None
@@ -37,17 +42,17 @@ class MusicFile:
 
     def __str__(self):
         output = (
-                    "Title: %s\n"
-                    "Artist: %s\n"
-                    "Album: %s\n"
-                    "Genre: %s\n"
-                    "Track Number: %s / %s\n"
-                    "Sample Rate: %s Hz\n"
-                    "Length: %s\n"
-                    "Content Rating: %s\n"
-                    "Owner: %s\n"
-                    "Purchase Date: %s"
-                  )
+            "Title: %s\n"
+            "Artist: %s\n"
+            "Album: %s\n"
+            "Genre: %s\n"
+            "Track Number: %s / %s\n"
+            "Sample Rate: %s Hz\n"
+            "Length: %s\n"
+            "Content Rating: %s\n"
+            "Owner: %s\n"
+            "Purchase Date: %s\n"
+        )
         formatting = (
             self.title,
             self.artist,
@@ -62,6 +67,9 @@ class MusicFile:
             self.purchase_date
         )
         return output % formatting
+
+    def __repr__(self):
+        return self.__str__()
 
     def load(self):
         """
@@ -88,13 +96,21 @@ class MusicFile:
         self._sample_description_table = None
         self._music_data = None
 
+    def _get_data_dir(self) -> str:
+        """
+        A helper method for getting the data directory for this song.
+
+        :return: a path to this song in the data directory
+        """
+        return "..\\data\\" + "\\".join(self.path.split("\\")[-3:-1])
+
     def to_wav(self):
         """
         Converts input file to wave
 
         :return:
         """
-        data_dir = "data\\" + "\\".join(self.path.split("\\")[-3:-1])
+        data_dir = self._get_data_dir()
         pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)
         wav_name = self.path.split("\\")[-1].replace(".m4a", ".wav")
         AudioSegment.from_file(self.path).export(os.path.join(data_dir, wav_name), format="wav")
@@ -129,7 +145,7 @@ class MusicFile:
 
         :return: None
         """
-        data_dir = "data\\" + "\\".join(self.path.split("\\")[-3:-1])
+        data_dir = self._get_data_dir()
         json_name = self.path.split("\\")[-1].replace(".m4a", ".json")
         pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)
         with open(os.path.join(data_dir, json_name), "w") as f:
@@ -145,6 +161,19 @@ class MusicFile:
         self._extract_sample_tables()
         self._extract_technical_data()
         self._extract_raw_music_data()
+        self._extract_data_via_pydub()
+
+    def _extract_data_via_pydub(self):
+        """
+        A help method which leverages pydub to extract some sound related data.
+
+        :return: None
+        """
+        song = AudioSegment.from_file(self.path)
+        self.dBFS = song.dBFS
+        self.rms = song.rms
+        self.max_amplitude = song.max
+        self.max_dBFS = song.max_dBFS
 
     def _extract_raw_music_data(self):
         """
@@ -161,7 +190,9 @@ class MusicFile:
 
         :return: None
         """
-        sample_tables = self._raw_json["data"]["moov"]["children"]["trak"]["children"]["mdia"]["children"]["minf"]["children"]["stbl"]["children"]
+        sample_tables = \
+        self._raw_json["data"]["moov"]["children"]["trak"]["children"]["mdia"]["children"]["minf"]["children"]["stbl"][
+            "children"]
         self._chunk_offset_table = sample_tables["stco"]["entries"]
         self._sample_to_chunk_table = sample_tables["stsc"]["entries"]
         self._sample_size_table = sample_tables["stsz"]["entries"]

@@ -326,6 +326,11 @@ function timeToSeconds(time) {
     return hoursToSeconds + minutesToSeconds + Number(elements[2]);
 }
 
+/**
+ * Draws a title on the master SVG
+ *
+ * @param {string} title - the title to be drawn
+ */
 function drawTitle(title) {
     svg.append("text")
 	    .attr("class", "title")

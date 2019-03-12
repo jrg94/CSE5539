@@ -12,6 +12,9 @@ function genreHistogram(data) {
 
     var mapping = []
     data.forEach(function(d) {
+        if (d.genre == null) {
+            d.genre = "None";
+        }
         var found = false;
         for (var i = 0; i < mapping.length && !found; i++) {
             if (mapping[i].genre == d.genre) {
@@ -24,7 +27,6 @@ function genreHistogram(data) {
         }
     });
     mapping.sort((a, b) => a.count - b.count)
-    mapping.filter((d) => d.genre != null)
     console.log(mapping)
 
     var xScale = d3.scaleBand()
@@ -39,6 +41,11 @@ function genreHistogram(data) {
     svg.append("g")
 	    .attr("transform", "translate(0," + (height - padding) + ")")
 	    .call(d3.axisBottom(xScale))
+	    .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-35)");
 
 	// Draw y-axis
     svg.append("g")
@@ -49,6 +56,7 @@ function genreHistogram(data) {
         .data(mapping)
         .enter().append("rect")
         .attr("class", "bar")
+        .attr("fill", "#dc3912")
         .attr("x", function (d) {
             return xScale(d.genre);
         })

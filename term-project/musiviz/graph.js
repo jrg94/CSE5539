@@ -58,7 +58,7 @@ function durationVsReleaseDate(data) {
     svg.append("text")
         .attr("transform", "translate(" + ((width/2) - padding / 2) + " ," + (height - 10) + ")")
         .style("text-anchor", "middle")
-        .text("Purchase Date (Year)");
+        .text("Release Date (Year)");
 
     // Draw y-axis
     svg.append("g")
@@ -72,7 +72,7 @@ function durationVsReleaseDate(data) {
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Time (seconds)");
+        .text("Duration (seconds)");
 
     // Create legend
     var legend = svg.selectAll(".legend")
@@ -176,7 +176,7 @@ function durationVsPurchaseDate(data) {
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Time (seconds)");
+        .text("Duration (seconds)");
 
     // Create legend
     var legend = svg.selectAll(".legend")

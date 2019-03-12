@@ -14,43 +14,58 @@ var svg = d3.select("svg");
  * @param {Object} data - a music object
  */
 function releaseDateVsDuration(data) {
+    // Filter out useless data
     data = data.filter(filter)
 
+    // Update purchase date from string to date object
     data.forEach(function(d) {
         d.purchase_date = new Date(d.purchase_date);
     });
 
+    // Create x scale
     var xScale = d3.scaleLinear()
 		.domain([0, d3.max(data, function(d) { return timeToSeconds(d.length); })])
 		.range([padding, width - padding * 2]);
 
+    // Create y scale
 	var yScale = d3.scaleTime()
 		.domain(d3.extent(data, getPurchaseDate))
 		.range([height - padding, padding]);
 
+    // Create color scale
 	var colorScale = d3.scaleOrdinal(d3.schemePaired);
 
+    // Draw all circles
     svg.selectAll("circle")
-			.data(data)
-			.enter()
-			.append("circle")
-			.attr("cx", function(d) {
-				return xScale(timeToSeconds(d.length));
-			})
-			.attr("cy", function(d) {
-			    return height - yScale(d.purchase_date);
-			})
-			.attr("r", 5)
-			.attr("fill", function(d) { return colorScale(d.genre); } );
+		.data(data)
+		.enter()
+		.append("circle")
+		.attr("cx", function(d) {
+			return xScale(timeToSeconds(d.length));
+		})
+		.attr("cy", function(d) {
+		    return height - yScale(d.purchase_date);
+		})
+		.attr("r", 5)
+		.attr("fill", function(d) { return colorScale(d.genre); } );
 
+    // Draw x-axis
 	svg.append("g")
 	    .attr("transform", "translate(0," + (height - padding) + ")")
         .call(d3.axisBottom(xScale));
 
+    // Draw x-axis title
+    svg.append("text")
+        .attr("transform", "translate(" + ((width/2) - padding / 2) + " ," + (height - 10) + ")")
+        .style("text-anchor", "middle")
+        .text("Time (seconds)");
+
+    // Draw y-axis
     svg.append("g")
     	.attr("transform", "translate(" + padding + ", 0)")
         .call(d3.axisLeft(yScale));
 
+    // Create legend
     var legend = svg.selectAll(".legend")
         .data(colorScale.domain())
         .enter().append("g")
@@ -59,6 +74,7 @@ function releaseDateVsDuration(data) {
             return "translate(0," + i * 20 + ")";
         });
 
+    // Draw color rectangles on legend
     legend.append("rect")
         .attr("x",width - padding)
         .attr("y",9)
@@ -66,6 +82,7 @@ function releaseDateVsDuration(data) {
         .attr("height",18)
         .style("fill", colorScale);
 
+    // Draw legend text
     legend.append("text")
         .attr("x",width - padding - 10)
         .attr("y",18)

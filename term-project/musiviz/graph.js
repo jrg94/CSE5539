@@ -27,7 +27,6 @@ function genreHistogram(data) {
         }
     });
     mapping.sort((a, b) => b.count - a.count)
-    console.log(mapping)
 
     var xScale = d3.scaleBand()
         .domain(mapping.map(function(d) { return d.genre; }))
@@ -68,15 +67,7 @@ function genreHistogram(data) {
             return height - yScale(d.count) - padding;
         });
 
-    // Draw title
-    svg.append("text")
-	   .attr("class", "title")
-	   .attr("dy", padding / 2)
-	   .attr("dx", ((width/2) - padding / 2))
-	   .style("text-anchor", "middle")
-	   .style("font-size", "20px")
-       .style("text-decoration", "underline")
-	   .text("Genre Histogram")
+    drawTitle("Genre Histogram");
 }
 
 /**
@@ -172,15 +163,7 @@ function durationVsReleaseDate(data) {
             return d;
         });
 
-    // Draw title
-    svg.append("text")
-	   .attr("class", "title")
-	   .attr("dy", padding / 2)
-	   .attr("dx", ((width/2) - padding / 2))
-	   .style("text-anchor", "middle")
-	   .style("font-size", "20px")
-       .style("text-decoration", "underline")
-	   .text("Duration vs. Release Date")
+    drawTitle("Duration vs. Release Date");
 }
 
 /**
@@ -276,15 +259,7 @@ function durationVsPurchaseDate(data) {
             return d;
         });
 
-    // Draw title
-    svg.append("text")
-	   .attr("class", "title")
-	   .attr("dy", padding / 2)
-	   .attr("dx", ((width/2) - padding / 2))
-	   .style("text-anchor", "middle")
-	   .style("font-size", "20px")
-       .style("text-decoration", "underline")
-	   .text("Duration vs. Purchase Date")
+    drawTitle("Duration vs. Purchase Date");
 }
 
 /**
@@ -349,4 +324,15 @@ function timeToSeconds(time) {
     hoursToSeconds = Number(elements[0]) * 3600;
     minutesToSeconds = Number(elements[1]) * 60;
     return hoursToSeconds + minutesToSeconds + Number(elements[2]);
+}
+
+function drawTitle(title) {
+    svg.append("text")
+	    .attr("class", "title")
+	    .attr("dy", padding / 2)
+	    .attr("dx", ((width/2) - padding / 2))
+	    .style("text-anchor", "middle")
+	    .style("font-size", "20px")
+        .style("text-decoration", "underline")
+	    .text(title)
 }

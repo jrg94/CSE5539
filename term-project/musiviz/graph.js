@@ -4,11 +4,15 @@ var padding = 50;
 
 d3.select("body").append("svg")
   .attr("width", width)
-  .attr("height", height)
-  .append("g");
+  .attr("height", height);
 
 var svg = d3.select("svg");
 
+/**
+ * Generates the release date vs. duration graph on the current SVG.
+ *
+ * @param {Object} data - a music object
+ */
 function releaseDateVsDuration(data) {
     data = data.filter(filter)
 

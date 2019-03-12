@@ -73,6 +73,17 @@ function releaseDateVsDuration(data) {
 
 }
 
+/**
+ * Filters the data set to exclude:
+ *   - null purchase dates
+ *   - null genres
+ *   - Comedy songs
+ *   - Country songs
+ *   - Soundtrack songs
+ *
+ * @param {Object} data - a music object
+ * @returns {boolean} true if none of the items listed above
+ */
 function filter(data) {
     var p = data.purchase_date != null;
     var g = data.genre != null;
@@ -82,15 +93,21 @@ function filter(data) {
     return p && g && c && u && s;
 }
 
-function getPurchaseDate(d) {
-    return d.purchase_date;
+/**
+ * Retrieves the purchase date from the music object.
+ *
+ * @param {Object} data - a music object
+ * @returns {Date} a purchase date
+ */
+function getPurchaseDate(data) {
+    return data.purchase_date;
 }
 
 /**
  * Converts a time string to seconds.
  *
- * @param {string} time a time string in the format HH:MM:SS
- * @return {number} the time string as a number in seconds
+ * @param {string} - time a time string in the format HH:MM:SS
+ * @returns {number} the time string as a number in seconds
  */
 function timeToSeconds(time) {
     elements = time.split(":");

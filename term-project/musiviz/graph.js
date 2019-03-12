@@ -136,33 +136,7 @@ function durationVsReleaseDate(data) {
         .style("text-anchor", "middle")
         .text("Duration (seconds)");
 
-    // Create legend
-    var legend = svg.selectAll(".legend")
-        .data(colorScale.domain())
-        .enter().append("g")
-        .attr("class","legend")
-        .attr("transform", function(d,i) {
-            return "translate(0," + i * 20 + ")";
-        });
-
-    // Draw color rectangles on legend
-    legend.append("rect")
-        .attr("x",width - padding)
-        .attr("y",9)
-        .attr("width",18)
-        .attr("height",18)
-        .style("fill", colorScale);
-
-    // Draw legend text
-    legend.append("text")
-        .attr("x",width - padding - 10)
-        .attr("y",18)
-        .attr("dy",".35em")
-        .style("text-anchor","end")
-        .text(function(d) {
-            return d;
-        });
-
+    drawLegend(colorScale);
     drawTitle("Duration vs. Release Date");
 }
 
@@ -232,33 +206,7 @@ function durationVsPurchaseDate(data) {
         .style("text-anchor", "middle")
         .text("Duration (seconds)");
 
-    // Create legend
-    var legend = svg.selectAll(".legend")
-        .data(colorScale.domain())
-        .enter().append("g")
-        .attr("class","legend")
-        .attr("transform", function(d,i) {
-            return "translate(0," + i * 20 + ")";
-        });
-
-    // Draw color rectangles on legend
-    legend.append("rect")
-        .attr("x",width - padding)
-        .attr("y",9)
-        .attr("width",18)
-        .attr("height",18)
-        .style("fill", colorScale);
-
-    // Draw legend text
-    legend.append("text")
-        .attr("x",width - padding - 10)
-        .attr("y",18)
-        .attr("dy",".35em")
-        .style("text-anchor","end")
-        .text(function(d) {
-            return d;
-        });
-
+    drawLegend(colorScale);
     drawTitle("Duration vs. Purchase Date");
 }
 
@@ -340,4 +288,33 @@ function drawTitle(title) {
 	    .style("font-size", "20px")
         .style("text-decoration", "underline")
 	    .text(title)
+}
+
+function drawLegend(colorScale) {
+    // Create legend
+    var legend = svg.selectAll(".legend")
+        .data(colorScale.domain())
+        .enter().append("g")
+        .attr("class","legend")
+        .attr("transform", function(d,i) {
+            return "translate(0," + i * 20 + ")";
+        });
+
+    // Draw color rectangles on legend
+    legend.append("rect")
+        .attr("x", width - padding)
+        .attr("y", 9)
+        .attr("width",18)
+        .attr("height",18)
+        .style("fill", colorScale);
+
+    // Draw legend text
+    legend.append("text")
+        .attr("x", width - padding - 10)
+        .attr("y", 18)
+        .attr("dy",".35em")
+        .style("text-anchor","end")
+        .text(function(d) {
+            return d;
+        });
 }

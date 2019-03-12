@@ -5,7 +5,7 @@ from musiparse import m4a_parse
 
 OUT_PATH = "..\\data\\%s_%d.json"
 SAMPLE_PATH = "E:\\Plex\\Music"
-GENRE_TIERS = [5, 25, 100]
+GENRE_TIERS = [5, 25, 100, 250, 1000]
 MASTER_TIERS = [100, 500, 1000, 5000]
 
 
@@ -16,7 +16,7 @@ def master_json_dump(limit: int):
     :param limit: the maximum number of songs to store
     :return: None
     """
-    print("*** %d songs ***" % limit)
+    print("*** Processing %d songs ***" % limit)
     path = OUT_PATH % ("master", limit)
     if not os.path.exists(path):
         music_set = MusicFileSet()

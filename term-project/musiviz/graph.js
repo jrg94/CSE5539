@@ -65,6 +65,15 @@ function releaseDateVsDuration(data) {
     	.attr("transform", "translate(" + padding + ", 0)")
         .call(d3.axisLeft(yScale));
 
+    // Draw y-axis title
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - 5)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Purchase Date (Year)");
+
     // Create legend
     var legend = svg.selectAll(".legend")
         .data(colorScale.domain())

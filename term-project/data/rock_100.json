@@ -1016,7 +1016,7 @@
         "track_number": 1,
         "total_tracks": 10,
         "content_rating": null,
-        "owner": "Jeremy Griffith",
+        "owner": null,
         "release_date": "2010-06-07T07:00:00Z",
         "purchase_date": "2012-08-18 00:47:13",
         "sample_rate": 44100,

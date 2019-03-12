@@ -3,6 +3,6 @@
 Welcome to musiviz, a term project for visualizing music files on my PC. The following
 links are graphs that I've generated using various data files:
 
-- [Release Date vs. Duration][1]
+- [Duration vs. Purchase Date][1]
 
-[1]: release-date-vs-duration.html
+[1]: duration-vs-purchase-date.html

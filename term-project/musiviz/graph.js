@@ -109,7 +109,7 @@ function durationVsReleaseDate(data) {
 	   .style("text-anchor", "middle")
 	   .style("font-size", "20px")
        .style("text-decoration", "underline")
-	   .text("Duration vs. Purchase Date")
+	   .text("Duration vs. Release Date")
 }
 
 /**
@@ -233,7 +233,8 @@ function filterReleaseDate(data) {
     var c = data.genre != "Comedy";
     var u = data.genre != "Country";
     var s = data.genre != "Soundtrack";
-    return p && g && c && u && s;
+    var r = data.genre != "Rap";
+    return p && g && c && u && s && r;
 }
 
 /**

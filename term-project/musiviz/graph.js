@@ -26,7 +26,7 @@ function lengthVsDate(data) {
 		.domain(d3.extent(data, getPurchaseDate))
 		.range([height - padding, padding]);
 
-	var colorScale = d3.scaleOrdinal(d3.schemeSet3);
+	var colorScale = d3.scaleOrdinal(d3.schemePaired);
 
     svg.selectAll("circle")
 			.data(data)

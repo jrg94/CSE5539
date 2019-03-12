@@ -26,7 +26,7 @@ function genreHistogram(data) {
             mapping.push({"genre": d.genre, "count": 1})
         }
     });
-    mapping.sort((a, b) => a.count - b.count)
+    mapping.sort((a, b) => b.count - a.count)
     console.log(mapping)
 
     var xScale = d3.scaleBand()

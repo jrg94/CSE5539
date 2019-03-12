@@ -23,6 +23,7 @@ class MusicFile:
         self.total_tracks = None
         self.content_rating = None
         self.owner = None
+        self.release_date = None
         self.purchase_date = None
         self.sample_rate = None  # Number of samples per second (Hz)
         self.sample_size = None  # Number of bytes in each sample
@@ -145,11 +146,13 @@ class MusicFile:
 
         :return: None
         """
+        self._raw_json = m4a_parse.decode(self.path)
         data_dir = self._get_data_dir()
         json_name = self.path.split("\\")[-1].replace(".m4a", ".json")
         pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)
         with open(os.path.join(data_dir, json_name), "w") as f:
             print(json.dumps(self._raw_json, indent=2, sort_keys=True, ensure_ascii=False), file=f)
+        self._clear_overhead()
 
     def _populate_fields(self):
         """
@@ -241,6 +244,7 @@ class MusicFile:
         self.owner = MusicFile._get_meta_value(entries, "ownr")
         self.content_rating = MusicFile._get_meta_value(entries, "rtng", "tag")
         self.purchase_date = MusicFile._get_meta_value(entries, "purd")
+        self.release_date = MusicFile._get_meta_value(entries, "©day")
         track_number_data = MusicFile._get_meta_value(entries, "trkn")
         self.track_number = track_number_data[3]
         self.total_tracks = track_number_data[5]

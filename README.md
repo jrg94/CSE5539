@@ -1,6 +1,12 @@
-# CSE5539
+﻿# CSE5539
 
 OSU's Computational Audition Course
+
+## Project Links
+
+Feel free to browse some of the final visualizations:
+
+- [Musiviz][1]
 
 ## Helpful Papers
 
@@ -11,3 +17,5 @@ Press/Wiley, Hoboken NJ, Chapter 8, pp. 251-295.
 Rafii Z. and Pardo B. (2013): “REpeating Pattern Extraction Technique (REPET): A simple
 method for music/voice separation,” IEEE/ACM Transactions on Audio, Speech, and
 Language Processing, vol. 21, pp. 71-82. 
+
+[1]: term-project/musiviz/

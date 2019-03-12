@@ -86,6 +86,12 @@ function getPurchaseDate(d) {
     return d.purchase_date;
 }
 
+/**
+ * Converts a time string to seconds.
+ *
+ * @param {string} time a time string in the format HH:MM:SS
+ * @return {number} the time string as a number in seconds
+ */
 function timeToSeconds(time) {
     elements = time.split(":");
     hoursToSeconds = Number(elements[0]) * 3600;

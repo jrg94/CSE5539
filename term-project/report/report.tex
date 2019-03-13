@@ -98,18 +98,13 @@
 %\shortauthortitle{Firstauthor \MakeLowercase{\textit{et al.}}: Paper Title}
 
 %% Abstract section.
-\abstract{Duis autem vel eum iriure dolor in hendrerit in vulputate
-velit esse molestie consequat, vel illum dolore eu feugiat nulla
-facilisis at vero eros et accumsan et iusto odio dignissim qui blandit
-praesent luptatum zzril delenit augue duis dolore te feugait nulla
-facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
-suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et
-accumsan et iusto odio dignissim qui blandit praesent luptatum zzril
-delenit augue duis dolore te feugait nulla facilisi.%
+\abstract{
+  Genre is a popular way to classify styles of music, and people may argue
+  there is merit in genre classification. But, are there any tangible differences
+  in music styles that can be discovered through data visualization? In this
+  project, I attempt to answer that question by applying a handful of signal
+  processing methods to a set of music files and visualizing the results
+  relative to genre. 
 } % end of abstract
 
 %% Keywords that describe your work. Will show as 'Index Terms' in journal
@@ -419,6 +414,13 @@ result, all following plots contain only the genres contained in
 Since songs lacking genre data provide no useful insight in a genre comparative
 study, I chose to exclude all files with None tags for genre. In total, I had
 about 1,500 music files for visualization purposes.
+
+\section{Challenges}
+
+As it turns out, the scope of the initial proposal was much too broad. Many of
+the signal processing approaches proposed were outside of my capabilities within
+a semester. Given more time, I would have liked to explore audio features beyond
+loudness such as pitch and onset.
 
 \section{Bibliography Instructions}
 

@@ -50,9 +50,16 @@
 \usepackage{cite}                      % needed to automatically sort the references
 \usepackage{tabu}                      % only used for the table example
 \usepackage{booktabs}                  % only used for the table example
+\usepackage{minted}
 %% We encourage the use of mathptmx for consistent usage of times font
 %% throughout the proceedings. However, if you encounter conflicts
 %% with other math-related packages, you may want to disable it.
+
+%
+% Minted Settings
+%
+
+\setminted{autogobble}
 
 %% In preprint mode you may define your own headline.
 %\preprinttext{To appear in IEEE Transactions on Visualization and Computer Graphics.}
@@ -256,7 +263,47 @@ formats including M4A.
 
 Being able to parse an M4A file and actually use that data for data visualization
 are two separate challenges. As a result, I had to find a way to aggregate the
-parsed data in an easy-to-read format. 
+parsed data in an easy-to-read format. With the target environment being D3
+and JavaScript, I chose to format all the data as JSON files. JSON is easy
+to load in JavaScript and even easier to change as needed. An example JSON
+might look something like the following:
+
+\begin{minted}{json}
+{
+    "path": "E:\\Plex\\Music
+    \\A Loss for Words\\The Kids Can't Lose
+    \\01 Stamp of Approval.m4a",
+    "genre": "Alternative",
+    "title": "Stamp of Approval",
+    "artist": "A Loss for Words",
+    "album": "The Kids Can't Lose",
+    "track_number": 1,
+    "total_tracks": 11,
+    "content_rating": null,
+    "owner": "Jeremy Grifski",
+    "release_date": "2009-05-12T07:00:00Z",
+    "purchase_date": "2014-02-10 16:44:15",
+    "sample_rate": 44100,
+    "sample_size": 16,
+    "length": "00:03:06",
+    "number_of_channels": 2,
+    "dBFS": -11.080573225629289,
+    "max_dBFS": 0.0,
+    "rms": 599654648,
+    "max_amplitude": 2147483648,
+    "_raw_json": null,
+    "_chunk_offset_table": null,
+    "_sample_to_chunk_table": null,
+    "_sample_size_table": null,
+    "_time_to_sample_table": null,
+    "_sample_description_table": null,
+    "_music_data": null
+}
+\end{minted}
+
+With a JSON like this, it's very easy to retrieve information about a song like
+its genre or title. In addition, the JSON can be easily expanded to include
+information like the occurences of certain pitches.
 
 \section{Bibliography Instructions}
 

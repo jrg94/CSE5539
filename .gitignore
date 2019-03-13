@@ -14,3 +14,5 @@ _minted-assignment01/
 *.bbl
 *.blg
 *.out
+*.pygstyle
+*.pygtex

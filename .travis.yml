@@ -29,6 +29,7 @@ deploy:
   file:
     - $TRAVIS_BUILD_DIR/term-project/proposal/grifski-term-project-proposal.pdf
     - $TRAVIS_BUILD_DIR/midterm-project/docs/assignment01.pdf
+    - $TRAVIS_BUILD_DIR/term-project/report/report.pdf
 
   skip_cleanup: true
   on:

@@ -51,6 +51,7 @@
 \usepackage{tabu}                      % only used for the table example
 \usepackage{booktabs}                  % only used for the table example
 \usepackage{minted}
+\usepackage{float}
 %% We encourage the use of mathptmx for consistent usage of times font
 %% throughout the proceedings. However, if you encounter conflicts
 %% with other math-related packages, you may want to disable it.
@@ -165,7 +166,7 @@ some time trying to address tasks such as:
 \end{itemize}
 
 In the following sections, I will further explore the processes and results of
-data collection and visualization. 
+data collection and visualization.
 
 \section{Data Collection}
 
@@ -180,7 +181,7 @@ selecting what data to collect from those files. Of the 4,194 songs, roughly
 In terms of data collection, I decided to mine several fields from the M4A files
 such as:
 
-\begin{table}[h]
+\begin{table}[H]
   \caption{Data Fields}
   \label{tab:fields}
   \scriptsize%
@@ -222,7 +223,7 @@ With the aid of the Quicktime documentation, I was able to write a Python script
 which could roughly interpret the various atoms of an M4A file. In particular,
 I wrote enough code to parse all of the following atoms:
 
-\begin{table}[h]
+\begin{table}[H]
   \caption{All Parsed Atoms}
   \label{tab:atoms}
   \scriptsize%
@@ -355,7 +356,7 @@ using. Since I was planning on working with genre data, I decided to create
 a histogram of the various genres. Needless to say, the results were skewed
 toward my favorite genres:
 
-\begin{figure}[h]
+\begin{figure}[H]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
  \includegraphics[width=\columnwidth]{genre-histogram}
  \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
@@ -366,7 +367,7 @@ The visualization in \autoref{fig:genres} was rendered from \autoref{tab:genres}
 which contains 17 distinct genres including a placeholder for songs that have
 no documented genre:
 
-\begin{table}[h]
+\begin{table}[H]
   \caption{Genre Totals}
   \label{tab:genres}
   \scriptsize%

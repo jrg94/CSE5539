@@ -171,7 +171,28 @@ such as:
   \item Genre
   \item Artist
   \item Album
+  \item Purchase Date
+  \item Release Date
+  \item Track Number
+  \item Sample Rate (Hz)
+  \item Sample Size (bits)
+  \item Duration (HH:MM:SS)
+  \item Number of Channels
+  \item Average dBFS
+  \item Max dBFS
+  \item RMS
+  \item Max Amplitude
 \end{itemize}
+
+In the following sections, I'll discuss how I parsed the M4A files, and how
+I aggregated that data for visualization.
+
+\subsection{File Parsing}
+
+The first major challenge in this project was finding a way to collect
+information from the M4A file format. Unfortunately, I was unable to find a
+tool which could easily glean all the data I wanted from an M4A file. As a result,
+I decided to write my own file parsing code in Python.
 
 \section{Bibliography Instructions}
 

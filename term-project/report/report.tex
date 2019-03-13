@@ -194,6 +194,42 @@ information from the M4A file format. Unfortunately, I was unable to find a
 tool which could easily glean all the data I wanted from an M4A file. As a result,
 I decided to write my own file parsing code in Python.
 
+With the aid of the Quicktime documentation, I was able to write a Python script
+which could roughly interpret the various atoms of an M4A file. In particular,
+I wrote enough code to parse all of the following atoms:
+
+\begin{table}[tb]
+  \caption{All Parsed Atoms}
+  \label{tab:atoms}
+  \scriptsize%
+	\centering%
+  \begin{tabu}{%
+  	r%
+  	*{2}{c}%
+  	*{13}{r}%
+  	}
+  \toprule
+    atom & description \\
+  \midrule
+    moov & - \\
+    trak & - \\
+    mdia & - \\
+    minf & - \\
+    stbl & - \\
+    udta & - \\
+    dinf & - \\
+    pinf & - \\
+    schi & - \\
+    ftyp & - \\
+    mvhd & - \\
+    hdlr & - \\
+    mdhd & - \\
+  \midrule
+  \textbf{sum} & \textbf{1545} & \textbf{9} & \textbf{632} & \textbf{310} & \textbf{50} & \textbf{123} & \textbf{25} & \textbf{2694} & \textbf{2546} \\
+  \bottomrule
+  \end{tabu}%
+\end{table}
+
 \section{Bibliography Instructions}
 
 \begin{itemize}

@@ -126,14 +126,6 @@ delenit augue duis dolore te feugait nulla facilisi.%
  \CCScat{K.7.m}{The Computing Profession}{Miscellaneous}{Ethics}
 }
 
-%% Uncomment below to include a teaser figure.
-\teaser{
-  \centering
-  \includegraphics[width=\linewidth]{CypressView}
-  \caption{In the Clouds: Vancouver from Cypress Mountain. Note that the teaser may not be wider than the abstract block.}
-	\label{fig:teaser}
-}
-
 %% Uncomment below to disable the manuscript note
 %\renewcommand{\manuscriptnotetxt}{}
 
@@ -173,23 +165,33 @@ selecting what data to collect from those files. Of the 4,194 songs, roughly
 In terms of data collection, I decided to mine several fields from the M4A files
 such as:
 
-\begin{itemize}
-  \item Title
-  \item Genre
-  \item Artist
-  \item Album
-  \item Purchase Date
-  \item Release Date
-  \item Track Number
-  \item Sample Rate (Hz)
-  \item Sample Size (bits)
-  \item Duration (HH:MM:SS)
-  \item Number of Channels
-  \item Average dBFS
-  \item Max dBFS
-  \item RMS
-  \item Max Amplitude
-\end{itemize}
+\begin{table}[h]
+  \caption{Data Fields}
+  \label{tab:fields}
+  \scriptsize%
+	\centering%
+  \begin{tabu}{l l}
+  \toprule
+    field & type \\
+  \midrule
+  Title & String \\
+  Genre & String \\
+  Artist & String \\
+  Album & String \\
+  Purchase Date & Date \\
+  Release Date & Date \\
+  Track Number & Integer \\
+  Sample Rate (Hz) & Integer \\
+  Sample Size (bits) & Integer \\
+  Duration (HH:MM:SS) & String \\
+  Number of Channels & Integer \\
+  Average dBFS & Float \\
+  Max dBFS & Float \\
+  RMS & Integer \\
+  Max Amplitude & Integer \\
+  \midrule
+  \end{tabu}%
+\end{table}
 
 In the following sections, I'll discuss how I parsed the M4A files, and how
 I aggregated that data for visualization.
@@ -205,7 +207,7 @@ With the aid of the Quicktime documentation, I was able to write a Python script
 which could roughly interpret the various atoms of an M4A file. In particular,
 I wrote enough code to parse all of the following atoms:
 
-\begin{table}[tb]
+\begin{table}[h]
   \caption{All Parsed Atoms}
   \label{tab:atoms}
   \scriptsize%
@@ -321,7 +323,7 @@ it provides several key functionalities such as:
   \item the ability to dump the entire set to JSON
 \end{itemize}
 
-Naturally, I leverage the MusicFileSet class to build a large collection of
+Naturally, I leveraged the MusicFileSet class to build a large collection of
 data files which encompass various sample sizes and genres. In total, I was
 able to generate 33 data sets.
 

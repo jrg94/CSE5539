@@ -455,7 +455,20 @@ about 1,500 music files for visualization purposes.
 \subsection{Duration Versus Release Date}
 
 With a proper head count of genres and files, I proceeded to render a
-visualization of duration by release date.
+visualization of duration by release date which can be seen in
+\autoref{fig:duration}. After all, I was interested to see if song durations
+have changed over time.
+
+\begin{figure}[h]
+ \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
+ \includegraphics[width=\columnwidth]{genre-histogram}
+ \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
+ \label{fig:duration}
+\end{figure}
+
+Right away, it's clear which genres tend to have the longest durations. For
+example, Metal and Classical music look like outliers with their durations
+almost three times as long as what appears to be the average duration.
 
 \section{Challenges}
 

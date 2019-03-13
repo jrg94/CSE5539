@@ -3,7 +3,6 @@
 *.fdb_latexmk
 *.fls
 *.log
-*.pdf
 *.gz
 *.xml
 *.iml
@@ -12,3 +11,8 @@
 musiviz/raw.txt
 *.asv
 _minted-assignment01/
+*.bbl
+*.blg
+*.out
+*.pygstyle
+*.pygtex

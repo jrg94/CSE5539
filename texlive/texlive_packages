@@ -17,3 +17,7 @@ oberdiek
 etoolbox
 float
 booktabs
+microtype
+cite
+tabu
+varwidth

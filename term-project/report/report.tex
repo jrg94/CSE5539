@@ -220,7 +220,12 @@ more formally:
 Here, I am assuming that audio size and sample size are both in bytes. As a
 result, a song with two channels (stereo), a 44,100 Hz sample rate, a two-byte
 sample size, and a 176,400-byte audio size would contain just one second of
-audio. 
+audio.
+
+Likewise, I also had to compute average decibels relative to full scale (dBFS),
+maximum dBFS, root-mean-square (RMS), and maximum amplitude which are all
+parameters related to audio loudness. Fortunately, I did not compute these
+parameters myself as they were provided through the Python pydub library.
 
 In the following sections, I'll discuss how I parsed the M4A files, and how
 I aggregated that data for visualization.

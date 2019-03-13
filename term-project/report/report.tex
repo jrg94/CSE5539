@@ -178,9 +178,6 @@ From there, I had two challenges: choosing which file format to process and
 selecting what data to collect from those files. Of the 4,194 songs, roughly
 1,800 of them were in the M4A format, so I chose to parse that format.
 
-In terms of data collection, I decided to mine several fields from the M4A files
-such as:
-
 \begin{table}[h]
   \caption{Data Fields}
   \label{tab:fields}
@@ -209,11 +206,12 @@ such as:
   \end{tabu}%
 \end{table}
 
-Many of these fields were available directly in the M4A file. However, some of
-the fields had to be calculated using information provided in the file. For
-example, duration $d$ was not provided directly. It had to be computed from the
-sample size $n$, number of channels $c$, sample rate $r$, and audio size $a$, or
-more formally:
+In terms of data collection, I decided to mine several fields from the M4A files
+such as the fields found in \autoref{tab:fields}. Many of these fields were
+available directly in the M4A file. However, some of the fields had to be
+calculated using information provided in the file. For example, duration $d$ was
+not provided directly. It had to be computed from the sample size $n$, number of
+channels $c$, sample rate $r$, and audio size $a$, or more formally:
 
 \[ d = a / (c * n * r) \]
 
@@ -239,7 +237,7 @@ I decided to write my own file parsing code in Python.
 
 With the aid of the Quicktime documentation, I was able to write a Python script
 which could roughly interpret the various atoms of an M4A file. In particular,
-I wrote enough code to parse all of the following atoms:
+I wrote enough code to parse all of the atoms seen in \autoref{tab:atoms}.
 
 \begin{table}[h]
   \caption{All Parsed Atoms}
@@ -372,7 +370,7 @@ to try to plot some of the data I collected in D3.
 To begin, I felt it was important to get an idea of what kind of data I was
 using. Since I was planning on working with genre data, I decided to create
 a histogram of the various genres. Needless to say, the results were skewed
-toward my favorite genres:
+toward my favorite genres as seen in \autoref{fig:genres}.
 
 \begin{figure}[h]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
@@ -383,7 +381,7 @@ toward my favorite genres:
 
 The visualization in \autoref{fig:genres} was rendered from \autoref{tab:genres}
 which contains 17 distinct genres including a placeholder for songs that have
-no documented genre:
+no documented genre.
 
 \begin{table}[h]
   \caption{Genre Totals}
@@ -421,7 +419,7 @@ To encode genres in later plots, I chose to use color. Unfortunately, D3 no
 longer supports color pallets larger than 12 distinct colors, so I was forced
 to filter the data set by the 12 most frequent genres in the dataset. As a
 result, all following plots contain only the genres contained in
-\autoref{tab:genres_filtered}:
+\autoref{tab:genres_filtered}.
 
 \begin{table}[h]
   \caption{Filtered Genre Totals}

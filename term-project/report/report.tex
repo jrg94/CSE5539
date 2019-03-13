@@ -333,6 +333,8 @@ The goal of this project was to learn some signal processing while trying to
 find interesting trends in genres of music. To do so, I felt it was appropriate
 to try to plot some of the data I collected in D3.
 
+\subsection{Genre Histogram}
+
 To begin, I felt it was important to get an idea of what kind of data I was
 using. Since I was planning on working with genre data, I decided to create
 a histogram of the various genres. Needless to say, the results were skewed
@@ -345,7 +347,9 @@ toward my favorite genres:
  \label{fig:genres}
 \end{figure}
 
-The visualization above was rendered from the following table of data:
+The visualization in \autoref{fig:genres} was rendered from \autoref{tab:genres}
+which contains 17 distinct genres including a placeholder for songs that have
+no documented genre:
 
 \begin{table}[h]
   \caption{Genre Totals}
@@ -354,28 +358,67 @@ The visualization above was rendered from the following table of data:
 	\centering%
   \begin{tabu}{l c}
   \toprule
-    genre & count \\
+    Genre & Count \\
   \midrule
-  Alternative & 448 \\
-  Rock & 368 \\
-  None & 353 \\
-  Pop & 207 \\
-  Jazz & 130 \\
-  Soundtrack & 107 \\
-  Country & 88 \\
-  Comedy & 44 \\
-  Metal & 42 \\
-  Punk & 31 \\
-  Rap & 20 \\
-  Classical & 12 \\
-  Electronic & 7 \\
-  Vocal & 6 \\
-  Dance & 3 \\
-  Hip-Hop & 2 \\
-  Instrumental & 1 \\
+    Alternative & 448 \\
+    Rock & 368 \\
+    None & 353 \\
+    Pop & 207 \\
+    Jazz & 130 \\
+    Soundtrack & 107 \\
+    Country & 88 \\
+    Comedy & 44 \\
+    Metal & 42 \\
+    Punk & 31 \\
+    Rap & 20 \\
+    Classical & 12 \\
+    Electronic & 7 \\
+    Vocal & 6 \\
+    Dance & 3 \\
+    Hip-Hop & 2 \\
+    Instrumental & 1 \\
   \midrule
+    Sum & 1869 \\
+  \bottomrule
   \end{tabu}%
 \end{table}
+
+To encode genres in later plots, I chose to use color. Unfortunately, D3 no
+longer supports color pallets larger than 12 distinct colors, so I was forced
+to filter the data set by the 12 most frequent genres in the dataset. As a
+result, all following plots contain only the genres contained in
+\autoref{tab:genres_filtered}:
+
+\begin{table}[h]
+  \caption{Filtered Genre Totals}
+  \label{tab:genres_filtered}
+  \scriptsize%
+	\centering%
+  \begin{tabu}{l c}
+  \toprule
+    Genre & Count \\
+  \midrule
+    Alternative & 448 \\
+    Rock & 368 \\
+    Pop & 207 \\
+    Jazz & 130 \\
+    Soundtrack & 107 \\
+    Country & 88 \\
+    Comedy & 44 \\
+    Metal & 42 \\
+    Punk & 31 \\
+    Rap & 20 \\
+    Classical & 12 \\
+    Electronic & 7 \\
+  \midrule
+    Sum & 1504 \\
+  \bottomrule
+  \end{tabu}%
+\end{table}
+
+Since songs lacking genre data provide no useful insight in a genre comparative
+study, I chose to exclude all files with None tags for genre. In total, I had
+about 1,500 music files for visualization purposes.
 
 \section{Bibliography Instructions}
 
@@ -433,12 +476,6 @@ amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 invidunt ut labore et dolore magna aliquyam erat, sed diam
 voluptua. At vero eos et accusam et justo duo dolores et ea
 rebum.
-
-
-%% if specified like this the section will be committed in review mode
-\acknowledgments{
-The authors wish to thank A, B, and C. This work was supported in part by
-a grant from XYZ (\# 12345-67890).}
 
 %\bibliographystyle{abbrv}
 \bibliographystyle{abbrv-doi}

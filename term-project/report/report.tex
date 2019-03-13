@@ -261,7 +261,7 @@ formats including M4A.
 
 \subsection{Data Aggregation}
 
-Being able to parse an M4A file and actually use that data for data visualization
+Being able to parse an M4A file and being able to use that data for visualization
 are two separate challenges. As a result, I had to find a way to aggregate the
 parsed data in an easy-to-read format. With the target environment being D3
 and JavaScript, I chose to format all the data as JSON files. JSON is easy
@@ -320,6 +320,10 @@ it provides several key functionalities such as:
   \item the ability to filter a MusicFileSet by genre or size
   \item the ability to dump the entire set to JSON
 \end{itemize}
+
+Naturally, I leverage the MusicFileSet class to build a large collection of
+data files which encompass various sample sizes and genres. In total, I was
+able to generate 33 data sets.
 
 \section{Bibliography Instructions}
 

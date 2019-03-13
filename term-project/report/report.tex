@@ -181,7 +181,7 @@ selecting what data to collect from those files. Of the 4,194 songs, roughly
 In terms of data collection, I decided to mine several fields from the M4A files
 such as:
 
-\begin{table}[H]
+\begin{table}[h]
   \caption{Data Fields}
   \label{tab:fields}
   \scriptsize%
@@ -209,6 +209,19 @@ such as:
   \end{tabu}%
 \end{table}
 
+Many of these fields were available directly in the M4A file. However, some of
+the fields had to be calculated using information provided in the file. For
+example, duration $d$ was not provided directly. It had to be computed from the
+sample size $n$, number of channels $c$, sample rate $r$, and audio size $a$, or
+more formally:
+
+\[ d = a / (c * n * r) \]
+
+Here, I am assuming that audio size and sample size are both in bytes. As a
+result, a song with two channels (stereo), a 44,100 Hz sample rate, a two-byte
+sample size, and a 176,400-byte audio size would contain just one second of
+audio. 
+
 In the following sections, I'll discuss how I parsed the M4A files, and how
 I aggregated that data for visualization.
 
@@ -223,7 +236,7 @@ With the aid of the Quicktime documentation, I was able to write a Python script
 which could roughly interpret the various atoms of an M4A file. In particular,
 I wrote enough code to parse all of the following atoms:
 
-\begin{table}[H]
+\begin{table}[h]
   \caption{All Parsed Atoms}
   \label{tab:atoms}
   \scriptsize%
@@ -356,7 +369,7 @@ using. Since I was planning on working with genre data, I decided to create
 a histogram of the various genres. Needless to say, the results were skewed
 toward my favorite genres:
 
-\begin{figure}[H]
+\begin{figure}[h]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
  \includegraphics[width=\columnwidth]{genre-histogram}
  \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
@@ -367,7 +380,7 @@ The visualization in \autoref{fig:genres} was rendered from \autoref{tab:genres}
 which contains 17 distinct genres including a placeholder for songs that have
 no documented genre:
 
-\begin{table}[H]
+\begin{table}[h]
   \caption{Genre Totals}
   \label{tab:genres}
   \scriptsize%
@@ -435,6 +448,11 @@ result, all following plots contain only the genres contained in
 Since songs lacking genre data provide no useful insight in a genre comparative
 study, I chose to exclude all files with None tags for genre. In total, I had
 about 1,500 music files for visualization purposes.
+
+\subsection{Duration Versus Release Date}
+
+With a proper head count of genres and files, I proceeded to render a
+visualization of duration by release date.
 
 \section{Challenges}
 

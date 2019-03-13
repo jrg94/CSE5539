@@ -305,6 +305,22 @@ With a JSON like this, it's very easy to retrieve information about a song like
 its genre or title. In addition, the JSON can be easily expanded to include
 information like the occurences of certain pitches.
 
+In order to generate the JSON, I created two Python classes: MusicFile and
+MusicFileSet. A MusicFile provides music file data storage as seen in the JSON
+above. In addition, the MusicFile class provides extended functionality like
+the ability to convert an M4A to a WAV file and the ability to persist the
+parsed atom data to JSON.
+
+Each MusicFile can then be stored and manipulated in an instance of the
+MusicFileSet class. The MusicFileSet class is essentially a list wrapper, but
+it provides several key functionalities such as:
+
+\begin{itemize}
+  \item the ability to load all M4A files from a directory recursively
+  \item the ability to filter a MusicFileSet by genre or size
+  \item the ability to dump the entire set to JSON
+\end{itemize}
+
 \section{Bibliography Instructions}
 
 \begin{itemize}

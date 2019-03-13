@@ -40,7 +40,7 @@
 \fi%
 
 %% it is recomended to use ``\autoref{sec:bla}'' instead of ``Fig.~\ref{sec:bla}''
-\graphicspath{{figures/}{pictures/}{images/}{./}} % where to search for the images
+\graphicspath{{figures/}{pictures/}{images/}{../}{./}} % where to search for the images
 
 \usepackage{microtype}                 % use micro-typography (slightly more compact, better to read)
 \PassOptionsToPackage{warn}{textcomp}  % to address font issues with \textrightarrow
@@ -340,39 +340,39 @@ toward my favorite genres:
 
 \begin{figure}[h]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
- \includegraphics[width=\columnwidth]{paper-count-w-2015-new}
- \caption{A visualization of the 1990--2015 data from \autoref{tab:vis_papers}. The image is from \cite{Isenberg:2017:VMC} and is in the public domain.}
- \label{fig:sample}
+ \includegraphics[width=\columnwidth]{genre-histogram}
+ \caption{A genre histogram of all the files in the dataset.}
+ \label{fig:genres}
 \end{figure}
 
 The visualization above was rendered from the following table of data:
 
 \begin{table}[h]
-  \caption{Data Fields}
-  \label{tab:fields}
+  \caption{Genre Totals}
+  \label{tab:genres}
   \scriptsize%
 	\centering%
-  \begin{tabu}{l l}
+  \begin{tabu}{l c}
   \toprule
     genre & count \\
   \midrule
-  Alternative & String \\
-  Rock & String \\
-  None & String \\
-  Pop & String \\
-  Jazz & Date \\
-  Soundtrack & Date \\
-  Country & Integer \\
-  Comedy & Integer \\
-  Metal & Integer \\
-  Punk & String \\
-  Rap & Integer \\
-  Classical & Float \\
-  Electronic & Float \\
-  Vocal & Integer \\
-  Dance & Integer \\
-  Hip-Hop & \\
-  Instrumental & \\
+  Alternative & 448 \\
+  Rock & 368 \\
+  None & 353 \\
+  Pop & 207 \\
+  Jazz & 130 \\
+  Soundtrack & 107 \\
+  Country & 88 \\
+  Comedy & 44 \\
+  Metal & 42 \\
+  Punk & 31 \\
+  Rap & 20 \\
+  Classical & 12 \\
+  Electronic & 7 \\
+  Vocal & 6 \\
+  Dance & 3 \\
+  Hip-Hop & 2 \\
+  Instrumental & 1 \\
   \midrule
   \end{tabu}%
 \end{table}

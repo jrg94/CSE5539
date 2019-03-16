@@ -17,5 +17,8 @@ Naturally, I'll be using this space to record my notes.
 
 ## [REpeating Pattern Extraction Technique (REPET)][2]
 
+At a high level, REPET is a tool for extracting repeating pattern audio from
+a musical track. It can be used to separate vocals from a musical track.
+
 [1]: #
 [2]: http://music.cs.northwestern.edu/publications/Rafii-Pardo%20-%20REpeating%20Pattern%20Extraction%20Technique%20(REPET)%20A%20Simple%20Method%20for%20Music-Voice%20Separation%20-%20TALSP%202013.pdf

@@ -16,8 +16,6 @@ Naturally, I'll be using this space to record my notes.
 
 Source:
 
-## REpeating Pattern Extraction Technique (REPET)
-
-- [Link to Source][2]
+## [REpeating Pattern Extraction Technique (REPET)][2]
 
 [2]: http://music.cs.northwestern.edu/publications/Rafii-Pardo%20-%20REpeating%20Pattern%20Extraction%20Technique%20(REPET)%20A%20Simple%20Method%20for%20Music-Voice%20Separation%20-%20TALSP%202013.pdf

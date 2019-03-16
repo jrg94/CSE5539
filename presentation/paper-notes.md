@@ -12,10 +12,10 @@ Language Processing, vol. 21, pp. 71-82.
 
 Naturally, I'll be using this space to record my notes.
 
-## Analysis of Musical Audio Signals
+## [Analysis of Musical Audio Signals][1]
 
-Source:
 
 ## [REpeating Pattern Extraction Technique (REPET)][2]
 
+[1]: #
 [2]: http://music.cs.northwestern.edu/publications/Rafii-Pardo%20-%20REpeating%20Pattern%20Extraction%20Technique%20(REPET)%20A%20Simple%20Method%20for%20Music-Voice%20Separation%20-%20TALSP%202013.pdf

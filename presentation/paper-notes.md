@@ -14,6 +14,14 @@ Naturally, I'll be using this space to record my notes.
 
 ## [Analysis of Musical Audio Signals][1]
 
+This chapter is broken up into sections, so I'll summarize them separately.
+
+### 8.1: Introduction
+
+The introduction covers the idea that people are capable of comprehending music
+without necessarily separate all the individuals sounds. In other words, they
+understand the mixture of sounds. Obviously, we'd like to be able to replicate
+that behavior in a computer.
 
 ## [REpeating Pattern Extraction Technique (REPET)][2]
 

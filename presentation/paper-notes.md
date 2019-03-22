@@ -30,6 +30,20 @@ listeners (i.e. hum melody, clapping on beat, etc.). As a result, a system for
 describing music should not consider technical musical details like individual
 notes in a chord but rather its overall tone color.
 
+#### 8.2.1 Music Scene Descriptions
+
+The Music Scene Descriptions section introduces three concepts: 
+
+- Local Frequency Structure (Melody Lines vs. Base Lines)
+- Local Temporal Structure (Measure Levels)
+- Global Music Structure (Repeated/Chorus Sections)
+
+In general, this section covers the history of music scene analysis.
+For example, music scene analysis has picked up since the 1990s due
+to processing speeds allowing for processor intensive calculations like
+fast fourier transforms and other statistical methods. Statistical models
+include the Hidden Markov Model and Optima.
+
 ## [REpeating Pattern Extraction Technique (REPET)][2]
 
 At a high level, REPET is a tool for extracting repeating pattern audio from

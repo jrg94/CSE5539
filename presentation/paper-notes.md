@@ -23,6 +23,13 @@ without necessarily separate all the individuals sounds. In other words, they
 understand the mixture of sounds. Obviously, we'd like to be able to replicate
 that behavior in a computer.
 
+### 8.2: Music Scene Description
+
+The Music Scene Description section introduces the capabilities of untrained music
+listeners (i.e. hum melody, clapping on beat, etc.). As a result, a system for
+describing music should not consider technical musical details like individual
+notes in a chord but rather its overall tone color.
+
 ## [REpeating Pattern Extraction Technique (REPET)][2]
 
 At a high level, REPET is a tool for extracting repeating pattern audio from

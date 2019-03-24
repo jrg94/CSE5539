@@ -48,7 +48,10 @@ include the Hidden Markov Model and Optima.
 
 Musical audio signals are complicated and can depend on different factors
 such as monaural or stereo (channels), monophonic or polyphonic (number of
-sounds), and genre.
+sounds), and genre. Granted, stereo signals can be easily reduced to
+monaural signals by averaging the channels. That said, generally music signals
+are polyphonic, and genre matters because beat structure is more
+pronounced in some genres (i.e. pop) than others.
 
 ## [REpeating Pattern Extraction Technique (REPET)][2]
 

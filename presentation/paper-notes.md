@@ -16,21 +16,21 @@ Naturally, I'll be using this space to record my notes.
 
 This chapter is broken up into sections, so I'll summarize them separately.
 
-### 8.1: Introduction
+### 8.1: Introduction (251 - 252)
 
 The introduction covers the idea that people are capable of comprehending music
 without necessarily separate all the individuals sounds. In other words, they
 understand the mixture of sounds. Obviously, we'd like to be able to replicate
 that behavior in a computer.
 
-### 8.2: Music Scene Description
+### 8.2: Music Scene Description (252 - 256)
 
 The Music Scene Description section introduces the capabilities of untrained music
 listeners (i.e. hum melody, clapping on beat, etc.). As a result, a system for
 describing music should not consider technical musical details like individual
 notes in a chord but rather its overall tone color.
 
-#### 8.2.1 Music Scene Descriptions
+#### 8.2.1 Music Scene Descriptions (253 - 255)
 
 The Music Scene Descriptions section introduces three concepts: 
 
@@ -44,7 +44,7 @@ to processing speeds allowing for processor intensive calculations like
 fast fourier transforms and other statistical methods. Statistical models
 include the Hidden Markov Model and Optima.
 
-#### 8.2.2 Difficulties Associated with Musical Audio Signals
+#### 8.2.2 Difficulties Associated with Musical Audio Signals (255 - 256)
 
 Musical audio signals are complicated and can depend on different factors
 such as monaural or stereo (channels), monophonic or polyphonic (number of
@@ -53,7 +53,13 @@ monaural signals by averaging the channels. That said, generally music signals
 are polyphonic, and genre matters because beat structure is more
 pronounced in some genres (i.e. pop) than others.
 
-### 8.3 Estimating Melody and Base Lines
+### 8.3 Estimating Melody and Base Lines (256 - 266)
+
+### 8.4 Estimating Beat Structure (267 - 275)
+
+### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)
+
+### 8.6 Discussions and Conclusions (286 - 289)
 
 ## [REpeating Pattern Extraction Technique (REPET)][2]
 

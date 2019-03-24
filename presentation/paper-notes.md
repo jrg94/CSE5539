@@ -123,6 +123,26 @@ and forms temporal trajectories of F0 candidates. These candidates are quantized
 the closest MIDI note numbers and some analysis is done to remove transient notes
 and harmonics. Finally, the best sequence is chosen based on some heuristic. 
 
+Meanwhile, Marolt leverages PreFEst core to estimate F0 candidates, but uses
+spectral modeling synthese (SMS) on the front end. The advantage to this method
+is the ability to identify melody fragments which can be clustered into a 
+melody line. Clustering is accomplished using Gaussian Mixture Models (GMMs)
+based on dominance, pitch, loudness, pitch stability, and onset steepness. 
+
+For classical music, Eggink and Brown developed a method of detecting
+melody lines using various knowledge sources for prediction. Knowledge
+sources include local knowledge (i.e. instrument recognition) and temporal 
+knowledge. I'll need to read this again to get a good understanding.
+
+For vocal music, Li and Wang extend F0 estimation from noisy speech techniques.
+Music signals are sent through a 128 gammatone filterbank and split by a
+frequency of 800 Hz. Then some analysis is done to extract the melody line.
+
+Finally, Hainsworth and Macleod came up with a method for detecting base lines.
+First, they extract onset times of notes below 200 Hz. Then, they perform some 
+F0 analysis and track the results over time using comb-filter like analysis.
+The results are then cleaned up.
+
 ### 8.4 Estimating Beat Structure (267 - 275)
 
 ### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)

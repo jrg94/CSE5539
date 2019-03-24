@@ -111,6 +111,18 @@ frequency components.
 
 #### 8.3.3 PreFEst-back-end: Sequential F0 Tracking by Multiple-Agent Architecture
 
+F0 is tracked over time. The most predominant and stable F0 is then selected. 
+
+#### 8.3.4 Other Methods
+
+PreFEst is great, but it has drawbacks--namely, bias can be including in detection.
+
+Paiva, Mendes, and Cardoso implemented a solution based on human anatomy that can
+generate MIDI output rather than an F0 trajectory. The solution leverages correlograms
+and forms temporal trajectories of F0 candidates. These candidates are quantized to
+the closest MIDI note numbers and some analysis is done to remove transient notes
+and harmonics. Finally, the best sequence is chosen based on some heuristic. 
+
 ### 8.4 Estimating Beat Structure (267 - 275)
 
 ### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)

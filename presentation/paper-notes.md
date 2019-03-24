@@ -53,6 +53,8 @@ monaural signals by averaging the channels. That said, generally music signals
 are polyphonic, and genre matters because beat structure is more
 pronounced in some genres (i.e. pop) than others.
 
+### 8.3 Estimating Melody and Base Lines
+
 ## [REpeating Pattern Extraction Technique (REPET)][2]
 
 At a high level, REPET is a tool for extracting repeating pattern audio from

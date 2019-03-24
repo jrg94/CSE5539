@@ -55,6 +55,28 @@ pronounced in some genres (i.e. pop) than others.
 
 ### 8.3 Estimating Melody and Base Lines (256 - 266)
 
+This sections opens up with some application domains for estimating melody
+and base lines such as retreiving a musical piece by humming or automatic
+production of accompaniment tracks for karaoke.
+
+Later, the section discusses challenges with using current techniques like
+F0 estimation which depends on single tones that lack periodic noise. Even
+special F0 estimation methods fail due to the smearing of harmonics.
+
+Fortunately, F0 estimation in music was first achieved in 1999 using PreFEst.
+PreFEst works by estimating F0 from the most predominant harmonic structure
+using a probability density function (PDF). Unfortunately, I struggled to
+grasp exactly how it works from all the signal processing jargon. Luckily,
+this section claims that the process will be explained in more detail. That
+said, the basic model works in three parts:
+
+1. Front end: frequency analysis
+2. Core: predominant F0 estimation
+3. Back end: temporal continuity evaluation
+
+Based on this model, melody and bass lines can be extracted using frequency-
+range limitations during core processing.
+
 ### 8.4 Estimating Beat Structure (267 - 275)
 
 ### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)

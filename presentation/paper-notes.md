@@ -94,11 +94,11 @@ section to really get it.
 An observed PDF is assumed to be generated from a model which is a weighted
 mixture of all possible tone models (whatever that means). 
 
-##### 8.3.2.2 Introducing a Prior Distribution
+##### 8.3.2.2 Introducing a Prior Distribution (260 - 261)
 
 How to create a prior distribution?
 
-##### 8.3.2.3 MAP Estimation Using the EM Algorithm
+##### 8.3.2.3 MAP Estimation Using the EM Algorithm (261 - 262)
 
 Apparently, it's too hard to perform an integral, so we use
 some Expectation-Maximization algorithm to compute MAP
@@ -109,11 +109,11 @@ comb-filter based and autocorrelation-based multiple F0
 estimation methods because they cannot separate overlapping
 frequency components. 
 
-#### 8.3.3 PreFEst-back-end: Sequential F0 Tracking by Multiple-Agent Architecture
+#### 8.3.3 PreFEst-back-end: Sequential F0 Tracking by Multiple-Agent Architecture (262 - 263)
 
 F0 is tracked over time. The most predominant and stable F0 is then selected. 
 
-#### 8.3.4 Other Methods
+#### 8.3.4 Other Methods (263 - 266)
 
 PreFEst is great, but it has drawbacks--namely, bias can be including in detection.
 
@@ -164,6 +164,8 @@ Finally, they introduce the challenges of tracking beats in CD musics. Namely:
   - Multiple interpretations of beats are possibles
 3. Using musical knowledge to make musical decisions
   - Musical knowledge allows for reduction of ambiguity
+
+#### 8.4.1 Estimating Period and Phase (268 - 270)
 
 ### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)
 

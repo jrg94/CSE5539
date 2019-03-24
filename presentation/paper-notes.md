@@ -159,13 +159,33 @@ and measures are track through sequences of quarter notes.
 Finally, they introduce the challenges of tracking beats in CD musics. Namely:
 
 1. Estimating the period and phase by using cues in audio singlas
-  - Current techniques fail in in polyphonic audio signals
+    - Current techniques fail in in polyphonic audio signals
 2. Dealing with ambiguity of interpretation
-  - Multiple interpretations of beats are possibles
+    - Multiple interpretations of beats are possibles
 3. Using musical knowledge to make musical decisions
-  - Musical knowledge allows for reduction of ambiguity
+    - Musical knowledge allows for reduction of ambiguity
 
 #### 8.4.1 Estimating Period and Phase (268 - 270)
+
+The basic idea is to detect onset times and use them as cues for estimating
+the period and phase. The onset itself corresponds to the beat and the distance
+between beats constitutes the phase.
+
+Of course, this is overly simplistic as onset could indicate eight or sixteenth
+notes which are fractions of the beat. A better solution is to run an autocorrelation
+over the onset times and check the peaks of the result.
+
+For audio-based tracking, it's important to split the frequency of the track into
+bands and determine periodicity in those respective bands. One solution is to 
+perform the method above and combine the results using a weighted sum. 
+
+Other methods avoid onset altogether and instead apply a set of comb-filter
+resonators (whatever those are) to the degrees of musical accentuation
+of various subbands. 
+
+With the beat period estimated, it's helpful to estimate the phase. 
+
+#### 8.4.2 Dealing with Ambiguity (270 - 271)
 
 ### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)
 

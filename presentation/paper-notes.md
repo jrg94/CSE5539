@@ -44,6 +44,12 @@ to processing speeds allowing for processor intensive calculations like
 fast fourier transforms and other statistical methods. Statistical models
 include the Hidden Markov Model and Optima.
 
+#### 8.2.2 Difficulties Associated with Musical Audio Signals
+
+Musical audio signals are complicated and can depend on different factors
+such as monaural or stereo (channels), monophonic or polyphonic (number of
+sounds), and genre.
+
 ## [REpeating Pattern Extraction Technique (REPET)][2]
 
 At a high level, REPET is a tool for extracting repeating pattern audio from

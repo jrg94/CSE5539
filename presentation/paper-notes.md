@@ -145,6 +145,26 @@ The results are then cleaned up.
 
 ### 8.4 Estimating Beat Structure (267 - 275)
 
+Once again, this section kicks off with some applications of estimating beat
+structure such as music-synchronized computer graphics, stage-lighting control, 
+and human-computer improvisation in live ensembles.
+
+Next, the section lists a ton of historical work that went into tracking beat
+in MIDI and CD recordings over the years. 
+
+After that, the section defines what hierarchical beat structure is: quarter note
+and bar line tracking. Quarter notes are tracked through period and phase
+and measures are track through sequences of quarter notes.
+
+Finally, they introduce the challenges of tracking beats in CD musics. Namely:
+
+1. Estimating the period and phase by using cues in audio singlas
+  - Current techniques fail in in polyphonic audio signals
+2. Dealing with ambiguity of interpretation
+  - Multiple interpretations of beats are possibles
+3. Using musical knowledge to make musical decisions
+  - Musical knowledge allows for reduction of ambiguity
+
 ### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)
 
 ### 8.6 Discussions and Conclusions (286 - 289)

@@ -91,6 +91,26 @@ section to really get it.
 
 ##### 8.3.2.1 Weighted-Mixture Model of Adaptive Tone Models (258 - 260)
 
+An observed PDF is assumed to be generated from a model which is a weighted
+mixture of all possible tone models (whatever that means). 
+
+##### 8.3.2.2 Introducing a Prior Distribution
+
+How to create a prior distribution?
+
+##### 8.3.2.3 MAP Estimation Using the EM Algorithm
+
+Apparently, it's too hard to perform an integral, so we use
+some Expectation-Maximization algorithm to compute MAP
+estimates from incomplete observed data. 
+
+Apparently, this complex mathematical solution is better than
+comb-filter based and autocorrelation-based multiple F0
+estimation methods because they cannot separate overlapping
+frequency components. 
+
+#### 8.3.3 PreFEst-back-end: Sequential F0 Tracking by Multiple-Agent Architecture
+
 ### 8.4 Estimating Beat Structure (267 - 275)
 
 ### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)

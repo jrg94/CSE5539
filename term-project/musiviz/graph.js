@@ -85,9 +85,7 @@ function dBFSVsReleaseDate(data) {
   data = data.filter(filterReleaseDate)
 
   // Update purchase date from string to date object
-  data.forEach(function(d) {
-    d.release_date = new Date(d.release_date);
-  });
+  data.forEach(d => d.release_date = new Date(d.release_date));
 
   // Create x scale
   var yScale = d3.scaleLinear()
@@ -96,9 +94,7 @@ function dBFSVsReleaseDate(data) {
 
   // Create y scale
   var xScale = d3.scaleTime()
-    .domain(d3.extent(data, function(d) {
-      return d.release_date;
-    }))
+    .domain(d3.extent(data, d => d.release_date))
     .range([padding, width - padding * 2]);
 
   // Create color scale

@@ -102,15 +102,6 @@ function averageDBFS(data) {
     .domain([d3.min(Object.values(groupedData)), 0])
     .range([height - padding, padding]);
 
-  svg.append("g")
-    .attr("transform", "translate(0," + (height - padding) + ")")
-    .call(d3.axisBottom(xScale))
-    .selectAll("text")
-    .style("text-anchor", "end")
-    .attr("dx", "-.8em")
-    .attr("dy", ".15em")
-    .attr("transform", "rotate(-35)");
-
   svg.selectAll(".bar")
     .data(Object.entries(groupedData))
     .enter().append("rect")
@@ -121,6 +112,7 @@ function averageDBFS(data) {
     .attr("width", xScale.bandwidth())
     .attr("height", d => height - yScale(d[1]) - padding);
 
+  drawXAxis(xScale, padding, height, width, "Genre")
   drawYAxis(yScale, padding, height, "dBFS");
   drawTitle("Genre Histogram");
 }

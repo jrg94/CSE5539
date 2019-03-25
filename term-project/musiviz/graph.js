@@ -294,6 +294,15 @@ function timeToSeconds(time) {
   return hoursToSeconds + minutesToSeconds + Number(elements[2]);
 }
 
+/**
+ * Draws the x-axis.
+ *
+ * @param xScale - a D3 scale object
+ * @param padding - the padding
+ * @param height - the height of the SVG
+ * @param width - the width of the SVG
+ * @param label - the x-axis label
+ */
 function drawXAxis(xScale, padding, height, width, label) {
   // Draw x-axis
   svg.append("g")
@@ -312,7 +321,7 @@ function drawXAxis(xScale, padding, height, width, label) {
  *
  * @param yScale - a D3 scale object
  * @param padding - the padding
- * @param height - the height of the window
+ * @param height - the height of the SVG
  * @param label - the y-axis label
  */
 function drawYAxis(yScale, padding, height, label) {

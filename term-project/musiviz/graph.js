@@ -71,6 +71,7 @@ function dBFSVsReleaseDate(data) {
  * Generates an average dBFS bar graph.
  */
 function averageDBFS(data) {
+  data.forEach(d => d.genre = (d.genre == null ? "None" : d.genre))
   groupedData = groupBy(data, d => d.genre);
   Object.entries(groupedData)
     .forEach(

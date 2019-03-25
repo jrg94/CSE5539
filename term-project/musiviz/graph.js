@@ -79,11 +79,14 @@ function dBFSVsReleaseDate(data) {
   drawTitle("dBFS vs. Release Date");
 }
 
+/**
+ * A helper function for grouping items by some key.
+ */
 function groupBy(xs, f) {
   return xs.reduce((r, v, i, a, k = f(v)) => ((r[k] || (r[k] = [])).push(v), r), {});
 }
 
-function averageDBFSVsReleaseDate(data) {
+function averageDBFS(data) {
   groupedData = groupBy(data, d => d.genre);
   Object.entries(groupedData)
     .forEach(
@@ -93,7 +96,42 @@ function averageDBFSVsReleaseDate(data) {
         })
       ).dBFS / value.length
     )
-  console.log(groupedData);
+
+
+    var xScale = d3.scaleBand()
+      .domain(Object.keys(groupedData).sort((a, b) => d3.descending(groupedData[a], groupedData[b])))
+      .range([padding, width - padding * 2])
+      .padding(.1);
+
+    var yScale = d3.scaleLinear()
+      .domain([d3.min(Object.values(groupedData)), 0])
+      .range([height - padding, padding]);
+
+    svg.append("g")
+      .attr("transform", "translate(0," + (height - padding) + ")")
+      .call(d3.axisBottom(xScale))
+      .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", ".15em")
+      .attr("transform", "rotate(-35)");
+
+    // Draw y-axis
+    svg.append("g")
+      .attr("transform", "translate(" + padding + ", 0)")
+      .call(d3.axisLeft(yScale));
+
+    svg.selectAll(".bar")
+      .data(Object.entries(groupedData))
+      .enter().append("rect")
+      .attr("class", "bar")
+      .attr("fill", "#9400D3")
+      .attr("x", d => xScale(d[0]))
+      .attr("y", d => yScale(d[1]))
+      .attr("width", xScale.bandwidth())
+      .attr("height", d => height - yScale(d[1]) - padding);
+
+    drawTitle("Genre Histogram");
 }
 
 /**

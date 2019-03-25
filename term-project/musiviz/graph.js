@@ -8,6 +8,9 @@ d3.select("body").append("svg")
 
 var svg = d3.select("svg");
 
+/**
+ * Plots a genre histogram
+ */
 function genreHistogram(data) {
 
   var mapping = getMapping(data);

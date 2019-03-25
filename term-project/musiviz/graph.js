@@ -120,17 +120,7 @@ function dBFSVsReleaseDate(data) {
       return colorScale(d.genre);
     });
 
-  // Draw x-axis
-  svg.append("g")
-    .attr("transform", "translate(0," + (height - padding) + ")")
-    .call(d3.axisBottom(xScale));
-
-  // Draw x-axis title
-  svg.append("text")
-    .attr("transform", "translate(" + ((width / 2) - padding / 2) + " ," + (height - 10) + ")")
-    .style("text-anchor", "middle")
-    .text("Release Date (Year)");
-
+  drawXAxis(xScale, padding, height, width, "Release Date (Year)")
   drawYAxis(yScale, padding, height, "dBFS");
   drawLegend(colorScale);
   drawTitle("dBFS vs. Release Date");
@@ -322,6 +312,19 @@ function timeToSeconds(time) {
   hoursToSeconds = Number(elements[0]) * 3600;
   minutesToSeconds = Number(elements[1]) * 60;
   return hoursToSeconds + minutesToSeconds + Number(elements[2]);
+}
+
+function drawXAxis(xScale, padding, height, width, label) {
+  // Draw x-axis
+  svg.append("g")
+    .attr("transform", "translate(0," + (height - padding) + ")")
+    .call(d3.axisBottom(xScale));
+
+  // Draw x-axis title
+  svg.append("text")
+    .attr("transform", "translate(" + ((width / 2) - padding / 2) + " ," + (height - 10) + ")")
+    .style("text-anchor", "middle")
+    .text(label);
 }
 
 /**

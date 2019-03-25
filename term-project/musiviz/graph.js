@@ -173,17 +173,7 @@ function durationVsReleaseDate(data) {
       return colorScale(d.genre);
     });
 
-  // Draw x-axis
-  svg.append("g")
-    .attr("transform", "translate(0," + (height - padding) + ")")
-    .call(d3.axisBottom(xScale));
-
-  // Draw x-axis title
-  svg.append("text")
-    .attr("transform", "translate(" + ((width / 2) - padding / 2) + " ," + (height - 10) + ")")
-    .style("text-anchor", "middle")
-    .text("Release Date (Year)");
-
+  drawXAxis(xScale, padding, height, width, "Release Date (Year)")
   drawYAxis(yScale, padding, height, "Duration (seconds)");
   drawLegend(colorScale);
   drawTitle("Duration vs. Release Date");
@@ -234,17 +224,7 @@ function durationVsPurchaseDate(data) {
       return colorScale(d.genre);
     });
 
-  // Draw x-axis
-  svg.append("g")
-    .attr("transform", "translate(0," + (height - padding) + ")")
-    .call(d3.axisBottom(xScale));
-
-  // Draw x-axis title
-  svg.append("text")
-    .attr("transform", "translate(" + ((width / 2) - padding / 2) + " ," + (height - 10) + ")")
-    .style("text-anchor", "middle")
-    .text("Purchase Date (Year)");
-
+  drawXAxis(xScale, padding, height, width, "Purchase Date (Year)")
   drawYAxis(yScale, padding, height, "Duration (seconds)");
   drawLegend(colorScale);
   drawTitle("Duration vs. Purchase Date");

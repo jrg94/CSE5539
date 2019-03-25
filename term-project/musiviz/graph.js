@@ -77,7 +77,7 @@ function genreHistogram(data) {
   drawTitle("Genre Histogram");
 }
 
-function dBFSVsReleaseData(data) {
+function dBFSVsReleaseDate(data) {
   // Filter out useless data
   data = data.filter(filterReleaseDate)
 
@@ -88,9 +88,7 @@ function dBFSVsReleaseData(data) {
 
   // Create x scale
   var yScale = d3.scaleLinear()
-    .domain([0, d3.max(data, function(d) {
-      return timeToSeconds(d.length);
-    })])
+    .domain([d3.min(data, d => d.dBFS), 0])
     .range([height - padding, padding]);
 
   // Create y scale
@@ -109,7 +107,7 @@ function dBFSVsReleaseData(data) {
     .enter()
     .append("circle")
     .attr("cy", function(d) {
-      return yScale(timeToSeconds(d.length));
+      return yScale(d.dBFS);
     })
     .attr("cx", function(d) {
       return xScale(d.release_date);

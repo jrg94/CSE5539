@@ -80,12 +80,8 @@ function dBFSVsReleaseDate(data) {
 }
 
 /**
- * A helper function for grouping items by some key.
+ * Generates an average dBFS bar graph.
  */
-function groupBy(xs, f) {
-  return xs.reduce((r, v, i, a, k = f(v)) => ((r[k] || (r[k] = [])).push(v), r), {});
-}
-
 function averageDBFS(data) {
   groupedData = groupBy(data, d => d.genre);
   Object.entries(groupedData)
@@ -115,11 +111,6 @@ function averageDBFS(data) {
     .attr("dy", ".15em")
     .attr("transform", "rotate(-35)");
 
-  // Draw y-axis
-  svg.append("g")
-    .attr("transform", "translate(" + padding + ", 0)")
-    .call(d3.axisLeft(yScale));
-
   svg.selectAll(".bar")
     .data(Object.entries(groupedData))
     .enter().append("rect")
@@ -130,6 +121,7 @@ function averageDBFS(data) {
     .attr("width", xScale.bandwidth())
     .attr("height", d => height - yScale(d[1]) - padding);
 
+  drawYAxis(yScale, padding, height, "dBFS");
   drawTitle("Genre Histogram");
 }
 
@@ -261,6 +253,13 @@ function getMapping(data) {
     }
   });
   return mapping;
+}
+
+/**
+ * A helper function for grouping items by some key.
+ */
+function groupBy(xs, f) {
+  return xs.reduce((r, v, i, a, k = f(v)) => ((r[k] || (r[k] = [])).push(v), r), {});
 }
 
 /**

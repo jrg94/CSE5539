@@ -310,10 +310,10 @@ function durationVsPurchaseDate(data) {
 function filterReleaseDate(data) {
   var p = data.release_date != null;
   var g = data.genre != null;
-  var c = data.genre != "Comedy";
-  var u = data.genre != "Country";
-  var s = data.genre != "Soundtrack";
-  var r = data.genre != "Rap";
+  var c = data.genre != "Vocal";
+  var u = data.genre != "Dance";
+  var s = data.genre != "Instrumental";
+  var r = data.genre != "Hip-Hop";
   return p && g && c && u && s && r;
 }
 

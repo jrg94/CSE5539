@@ -104,23 +104,8 @@ function dBFSVsReleaseDate(data) {
   // Create color scale
   var colorScale = d3.scaleOrdinal(d3.schemePaired);
 
-  // Draw all circles
-  svg.selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cy", function(d) {
-      return yScale(d.dBFS);
-    })
-    .attr("cx", function(d) {
-      return xScale(d.release_date);
-    })
-    .attr("r", 5)
-    .attr("fill", function(d) {
-      return colorScale(d.genre);
-    });
-
-  drawXAxis(xScale, padding, height, width, "Release Date (Year)")
+  drawCircles(data, d => yScale(d.dBFS), d => xScale(d.release_date), d => colorScale(d.genre));
+  drawXAxis(xScale, padding, height, width, "Release Date (Year)");
   drawYAxis(yScale, padding, height, "dBFS");
   drawLegend(colorScale);
   drawTitle("dBFS vs. Release Date");
@@ -292,6 +277,17 @@ function timeToSeconds(time) {
   hoursToSeconds = Number(elements[0]) * 3600;
   minutesToSeconds = Number(elements[1]) * 60;
   return hoursToSeconds + minutesToSeconds + Number(elements[2]);
+}
+
+function drawCircles(data, cx, cy, fill) {
+  svg.selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("cy", cx)
+    .attr("cx", cy)
+    .attr("r", 5)
+    .attr("fill", fill);
 }
 
 /**

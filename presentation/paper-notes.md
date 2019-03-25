@@ -210,7 +210,31 @@ This section contains a lot of excellend figures for explanation purposes.
 
 ### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)
 
+#### 8.5.1 Extracting Acoustic Features and Calculating Their Similarities (278 - 281)
+
+##### 8.5.1.1 Pitch Feature: Chroma Vector (278 - 280)
+
+##### 8.5.1.2 Timbral Feature: MFCC and Dynamic Features (280)
+
+##### 8.5.1.3 Calculation Similarity (280 - 281)
+
+#### 8.5.2 Finding Repeating Sections (281 - 282)
+
+#### 8.5.3 Grouping Repeating Sections (282 - 284)
+
+#### 8.5.4 Detecting Modulated Repetition (284 - 285)
+
+#### 8.5.5 Selecting Chorus Sections (285)
+
+#### 8.5.6 Other Methods (285 - 286)
+
 ### 8.6 Discussions and Conclusions (286 - 289)
+
+#### 8.6.1 Importance (286 - 287)
+
+#### 8.6.2 Evaluation Issues (287 - 288)
+
+#### 8.6.3 Future Directions (288 - 289)
 
 ## [REpeating Pattern Extraction Technique (REPET)][2]
 

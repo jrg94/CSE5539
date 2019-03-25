@@ -255,20 +255,7 @@ function durationVsPurchaseDate(data) {
     .style("text-anchor", "middle")
     .text("Purchase Date (Year)");
 
-  // Draw y-axis
-  svg.append("g")
-    .attr("transform", "translate(" + padding + ", 0)")
-    .call(d3.axisLeft(yScale));
-
-  // Draw y-axis title
-  svg.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - 5)
-    .attr("x", 0 - (height / 2))
-    .attr("dy", "1em")
-    .style("text-anchor", "middle")
-    .text("Duration (seconds)");
-
+  drawYAxis(yScale, padding, height, "Duration (seconds)");
   drawLegend(colorScale);
   drawTitle("Duration vs. Purchase Date");
 }

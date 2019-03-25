@@ -14,16 +14,12 @@ function genreHistogram(data) {
   mapping.sort((a, b) => b.count - a.count)
 
   var xScale = d3.scaleBand()
-    .domain(mapping.map(function(d) {
-      return d.genre;
-    }))
+    .domain(mapping.map(d => d.genre))
     .range([padding, width - padding * 2])
     .padding(.1);
 
   var yScale = d3.scaleLinear()
-    .domain([0, d3.max(mapping, function(d) {
-      return d.count;
-    })])
+    .domain([0, d3.max(mapping, d => d.count)])
     .range([height - padding, padding]);
 
   svg.append("g")
@@ -45,16 +41,10 @@ function genreHistogram(data) {
     .enter().append("rect")
     .attr("class", "bar")
     .attr("fill", "#dc3912")
-    .attr("x", function(d) {
-      return xScale(d.genre);
-    })
-    .attr("y", function(d) {
-      return yScale(d.count);
-    })
+    .attr("x", d => xScale(d.genre))
+    .attr("y", d => yScale(d.count))
     .attr("width", xScale.bandwidth())
-    .attr("height", function(d) {
-      return height - yScale(d.count) - padding;
-    });
+    .attr("height", d => height - yScale(d.count) - padding);
 
   drawTitle("Genre Histogram");
 }

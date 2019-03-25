@@ -123,16 +123,12 @@ function durationVsReleaseDate(data) {
 
   // Create x scale
   var yScale = d3.scaleLinear()
-    .domain([0, d3.max(data, function(d) {
-      return timeToSeconds(d.length);
-    })])
+    .domain([0, d3.max(data, d => timeToSeconds(d.length))])
     .range([height - padding, padding]);
 
   // Create y scale
   var xScale = d3.scaleTime()
-    .domain(d3.extent(data, function(d) {
-      return d.release_date;
-    }))
+    .domain(d3.extent(data, d => d.release_date))
     .range([padding, width - padding * 2]);
 
   // Create color scale
@@ -155,15 +151,11 @@ function durationVsPurchaseDate(data) {
   data = data.filter(filterPurchaseDate)
 
   // Update purchase date from string to date object
-  data.forEach(function(d) {
-    d.purchase_date = new Date(d.purchase_date);
-  });
+  data.forEach(d => d.purchase_date = new Date(d.purchase_date));
 
   // Create x scale
   var yScale = d3.scaleLinear()
-    .domain([0, d3.max(data, function(d) {
-      return timeToSeconds(d.length);
-    })])
+    .domain([0, d3.max(data, d => timeToSeconds(d.length))])
     .range([height - padding, padding]);
 
   // Create y scale

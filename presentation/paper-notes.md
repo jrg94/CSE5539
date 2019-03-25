@@ -194,6 +194,20 @@ It's also possible to use probabilistic models to solve ambiguity.
 
 #### 8.4.3 Using Musical Knowledge (271 - 275)
 
+It's possible to use prior music knowledge when computing the reliability
+of a hypothesis. Some folks used knowledge about chord progressions while
+others used knowledge about temporal relationships in hierarchical beat
+structures.
+
+Unfortunately, it's challenging to use drum patterns and chord changes if 
+you don't have the beat, so some solutions use both bottom up and top down
+approaches simulataneously. The bottom up portion of the system estimates
+beats using onset while the top up portion of the system uses the hypothetical
+beats to detect chord changes. Using the chord changes and drum patterns,
+higher level information can be extracted like measure numbers.
+
+This section contains a lot of excellend figures for explanation purposes.
+
 ### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)
 
 ### 8.6 Discussions and Conclusions (286 - 289)

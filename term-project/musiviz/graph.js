@@ -324,6 +324,14 @@ function timeToSeconds(time) {
   return hoursToSeconds + minutesToSeconds + Number(elements[2]);
 }
 
+/**
+ * Draws the y-axis.
+ *
+ * @param yScale - a D3 scale object
+ * @param padding - the padding
+ * @param height - the height of the window
+ * @param label - the y-axis label
+ */
 function drawYAxis(yScale, padding, height, label) {
   // Draw y-axis
   svg.append("g")

@@ -79,6 +79,23 @@ function dBFSVsReleaseDate(data) {
   drawTitle("dBFS vs. Release Date");
 }
 
+function groupBy(xs, f) {
+  return xs.reduce((r, v, i, a, k = f(v)) => ((r[k] || (r[k] = [])).push(v), r), {});
+}
+
+function averageDBFSVsReleaseDate(data) {
+  groupedData = groupBy(data, d => d.genre);
+  Object.entries(groupedData)
+    .forEach(
+      ([key, value]) => groupedData[key] = value.reduce(
+        (sum, next) => ({
+          dBFS: sum.dBFS + next.dBFS
+        })
+      ).dBFS / value.length
+    )
+  console.log(groupedData);
+}
+
 /**
  * Generates the release date vs. duration graph on the current SVG.
  *

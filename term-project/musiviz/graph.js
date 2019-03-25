@@ -77,6 +77,9 @@ function genreHistogram(data) {
   drawTitle("Genre Histogram");
 }
 
+/**
+ * Plots dBFS over Release Date.
+ */
 function dBFSVsReleaseDate(data) {
   // Filter out useless data
   data = data.filter(filterReleaseDate)
@@ -140,10 +143,10 @@ function dBFSVsReleaseDate(data) {
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .style("text-anchor", "middle")
-    .text("Duration (seconds)");
+    .text("dBFS");
 
   drawLegend(colorScale);
-  drawTitle("Duration vs. Release Date");
+  drawTitle("dBFS vs. Release Date");
 }
 
 /**

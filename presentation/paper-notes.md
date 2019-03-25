@@ -187,6 +187,13 @@ With the beat period estimated, it's helpful to estimate the phase.
 
 #### 8.4.2 Dealing with Ambiguity (270 - 271)
 
+The general method for dealing with ambiguity is to track multiple hypotheses.
+The most reliable hypotheses then wins out.
+
+It's also possible to use probabilistic models to solve ambiguity.
+
+#### 8.4.3 Using Musical Knowledge (271 - 275)
+
 ### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)
 
 ### 8.6 Discussions and Conclusions (286 - 289)

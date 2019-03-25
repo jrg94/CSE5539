@@ -10,25 +10,7 @@ var svg = d3.select("svg");
 
 function genreHistogram(data) {
 
-  var mapping = []
-  data.forEach(function(d) {
-    if (d.genre == null) {
-      d.genre = "None";
-    }
-    var found = false;
-    for (var i = 0; i < mapping.length && !found; i++) {
-      if (mapping[i].genre == d.genre) {
-        mapping[i].count += 1;
-        found = true;
-      }
-    }
-    if (!found) {
-      mapping.push({
-        "genre": d.genre,
-        "count": 1
-      })
-    }
-  });
+  var mapping = getMapping(data);
   mapping.sort((a, b) => b.count - a.count)
 
   var xScale = d3.scaleBand()
@@ -212,6 +194,29 @@ function filterPurchaseDate(data) {
   var u = data.genre != "Country";
   var s = data.genre != "Soundtrack";
   return p && g && c && u && s;
+}
+
+function getMapping(data) {
+  var mapping = [];
+  data.forEach(function(d) {
+    if (d.genre == null) {
+      d.genre = "None";
+    }
+    var found = false;
+    for (var i = 0; i < mapping.length && !found; i++) {
+      if (mapping[i].genre == d.genre) {
+        mapping[i].count += 1;
+        found = true;
+      }
+    }
+    if (!found) {
+      mapping.push({
+        "genre": d.genre,
+        "count": 1
+      })
+    }
+  });
+  return mapping;
 }
 
 /**

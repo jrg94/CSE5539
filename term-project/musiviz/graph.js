@@ -22,20 +22,6 @@ function genreHistogram(data) {
     .domain([0, d3.max(mapping, d => d.count)])
     .range([height - padding, padding]);
 
-  svg.append("g")
-    .attr("transform", "translate(0," + (height - padding) + ")")
-    .call(d3.axisBottom(xScale))
-    .selectAll("text")
-    .style("text-anchor", "end")
-    .attr("dx", "-.8em")
-    .attr("dy", ".15em")
-    .attr("transform", "rotate(-35)");
-
-  // Draw y-axis
-  svg.append("g")
-    .attr("transform", "translate(" + padding + ", 0)")
-    .call(d3.axisLeft(yScale));
-
   svg.selectAll(".bar")
     .data(mapping)
     .enter().append("rect")
@@ -46,6 +32,8 @@ function genreHistogram(data) {
     .attr("width", xScale.bandwidth())
     .attr("height", d => height - yScale(d.count) - padding);
 
+    drawXAxis(xScale, padding, height, width, "Genre")
+    drawYAxis(yScale, padding, height, "Frequency");
   drawTitle("Genre Histogram");
 }
 
@@ -114,7 +102,7 @@ function averageDBFS(data) {
 
   drawXAxis(xScale, padding, height, width, "Genre")
   drawYAxis(yScale, padding, height, "dBFS");
-  drawTitle("Genre Histogram");
+  drawTitle("Average dBFS vs. Genre");
 }
 
 /**
@@ -309,7 +297,12 @@ function drawXAxis(xScale, padding, height, width, label) {
   // Draw x-axis
   svg.append("g")
     .attr("transform", "translate(0," + (height - padding) + ")")
-    .call(d3.axisBottom(xScale));
+    .call(d3.axisBottom(xScale))
+    .selectAll("text")
+    .style("text-anchor", "end")
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .attr("transform", "rotate(-25)");
 
   // Draw x-axis title
   svg.append("text")

@@ -142,22 +142,7 @@ function durationVsReleaseDate(data) {
   // Create color scale
   var colorScale = d3.scaleOrdinal(d3.schemePaired);
 
-  // Draw all circles
-  svg.selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cy", function(d) {
-      return yScale(timeToSeconds(d.length));
-    })
-    .attr("cx", function(d) {
-      return xScale(d.release_date);
-    })
-    .attr("r", 5)
-    .attr("fill", function(d) {
-      return colorScale(d.genre);
-    });
-
+  drawCircles(data, d => yScale(timeToSeconds(d.length)), d => xScale(d.release_date), d => colorScale(d.genre));
   drawXAxis(xScale, padding, height, width, "Release Date (Year)")
   drawYAxis(yScale, padding, height, "Duration (seconds)");
   drawLegend(colorScale);

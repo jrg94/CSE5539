@@ -178,22 +178,7 @@ function durationVsPurchaseDate(data) {
   // Create color scale
   var colorScale = d3.scaleOrdinal(d3.schemePaired);
 
-  // Draw all circles
-  svg.selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cy", function(d) {
-      return yScale(timeToSeconds(d.length));
-    })
-    .attr("cx", function(d) {
-      return xScale(d.purchase_date);
-    })
-    .attr("r", 5)
-    .attr("fill", function(d) {
-      return colorScale(d.genre);
-    });
-
+  drawCircles(data, d => yScale(timeToSeconds(d.length)), d => xScale(d.purchase_date), d => colorScale(d.genre));
   drawXAxis(xScale, padding, height, width, "Purchase Date (Year)")
   drawYAxis(yScale, padding, height, "Duration (seconds)");
   drawLegend(colorScale);
@@ -264,6 +249,14 @@ function timeToSeconds(time) {
   return hoursToSeconds + minutesToSeconds + Number(elements[2]);
 }
 
+/**
+ * Draws circles.
+ *
+ * @param data - the data for circle drawing
+ * @param cx - a function for the x position
+ * @param cy - a function for the y position
+ * @param fill - a function for the color
+ */
 function drawCircles(data, cx, cy, fill) {
   svg.selectAll("circle")
     .data(data)

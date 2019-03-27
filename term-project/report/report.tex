@@ -502,7 +502,18 @@ Meanwhile, the soundtrack genre tends to be very quiet.
 Having seen an overview of dBFS over time, I had to take the analysis one step
 further by asking: what genres are loudest on average? To do that, I ran an
 analysis which captured the average dBFS of each genre and plotted on a bar
-graph similar to the genre histogram.
+graph (\autoref{fig:avg-dBFS}) similar to the genre histogram.
+
+\begin{figure}[h]
+ \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
+ \includegraphics[width=\columnwidth]{genre-histogram}
+ \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
+ \label{fig:avg-dBFS}
+\end{figure}
+
+In \autoref{fig:avg-dBFS}, I noticed right away that dance is the loudest genre
+by a considerable margin, and I suppose that makes sense. If the target audience
+of dance music is the club, it make sense for dance songs to be quite loud.
 
 \section{Challenges}
 

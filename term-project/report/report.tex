@@ -380,7 +380,9 @@ toward my favorite genres as seen in \autoref{fig:genres}.
 
 The visualization in \autoref{fig:genres} was rendered from \autoref{tab:genres}
 which contains 17 distinct genres including a placeholder for songs that have
-no documented genre.
+no documented genre. For convenience, the table was sorted in the same order
+as the plot. As a result, it's clear which genres dominate the collection:
+alternative and rock.
 
 \begin{table}[h]
   \caption{Genre Totals}
@@ -417,8 +419,10 @@ no documented genre.
 To encode genres in later plots, I chose to use color. Unfortunately, D3 no
 longer supports color pallets larger than 12 distinct colors, so I was forced
 to filter the data set by the 12 most frequent genres in the dataset. As a
-result, all following plots contain only the genres contained in
-\autoref{tab:genres_filtered}.
+result, there are about 12 data points missing from \autoref{fig:duration}
+and \autoref{fig:dBFs}. In particular, the vocal, dance, hip-hop, and
+instrumental genres have not been included. Instead, the contain only the genres
+contained in \autoref{tab:genres_filtered}.
 
 \begin{table}[h]
   \caption{Filtered Genre Totals}
@@ -460,7 +464,7 @@ have changed over time.
 
 \begin{figure}[h]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
- \includegraphics[width=\columnwidth]{genre-histogram}
+ \includegraphics[width=\columnwidth]{duration-vs-release-date}
  \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
  \label{fig:duration}
 \end{figure}
@@ -479,7 +483,7 @@ time. Naturally, the dBFS versus release data plot can be seen in
 
 \begin{figure}[h]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
- \includegraphics[width=\columnwidth]{genre-histogram}
+ \includegraphics[width=\columnwidth]{dbfs-vs-release-date}
  \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
  \label{fig:dBFS}
 \end{figure}
@@ -506,7 +510,7 @@ graph (\autoref{fig:avg-dBFS}) similar to the genre histogram.
 
 \begin{figure}[h]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
- \includegraphics[width=\columnwidth]{genre-histogram}
+ \includegraphics[width=\columnwidth]{average-dbfs-vs-genre}
  \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
  \label{fig:avg-dBFS}
 \end{figure}

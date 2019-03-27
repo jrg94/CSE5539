@@ -160,7 +160,7 @@ some time trying to address tasks such as:
 
 \begin{itemize}
   \item How frequent are the various genres in my personal library?
-  \item How has music loudness varied over time?
+  \item How does music loudness vary by genre?
   \item How has music duration varied over time?
 \end{itemize}
 
@@ -468,6 +468,41 @@ have changed over time.
 Right away, it's clear which genres tend to have the longest durations. For
 example, Metal and Classical music look like outliers with their durations
 almost three times as long as what appears to be the average duration.
+
+\subsection{dBFS Versus Release Date}
+
+Since I was on the subject of data over time, I thought it would be interesting
+to look at loudness over time using decibels at full scale (dBFS) and release
+date. The ideas here being that songs may have changed in average loudness over
+time. Naturally, the dBFS versus release data plot can be seen in
+\autoref{fig:dBFS}.
+
+\begin{figure}[h]
+ \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
+ \includegraphics[width=\columnwidth]{genre-histogram}
+ \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
+ \label{fig:dBFS}
+\end{figure}
+
+After looking at \autoref{fig:dBFS}, it's tough to make a conclusion on any
+trends in loudness over time. However, there are a few key features to notice.
+For one, loudness appears to be trending up slightly. However, the loudness
+is definitely more spread now than it used to be. In general, it seems songs
+used to hover between -12 and -22 dBFS. Now, songs range anywhere from -8 to -26
+dBFS.
+
+In terms of genre, there are a lot of interesting trends. For example, Rock
+is very clearly trending up in loudness. In the 70s, rock could be seen between
+-14 and -24 dBFS. Now, rock can be seen at -14 in its quietest. Likewise,
+genres like alternative and metal appear to be relatively loud on average.
+Meanwhile, the soundtrack genre tends to be very quiet.
+
+\subsection{Average dBFS Versus Genre}
+
+Having seen an overview of dBFS over time, I had to take the analysis one step
+further by asking: what genres are loudest on average? To do that, I ran an
+analysis which captured the average dBFS of each genre and plotted on a bar
+graph similar to the genre histogram.
 
 \section{Challenges}
 

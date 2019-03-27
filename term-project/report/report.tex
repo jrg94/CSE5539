@@ -530,7 +530,7 @@ of dance music is the club, it make sense for dance songs to be quite loud.
 However, it's important to notice that dance has only 3 samples, so take that
 graph with a grain of salt.
 
-Closely behind dance is punk and hip-hop. Again, hip-hop only has 2 samples
+Closely behind dance is punk and hip-hop. Again, hip-hop only has two samples
 representing that average, so that genre can be safely ignored. Meanwhile,
 punk has around 31 samples which may all be from one artist, so it's tough
 to really come to any conclusions in that regard.
@@ -553,6 +553,17 @@ As it turns out, the scope of the initial proposal was much too broad. Many of
 the signal processing approaches proposed were outside of my capabilities within
 a semester. Given more time, I would have liked to explore audio features beyond
 loudness such as pitch and onset.
+
+In addition, it turns out that reading and parsing existing audio formats is
+really challenging. Not only are the formats themselves not well documented, but
+the files are general fairly large. As a result, processing can take a lot of
+time and resources. Retrieving data for visualization took many hours of
+periodic persistence to ensure nothing was lost.
+
+Finally, overall software design was challenging. From parsing and data collection
+to data aggregation and visualization, there were a lot of steps in the pipeline.
+In particular, I ended up leveraging two separate scripting languages, Python
+and JavaScript, as well as an intermediate data respresentation, JSON.
 
 \section{Conclusion}
 

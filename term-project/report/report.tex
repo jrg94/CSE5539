@@ -104,7 +104,9 @@
   in music styles that can be discovered through data visualization? In this
   project, I attempt to answer that question by applying a handful of signal
   processing methods to a set of music files and visualizing the results
-  relative to genre.
+  relative to genre. All code for the project can be found at
+  https://github.com/jrg94/CSE5539 and the live visualizations can be viewed
+  at https://jrg94.github.io/CSE5539/.
 } % end of abstract
 
 %% Keywords that describe your work. Will show as 'Index Terms' in journal
@@ -160,7 +162,7 @@ some time trying to address tasks such as:
 
 \begin{itemize}
   \item How frequent are the various genres in my personal library?
-  \item How has music loudness varied over time?
+  \item How does music loudness vary by genre?
   \item How has music duration varied over time?
 \end{itemize}
 
@@ -380,7 +382,9 @@ toward my favorite genres as seen in \autoref{fig:genres}.
 
 The visualization in \autoref{fig:genres} was rendered from \autoref{tab:genres}
 which contains 17 distinct genres including a placeholder for songs that have
-no documented genre.
+no documented genre. For convenience, the table was sorted in the same order
+as the plot. As a result, it's clear which genres dominate the collection:
+alternative and rock.
 
 \begin{table}[h]
   \caption{Genre Totals}
@@ -417,8 +421,10 @@ no documented genre.
 To encode genres in later plots, I chose to use color. Unfortunately, D3 no
 longer supports color pallets larger than 12 distinct colors, so I was forced
 to filter the data set by the 12 most frequent genres in the dataset. As a
-result, all following plots contain only the genres contained in
-\autoref{tab:genres_filtered}.
+result, there are about 12 data points missing from \autoref{fig:duration}
+and \autoref{fig:dBFS}. In particular, the vocal, dance, hip-hop, and
+instrumental genres have not been included. Instead, the contain only the genres
+contained in \autoref{tab:genres_filtered}.
 
 \begin{table}[h]
   \caption{Filtered Genre Totals}
@@ -460,14 +466,88 @@ have changed over time.
 
 \begin{figure}[h]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
- \includegraphics[width=\columnwidth]{genre-histogram}
+ \includegraphics[width=\columnwidth]{duration-vs-release-date}
  \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
  \label{fig:duration}
 \end{figure}
 
 Right away, it's clear which genres tend to have the longest durations. For
 example, Metal and Classical music look like outliers with their durations
-almost three times as long as what appears to be the average duration.
+almost three times as long as what appears to be the average duration. I also
+find it interesting that duration appears to be decreasing over time.
+That said, I suppose that makes sense. Three-minute pop songs are a lot more
+common today than 8-minute jazz songs akin to Maynard Ferguson's rendition
+of Hey Jude.
+
+In addition, I'm interested in seeing how the genres cluster. Clearly, some
+genres are more popular today than in the past, and many of them seem to
+follow the same formula in terms of duration. Apparently, consumers have
+chosen some sort of duration sweet spot which hovers around 200 seconds.
+
+\subsection{dBFS Versus Release Date}
+
+Since I was on the subject of data over time, I thought it would be interesting
+to look at loudness over time using decibels at full scale (dBFS) and release
+date. The ideas here being that songs may have changed in average loudness over
+time. Naturally, the dBFS versus release data plot can be seen in
+\autoref{fig:dBFS}.
+
+\begin{figure}[h]
+ \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
+ \includegraphics[width=\columnwidth]{dbfs-vs-release-date}
+ \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
+ \label{fig:dBFS}
+\end{figure}
+
+After looking at \autoref{fig:dBFS}, it's tough to make a conclusion on any
+trends in loudness over time. However, there are a few key features to notice.
+For one, loudness appears to be trending up slightly. However, the loudness
+is definitely more spread now than it used to be. In general, it seems songs
+used to hover between -12 and -22 dBFS. Now, songs range anywhere from -8 to -26
+dBFS.
+
+In terms of genre, there are a lot of interesting trends. For example, Rock
+is very clearly trending up in loudness. In the 70s, rock could be seen between
+-14 and -24 dBFS. Now, rock can be seen at -14 in its quietest. Likewise,
+genres like alternative and metal appear to be relatively loud on average.
+Meanwhile, the soundtrack genre tends to be very quiet.
+
+\subsection{Average dBFS Versus Genre}
+
+Having seen an overview of dBFS over time, I had to take the analysis one step
+further by asking: what genres are loudest on average? To do that, I ran an
+analysis which captured the average dBFS of each genre and plotted on a bar
+graph (\autoref{fig:avg-dBFS}) similar to the genre histogram.
+
+\begin{figure}[h]
+ \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
+ \includegraphics[width=\columnwidth]{average-dbfs-vs-genre}
+ \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
+ \label{fig:avg-dBFS}
+\end{figure}
+
+In \autoref{fig:avg-dBFS}, I noticed right away that dance is the loudest genre
+by a considerable margin, and I suppose that makes sense. If the target audience
+of dance music is the club, it make sense for dance songs to be quite loud.
+However, it's important to notice that dance has only 3 samples, so take that
+graph with a grain of salt.
+
+Closely behind dance is punk and hip-hop. Again, hip-hop only has two samples
+representing that average, so that genre can be safely ignored. Meanwhile,
+punk has around 31 samples which may all be from one artist, so it's tough
+to really come to any conclusions in that regard.
+
+That said, from a biased point-of-view, I think this curve is fairly accurate.
+I would expect rougher genres like metal, punk, and dance to be louder on
+average than genres that have more ebb and flow like jazz and instrumental.
+Also, I'd expect genres with less simultaneous sounds like vocal to be
+quiter on average.
+
+Perhaps most surprisingly, classical comes in at the quietest genre from its
+twelve sample average. My experience with live classical music is that it can
+be very quiet at times and very loud at other times. Perhaps that contrast
+is skewed toward the lower end for more effect. I would be interested in digging
+into this more in the future.
 
 \section{Challenges}
 
@@ -475,6 +555,18 @@ As it turns out, the scope of the initial proposal was much too broad. Many of
 the signal processing approaches proposed were outside of my capabilities within
 a semester. Given more time, I would have liked to explore audio features beyond
 loudness such as pitch and onset.
+
+In addition, it turns out that reading and parsing existing audio formats is
+really challenging. Not only are the formats themselves not well documented, but
+the files are general fairly large. As a result, processing can take a lot of
+time and resources. Retrieving data for visualization took many hours of
+periodic persistence to ensure nothing was lost.
+
+Finally, overall software design was challenging. From parsing and data collection
+to data aggregation and visualization, there were a lot of steps in the pipeline.
+In particular, I ended up leveraging two separate scripting languages, Python
+and JavaScript, as well as an intermediate data respresentation, JSON. In total,
+I have written over 1600 lines of code for this project not including the report.
 
 \section{Conclusion}
 

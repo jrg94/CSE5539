@@ -210,6 +210,30 @@ This section contains a lot of excellend figures for explanation purposes.
 
 ### 8.5 Estimating Chorus Sections and Repeated Sections (275 - 286)
 
+In this section, the authors explain what chorus is and why it's important.
+They also describe applications like music browsers and retrieval systems.
+
+Chorus sections are extracted by recognizing that they're usually the most
+repeated sections of a song. Naturally, the author describes many works
+that have done exactly that.
+
+Of course, there are challenges:
+
+1. Extracting acoustic features and calculating their similarity
+2. Finding repeated sections
+3. Grouping repeated sections
+4. Detecting modulated repetition
+5. Selecting chorus sections
+
+The remaining sections basically cover RefraiD (Refrain Detection method). RefraiD
+leverages a 12-dimensional feature vector called a chroma vector which encapsulates
+Each element of the vector represents one of 12 pitch classes. 
+
+To account for key changes, the vectors are shifted for all possible keys and differences
+are calculated between all shifted vectors.
+
+RefraiD solves all 5 problems.
+
 #### 8.5.1 Extracting Acoustic Features and Calculating Their Similarities (278 - 281)
 
 ##### 8.5.1.1 Pitch Feature: Chroma Vector (278 - 280)

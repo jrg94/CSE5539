@@ -263,21 +263,73 @@ In RefrainD, the distance function is wild.
 
 #### 8.5.2 Finding Repeating Sections (281 - 282)
 
+Repeated sections can be found using a similarity matrix and a
+time-lag triangle. 
+
+The RefraiD method gets all horizontal lines in the time-lag triangle,
+then does some other math...
+
+Of course, there are other approaches. 
+
 #### 8.5.3 Grouping Repeating Sections (282 - 284)
+
+Unfortunately, each line segment in the time-lag triangle only represents
+pairs of repeated sections. To group them, RefraiD looks for similar line
+segments and recomputes hidden section using topdown information from
+discovered sections.
 
 #### 8.5.4 Detecting Modulated Repetition (284 - 285)
 
+Unfortunately, key changes add an element of complexity to similarity detection.
+Similarity can then be extended for all 12 keys. Grouping occurs for same sections.
+
 #### 8.5.5 Selecting Chorus Sections (285)
+
+Detecting chorus sections requires looking at the groups and determining which one
+had the most and longest line segments. Of course, as an added heuristic, RefraiD
+limits chorus detection to:
+
+1. length (7.7 to 4 seconds)
+2. chorus is at end of repeated section
+3. chorus contains repeated subsections
 
 #### 8.5.6 Other Methods (285 - 286)
 
+1. Using HMMs and clustering
+2. Use beat tracking
+3. Short frames (100 ms)
+
+Also:
+
+1. Dynamic programming and iterative greedy algorithms
+2. Supervised learning
+3. etc. etc. etc.
+
 ### 8.6 Discussions and Conclusions (286 - 289)
+
+Recap.
 
 #### 8.6.1 Importance (286 - 287)
 
+Let's understand music signals from a human-like viewpoint.
+Music ausio signal research is complementary to speech recognition
+research.
+
+Music is now everywhere! It would be nice to have utilities for working
+with music for the average user (i.e. being able to search for similar
+sounding songs, being able to automatically classify music).
+
 #### 8.6.2 Evaluation Issues (287 - 288)
 
+Evaluation is challenging as there isn't a large database of music files
+for public consumption with proper metadata. Luckily, there are some
+databases. 
+
 #### 8.6.3 Future Directions (288 - 289)
+
+- Recognizing instruments in music
+- MIDI processing
+- etc.
 
 ## [REpeating Pattern Extraction Technique (REPET)][2]
 

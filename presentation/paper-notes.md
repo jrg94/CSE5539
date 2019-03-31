@@ -236,11 +236,30 @@ RefraiD solves all 5 problems.
 
 #### 8.5.1 Extracting Acoustic Features and Calculating Their Similarities (278 - 281)
 
+Highlights studies which used same features.
+
 ##### 8.5.1.1 Pitch Feature: Chroma Vector (278 - 280)
+
+A chroma vector is based on the concept of a chroma thanks
+to Shephard's helix representation of musical pitch perception.
+Essentially, octaves are meaningless. They correspond to height of
+the helix. The circular location gives the actual pitch. 
+
+Chroma vectors are great for detecing chords and harmony.
+
+Again, lots of math here, but the images are good.
 
 ##### 8.5.1.2 Timbral Feature: MFCC and Dynamic Features (280)
 
+Supervised learning can be used to capture what chroma vectors can't:
+dynamic features like texture.
+
 ##### 8.5.1.3 Calculation Similarity (280 - 281)
+
+Calculating similiarity of two vectors is just a matter of calculating
+distance. Euclidean distance is fine, but don't forget to normalize.
+
+In RefrainD, the distance function is wild.
 
 #### 8.5.2 Finding Repeating Sections (281 - 282)
 

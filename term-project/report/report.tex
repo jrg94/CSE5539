@@ -285,9 +285,9 @@ I wrote enough code to parse all of the atoms seen in \autoref{tab:atoms}.
 \end{table}
 
 An atom is a section of an M4A file that stores information based on some accepted
-standard. Some atoms contain atoms, so parsing can be challenging. Fortunately,
-Python makes it relatively easy to read and parse byte streams. The challenge
-was properly mapping each atom based on the standard.
+standard \cite{Apple:2016:QuickTime}. Some atoms contain atoms, so parsing can
+be challenging. Fortunately, Python makes it relatively easy to read and parse
+byte streams. The challenge was properly mapping each atom based on the standard.
 
 In total, the M4A parsing code is roughly 800 lines of code, yet it is still
 incomplete. In particular, I was unable to parse the actual audio data as

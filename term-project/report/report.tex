@@ -293,7 +293,7 @@ In total, the M4A parsing code is roughly 800 lines of code, yet it is still
 incomplete. In particular, I was unable to parse the actual audio data as
 M4A files are in many cases compressed. To account for this setback, I leveraged
 a Python library called pydub which uses FFmpeg to parse audio files of many
-formats including M4A.
+formats including M4A \cite{Robert:2018:API}.
 
 \subsection{Data Aggregation}
 
@@ -326,14 +326,7 @@ might look something like the following:
     "dBFS": -11.080573225629289,
     "max_dBFS": 0.0,
     "rms": 599654648,
-    "max_amplitude": 2147483648,
-    "_raw_json": null,
-    "_chunk_offset_table": null,
-    "_sample_to_chunk_table": null,
-    "_sample_size_table": null,
-    "_time_to_sample_table": null,
-    "_sample_description_table": null,
-    "_music_data": null
+    "max_amplitude": 2147483648
 }
 \end{minted}
 

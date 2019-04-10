@@ -233,6 +233,16 @@ on the pydub documentation, amplitude would be the largest sample across
 all samples. For example, a song with 16-bit samples would have a maximum
 possible amplitude of $2 ^ {16}$ or 32,768.
 
+From there, maximum dBFS can be obtained by computing the dBFS of the peak
+amplitude relative to the maximum possible amplitude which depends on the
+sample size. In terms of math, the equation for maximum dBFS might look
+something like:
+
+\[ 20 * log_{10}( | sample | / reference ) \]
+
+where sample represents the sample value and reference represents the maximum
+possible amplitude.
+
 In the following sections, I'll discuss how I parsed the M4A files, and how
 I aggregated that data for visualization.
 

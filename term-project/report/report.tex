@@ -442,6 +442,28 @@ the browser, we can expand their functionality with a myriad of open-source
 libraries. For the sake of this project, I only used utilities provided by
 D3.
 
+Regardless of tech stack, data visualization is a challenging topic which demands
+careful consideration of data dimentionality for encoding purposes. Unfortunately,
+the issue is only magnified with a data set like music as music has an
+extremely high dimentionality. For example, Miller et al. breaks music up into
+four features: rhythm, harmony, dynamics, and instructions. In addition, these
+features can be broken up into attributes. For example, rhythm could be broken
+up into tempo, meter, and pauses. Of course, these are only the known quantifiable
+features of music, yet the dimentionality of the data is extremely high.
+
+To make matters worse, the features described above only cover music concepts.
+They neglect to highlight some of the meta data I collected for this project
+like genre, track numbers, sample size, and sample rate. In addition, the
+raw music signal is not considered, and waveforms add quite a bit of complexity
+to the world of visualization.
+
+To deal with this complexity, we have to choose tasks that we would like to
+explore with our visualization. For example, we might have a lot of data,
+but we're only interested in the relationship between track title and auditory
+roughness. For that, we might try comparing the sentiment of the track's title
+with the auditory roughness of the track. In the following sections, I share
+some of the tasks I wanted to cover using visualization.
+
 \subsection{Genre Histogram}
 
 To begin, I felt it was important to get an idea of what kind of data I was

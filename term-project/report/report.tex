@@ -490,27 +490,27 @@ alternative and rock.
   \label{tab:genres}
   \scriptsize%
 	\centering%
-  \begin{tabu}{l c}
+  \begin{tabu}{l c c}
   \toprule
-    Genre & Count \\
+    Genre & Count & Included \\
   \midrule
-    Alternative & 448 \\
-    Rock & 368 \\
-    None & 353 \\
-    Pop & 207 \\
-    Jazz & 130 \\
-    Soundtrack & 107 \\
-    Country & 88 \\
-    Comedy & 44 \\
-    Metal & 42 \\
-    Punk & 31 \\
-    Rap & 20 \\
-    Classical & 12 \\
-    Electronic & 7 \\
-    Vocal & 6 \\
-    Dance & 3 \\
-    Hip-Hop & 2 \\
-    Instrumental & 1 \\
+    Alternative & 448 & yes\\
+    Rock & 368 & yes \\
+    None & 353 & yes \\
+    Pop & 207 & yes \\
+    Jazz & 130 & yes \\
+    Soundtrack & 107 & yes \\
+    Country & 88 & yes \\
+    Comedy & 44 & yes \\
+    Metal & 42 & yes \\
+    Punk & 31 & yes \\
+    Rap & 20 & yes \\
+    Classical & 12 & yes \\
+    Electronic & 7 & yes\\
+    Vocal & 6 & no \\
+    Dance & 3 & no \\
+    Hip-Hop & 2 & no \\
+    Instrumental & 1 & no \\
   \midrule
     Sum & 1869 \\
   \bottomrule
@@ -522,35 +522,7 @@ longer supports color pallets larger than 12 distinct colors, so I was forced
 to filter the data set by the 12 most frequent genres in the dataset. As a
 result, there are about 12 data points missing from \autoref{fig:duration}
 and \autoref{fig:dBFS}. In particular, the vocal, dance, hip-hop, and
-instrumental genres have not been included. Instead, the contain only the genres
-contained in \autoref{tab:genres_filtered}.
-
-\begin{table}[h]
-  \caption{Filtered Genre Totals}
-  \label{tab:genres_filtered}
-  \scriptsize%
-	\centering%
-  \begin{tabu}{l c}
-  \toprule
-    Genre & Count \\
-  \midrule
-    Alternative & 448 \\
-    Rock & 368 \\
-    Pop & 207 \\
-    Jazz & 130 \\
-    Soundtrack & 107 \\
-    Country & 88 \\
-    Comedy & 44 \\
-    Metal & 42 \\
-    Punk & 31 \\
-    Rap & 20 \\
-    Classical & 12 \\
-    Electronic & 7 \\
-  \midrule
-    Sum & 1504 \\
-  \bottomrule
-  \end{tabu}%
-\end{table}
+instrumental genres have not been included. 
 
 Since songs lacking genre data provide no useful insight in a genre comparative
 study, I chose to exclude all files with None tags for genre. In total, I had

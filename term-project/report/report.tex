@@ -157,7 +157,7 @@ In particular, I chose to analyze a personal collection of songs in two
 stages: \textbf{data collection} and \textbf{data visualization}.
 
 In terms of data collection, I spent some time learning how to parse a common
-file format, M4A, and interpret that data. As for data visualization, I spent
+file format, M4A, and interpreting that data. As for data visualization, I spent
 some time trying to address tasks such as:
 
 \begin{itemize}
@@ -225,7 +225,13 @@ Likewise, I also had to compute average decibels relative to full scale (dBFS),
 maximum dBFS, root-mean-square (RMS), and maximum amplitude which are all
 parameters related to audio loudness \cite{Price:2007:dBFS}. Fortunately, I did
 not compute these parameters myself as they were provided through the Python
-pydub library \cite{Robert:2018:API}.
+pydub library \cite{Robert:2018:API}. However, for the sake of completeness,
+the following paragraphs will describe how those values can be obtained.
+
+Of the four parameters, the easiest to compute would be peak amplitude. Based
+on the pydub documentation, amplitude would be the largest sample across
+all samples. For example, a song with 16-bit samples would have a maximum
+possible amplitude of $2 ^ {16}$ or 32,768.
 
 In the following sections, I'll discuss how I parsed the M4A files, and how
 I aggregated that data for visualization.

@@ -409,10 +409,11 @@ to handle the dictionary data provided by the m4a\_parse.py script. Since the
 dictionary is just a more readable format of the raw binary data of the M4A file,
 the MusicFile object just needs to know the atom hierarchy to obtain the proper
 data. For example, genre can be obtained from the following atom hiearchy:
-data > moov > udta > meta > ilst > gnre. As an added wrinkle, most of the meta
-data leverages numerical codes. For instance, genres are mapped to numbers, so
-there's a separate lookup table for genre strings. For the sake of simplicity,
-I only chose to track all the fields that you can see in the JSON above.
+data $\rightarrow$ moov $\rightarrow$ udta $\rightarrow$ meta $\rightarrow$ ilst
+$\rightarrow$ gnre. As an added wrinkle, most of the meta data leverages numerical
+codes. For instance, genres are mapped to numbers, so there's a separate lookup
+table for genre strings. For the sake of simplicity, I only chose to track all
+the fields that you can see in the JSON above.
 
 Meanwhile, each MusicFile can then be stored and manipulated in an instance of the
 MusicFileSet class. The MusicFileSet class is essentially a list wrapper, but
@@ -433,6 +434,13 @@ able to generate 33 data sets.
 The goal of this project was to learn some signal processing while trying to
 find interesting trends in genres of music. To do so, I felt it was appropriate
 to try to plot some of the data I collected in D3.
+
+D3 is a JavaScript library that allows users to generate interactive web-based
+visualizations. It works by providing tools for generating Scalable Vector
+Graphics (SVG). Since SVGs are an image format that is natively supported in
+the browser, we can expand their functionality with a myriad of open-source
+libraries. For the sake of this project, I only used utilities provided by
+D3.
 
 \subsection{Genre Histogram}
 
@@ -649,7 +657,11 @@ longer songs on average (i.e. Jazz, Classical, and Metal). However, I was
 suprised to see that songs have gotten slightly shorter over time.
 
 In the future, I'd like to explore music genres with an even larger data set as
-to avoid introducing any personal biases.
+to avoid introducing any personal biases. In addition, I would like to expand
+the visualization tool to include interactivity elements like filtering. It
+would be nice to be able to hide or gray out some of the points in the
+scatter plots. Also, I would like to be able to hover over each point to
+see meta information like song title.
 
 %\bibliographystyle{abbrv}
 \bibliographystyle{abbrv-doi}

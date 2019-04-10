@@ -126,6 +126,13 @@
 %% Uncomment below to disable the manuscript note
 %\renewcommand{\manuscriptnotetxt}{}
 
+\teaser{
+  \centering
+  \includegraphics[width=\linewidth]{header}
+  \caption{An overview of the music file to visualization pipeline.}
+	\label{fig:teaser}
+}
+
 %% Copyright space is enabled by default as required by guidelines.
 %% It is disabled by the 'review' option or via the following command:
 % \nocopyrightspace
@@ -157,7 +164,7 @@ In particular, I chose to analyze a personal collection of songs in two
 stages: \textbf{data collection} and \textbf{data visualization}.
 
 In terms of data collection, I spent some time learning how to parse a common
-file format, M4A, and interpret that data. As for data visualization, I spent
+file format, M4A, and interpreting that data. As for data visualization, I spent
 some time trying to address tasks such as:
 
 \begin{itemize}
@@ -172,9 +179,24 @@ data collection and visualization.
 \section{Data Collection}
 
 In order to visualize the differences in music genre, I had to first collect
-some data. Fortunately, I had quite the collection of songs from iTunes purchases
-over the years. In particular, I had 4,194 songs spread across 983 folders.
+some data. Of course, there are a lot of options. For example, music files
+come in many formats including raw audio formats like MP3, WAV, and M4A as
+well as descriptive music formats like MIDI. In addition, there are several
+music mediums like CDs, records, files, sheet music, and live performances.
 
+For the purposes of this project, I chose to use music files from my own
+personal collection. Unfortunately, that means this project isn't exactly
+reproducible as the files are not open-source. That said, the software used
+for processing and visualizing music files are open-source.
+
+In the following subsections, I will cover how exactly I collected my data,
+what the music file processing software looks like, and how I organized the
+data for visualization.
+
+\subsection{Music Files}
+
+Fortunately, I had quite the collection of songs from iTunes purchases
+over the years. In particular, I had 4,194 songs spread across 983 folders.
 From there, I had two challenges: choosing which file format to process and
 selecting what data to collect from those files. Of the 4,194 songs, roughly
 1,800 of them were in the M4A format, so I chose to parse that format.
@@ -223,13 +245,47 @@ audio.
 
 Likewise, I also had to compute average decibels relative to full scale (dBFS),
 maximum dBFS, root-mean-square (RMS), and maximum amplitude which are all
-parameters related to audio loudness. Fortunately, I did not compute these
-parameters myself as they were provided through the Python pydub library.
+parameters related to audio loudness \cite{Price:2007:dBFS}. Fortunately, I did
+not compute these parameters myself as they were provided through the Python
+pydub library \cite{Robert:2018:API}. However, for the sake of completeness,
+the following paragraphs will describe how those values can be obtained.
 
-In the following sections, I'll discuss how I parsed the M4A files, and how
+Of the four parameters, the easiest to compute would be peak amplitude. Based
+on the pydub documentation, amplitude would be the largest sample across
+all samples. For example, a song with 16-bit samples would have a maximum
+possible amplitude of $2 ^ {16}$ or 32,768.
+
+From there, maximum dBFS can be obtained by computing the dBFS of the peak
+amplitude relative to the maximum possible amplitude which depends on the
+sample size. In terms of math, the equation for maximum dBFS might look
+something like:
+
+\[ 20 * log_{10}( | sample | / reference ) \]
+
+where sample represents the sample value and reference represents the maximum
+possible amplitude. Based on this equation, it's clear that the closer the sample
+is to the reference value, the closer the overall equation trends toward zero.
+As a result, dBFS is typically given as a negative number where values closer
+to zero indicate louder samples.
+
+Another helpful measurement is root-mean-square, which as the name implies, gives
+us the square root of the mean square, or more formally \cite{Weisstein:2011:RMS}:
+
+\[ \sqrt{\frac{1}{n} \sum_{i=1}^{n} x_{i}^2} \]
+
+Here, $x$ is a sample, $i$ is a sample index, and $n$ is the number of samples.
+In other words, we compute the sum of all the samples squared, divide by the
+number of samples, and calculate the square root of the result. The final number
+describes the effective value of the waveform.
+
+To compute average dBFS, the same equation for peak dBFS can be used. However,
+instead of using an individual sample, we compute the root-mean-square of all samples. As
+a result, we obtain a rough idea of loudness over some time period.
+
+In the following sections, I will discuss how I parsed the M4A files, and how
 I aggregated that data for visualization.
 
-\subsection{File Parsing}
+\subsection{Music File Parsing}
 
 The first major challenge in this project was finding a way to collect
 information from the M4A file format. Unfortunately, I was unable to find a
@@ -284,17 +340,26 @@ I wrote enough code to parse all of the atoms seen in \autoref{tab:atoms}.
 \end{table}
 
 An atom is a section of an M4A file that stores information based on some accepted
-standard. Some atoms contain atoms, so parsing can be challenging. Fortunately,
-Python makes it relatively easy to read and parse byte streams. The challenge
-was properly mapping each atom based on the standard.
+standard \cite{Apple:2016:QuickTime}. Some atoms contain atoms, so parsing can
+be challenging. Fortunately, Python makes it relatively easy to read and parse
+byte streams. The challenge was properly mapping each atom based on the standard.
+
+In terms of design, the M4A file parsing script, called m4a\_parse.py, defines
+a function for each atom defined in the specification. Then, the script begins
+by grabbing the first atom which is interpetted by reading the first 8 bytes
+of the file. The first four bytes give the size of the entire atom including
+the 8 byte header. Meanwhile, the second four bytes give the name of the
+atom. From there, the name is used to retrieve the atom-specific parsing function,
+and parsing of that atom begins. Naturally, the process continues recursively
+until all atoms are interpetted and stored in a dictionary.
 
 In total, the M4A parsing code is roughly 800 lines of code, yet it is still
 incomplete. In particular, I was unable to parse the actual audio data as
 M4A files are in many cases compressed. To account for this setback, I leveraged
 a Python library called pydub which uses FFmpeg to parse audio files of many
-formats including M4A.
+formats including M4A \cite{Robert:2018:API}.
 
-\subsection{Data Aggregation}
+\subsection{Music Data Aggregation}
 
 Being able to parse an M4A file and being able to use that data for visualization
 are two separate challenges. As a result, I had to find a way to aggregate the
@@ -325,14 +390,7 @@ might look something like the following:
     "dBFS": -11.080573225629289,
     "max_dBFS": 0.0,
     "rms": 599654648,
-    "max_amplitude": 2147483648,
-    "_raw_json": null,
-    "_chunk_offset_table": null,
-    "_sample_to_chunk_table": null,
-    "_sample_size_table": null,
-    "_time_to_sample_table": null,
-    "_sample_description_table": null,
-    "_music_data": null
+    "max_amplitude": 2147483648
 }
 \end{minted}
 
@@ -344,11 +402,22 @@ In order to generate the JSON, I created two Python classes: MusicFile and
 MusicFileSet. A MusicFile provides music file data storage as seen in the JSON
 above. In addition, the MusicFile class provides extended functionality like
 the ability to convert an M4A to a WAV file and the ability to persist the
-parsed atom data to JSON.
+parsed atom data to JSON \cite{Grifski:2019:MusicFile}.
 
-Each MusicFile can then be stored and manipulated in an instance of the
+In order to provide all that functionality, the MusicFile object has to be able
+to handle the dictionary data provided by the m4a\_parse.py script. Since the
+dictionary is just a more readable format of the raw binary data of the M4A file,
+the MusicFile object just needs to know the atom hierarchy to obtain the proper
+data. For example, genre can be obtained from the following atom hiearchy:
+data $\rightarrow$ moov $\rightarrow$ udta $\rightarrow$ meta $\rightarrow$ ilst
+$\rightarrow$ gnre. As an added wrinkle, most of the meta data leverages numerical
+codes. For instance, genres are mapped to numbers, so there's a separate lookup
+table for genre strings. For the sake of simplicity, I only chose to track all
+the fields that you can see in the JSON above.
+
+Meanwhile, each MusicFile can then be stored and manipulated in an instance of the
 MusicFileSet class. The MusicFileSet class is essentially a list wrapper, but
-it provides several key functionalities such as:
+it provides several key functionalities such as \cite{Grifski:2019:MusicFileSet}:
 
 \begin{itemize}
   \item the ability to load all M4A files from a directory recursively
@@ -366,6 +435,36 @@ The goal of this project was to learn some signal processing while trying to
 find interesting trends in genres of music. To do so, I felt it was appropriate
 to try to plot some of the data I collected in D3.
 
+D3 is a JavaScript library that allows users to generate interactive web-based
+visualizations. It works by providing tools for generating Scalable Vector
+Graphics (SVG). Since SVGs are an image format that is natively supported in
+the browser, we can expand their functionality with a myriad of open-source
+libraries. For the sake of this project, I only used utilities provided by
+D3.
+
+Regardless of tech stack, data visualization is a challenging topic which demands
+careful consideration of data dimentionality for encoding purposes. Unfortunately,
+the issue is only magnified with a data set like music as music has an
+extremely high dimentionality. For example, Miller et al. breaks music up into
+four features: rhythm, harmony, dynamics, and instructions. In addition, these
+features can be broken up into attributes. For example, rhythm could be broken
+up into tempo, meter, and pauses. Of course, these are only the known quantifiable
+features of music, yet the dimentionality of the data is extremely high
+\cite{Miller:2018:Notation}.
+
+To make matters worse, the features described above only cover music concepts.
+They neglect to highlight some of the meta data I collected for this project
+like genre, track numbers, sample size, and sample rate. In addition, the
+raw music signal is not considered, and waveforms add quite a bit of complexity
+to the world of visualization.
+
+To deal with this complexity, we have to choose tasks that we would like to
+explore with our visualization. For example, we might have a lot of data,
+but we're only interested in the relationship between track title and auditory
+roughness. For that, we might try comparing the sentiment of the track's title
+with the auditory roughness of the track. In the following sections, I share
+some of the tasks I wanted to cover using visualization.
+
 \subsection{Genre Histogram}
 
 To begin, I felt it was important to get an idea of what kind of data I was
@@ -376,7 +475,7 @@ toward my favorite genres as seen in \autoref{fig:genres}.
 \begin{figure}[h]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
  \includegraphics[width=\columnwidth]{genre-histogram}
- \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
+ \caption{A genre histogram from \cite{Grifski:2019:Histogram} of all the files in the dataset.}
  \label{fig:genres}
 \end{figure}
 
@@ -391,27 +490,27 @@ alternative and rock.
   \label{tab:genres}
   \scriptsize%
 	\centering%
-  \begin{tabu}{l c}
+  \begin{tabu}{l c c}
   \toprule
-    Genre & Count \\
+    Genre & Count & Included \\
   \midrule
-    Alternative & 448 \\
-    Rock & 368 \\
-    None & 353 \\
-    Pop & 207 \\
-    Jazz & 130 \\
-    Soundtrack & 107 \\
-    Country & 88 \\
-    Comedy & 44 \\
-    Metal & 42 \\
-    Punk & 31 \\
-    Rap & 20 \\
-    Classical & 12 \\
-    Electronic & 7 \\
-    Vocal & 6 \\
-    Dance & 3 \\
-    Hip-Hop & 2 \\
-    Instrumental & 1 \\
+    Alternative & 448 & yes\\
+    Rock & 368 & yes \\
+    None & 353 & no \\
+    Pop & 207 & yes \\
+    Jazz & 130 & yes \\
+    Soundtrack & 107 & yes \\
+    Country & 88 & yes \\
+    Comedy & 44 & yes \\
+    Metal & 42 & yes \\
+    Punk & 31 & yes \\
+    Rap & 20 & yes \\
+    Classical & 12 & yes \\
+    Electronic & 7 & yes\\
+    Vocal & 6 & no \\
+    Dance & 3 & no \\
+    Hip-Hop & 2 & no \\
+    Instrumental & 1 & no \\
   \midrule
     Sum & 1869 \\
   \bottomrule
@@ -420,38 +519,11 @@ alternative and rock.
 
 To encode genres in later plots, I chose to use color. Unfortunately, D3 no
 longer supports color pallets larger than 12 distinct colors, so I was forced
-to filter the data set by the 12 most frequent genres in the dataset. As a
-result, there are about 12 data points missing from \autoref{fig:duration}
-and \autoref{fig:dBFS}. In particular, the vocal, dance, hip-hop, and
-instrumental genres have not been included. Instead, the contain only the genres
-contained in \autoref{tab:genres_filtered}.
-
-\begin{table}[h]
-  \caption{Filtered Genre Totals}
-  \label{tab:genres_filtered}
-  \scriptsize%
-	\centering%
-  \begin{tabu}{l c}
-  \toprule
-    Genre & Count \\
-  \midrule
-    Alternative & 448 \\
-    Rock & 368 \\
-    Pop & 207 \\
-    Jazz & 130 \\
-    Soundtrack & 107 \\
-    Country & 88 \\
-    Comedy & 44 \\
-    Metal & 42 \\
-    Punk & 31 \\
-    Rap & 20 \\
-    Classical & 12 \\
-    Electronic & 7 \\
-  \midrule
-    Sum & 1504 \\
-  \bottomrule
-  \end{tabu}%
-\end{table}
+to filter the data set by the 12 most frequent genres in the dataset. That said,
+the D3 maintainers made a good choice removing the larger color pallets since
+humans can only track so many simulataneous colors. Regardless, there are about
+12 data points missing from \autoref{fig:duration} and \autoref{fig:dBFS}. In
+particular, the vocal, dance, hip-hop, and instrumental genres have not been included.
 
 Since songs lacking genre data provide no useful insight in a genre comparative
 study, I chose to exclude all files with None tags for genre. In total, I had
@@ -467,7 +539,7 @@ have changed over time.
 \begin{figure}[h]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
  \includegraphics[width=\columnwidth]{duration-vs-release-date}
- \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
+ \caption{A plot of duration versus release date from \cite{Grifski:2019:Duration} where colors correspond to genres.}
  \label{fig:duration}
 \end{figure}
 
@@ -488,14 +560,14 @@ chosen some sort of duration sweet spot which hovers around 200 seconds.
 
 Since I was on the subject of data over time, I thought it would be interesting
 to look at loudness over time using decibels at full scale (dBFS) and release
-date. The ideas here being that songs may have changed in average loudness over
+date. The idea here being that songs may have changed in average loudness over
 time. Naturally, the dBFS versus release data plot can be seen in
 \autoref{fig:dBFS}.
 
 \begin{figure}[h]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
  \includegraphics[width=\columnwidth]{dbfs-vs-release-date}
- \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
+ \caption{A dBFS versus release date from \cite{Grifski:2019:dBFS} where colors correspond to genres.}
  \label{fig:dBFS}
 \end{figure}
 
@@ -516,13 +588,13 @@ Meanwhile, the soundtrack genre tends to be very quiet.
 
 Having seen an overview of dBFS over time, I had to take the analysis one step
 further by asking: what genres are loudest on average? To do that, I ran an
-analysis which captured the average dBFS of each genre and plotted on a bar
-graph (\autoref{fig:avg-dBFS}) similar to the genre histogram.
+analysis which captured the average dBFS of each genre and plotted the results
+on a bar graph (\autoref{fig:avg-dBFS}) similar to the genre histogram.
 
 \begin{figure}[h]
  \centering % avoid the use of \begin{center}...\end{center} and use \centering instead (more compact)
  \includegraphics[width=\columnwidth]{average-dbfs-vs-genre}
- \caption{A genre histogram from \cite{Grifski:2019} of all the files in the dataset.}
+ \caption{A average dBFS histogram from \cite{Grifski:2019:Average} of all the files in the dataset.}
  \label{fig:avg-dBFS}
 \end{figure}
 
@@ -581,7 +653,14 @@ longer songs on average (i.e. Jazz, Classical, and Metal). However, I was
 suprised to see that songs have gotten slightly shorter over time.
 
 In the future, I'd like to explore music genres with an even larger data set as
-to avoid introducing any personal biases.
+to avoid introducing any personal biases. In addition, I would like to expand
+the visualization tool to include interactivity elements like filtering. It
+would be nice to be able to hide or gray out some of the points in the
+scatter plots. Also, I would like to be able to hover over each point to
+see meta information like song title.
+
+Overall, I am very satisfied with the project, and I believe it helped expose
+me to signal processing topics that may be helpful for my future research.
 
 %\bibliographystyle{abbrv}
 \bibliographystyle{abbrv-doi}

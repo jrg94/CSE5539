@@ -179,9 +179,24 @@ data collection and visualization.
 \section{Data Collection}
 
 In order to visualize the differences in music genre, I had to first collect
-some data. Fortunately, I had quite the collection of songs from iTunes purchases
-over the years. In particular, I had 4,194 songs spread across 983 folders.
+some data. Of course, there are a lot of options. For example, music files
+come in many formats including raw audio formats like MP3, WAV, and M4A as
+well as descriptive music formats like MIDI. In addition, there are several
+music mediums like CDs, records, files, sheet music, and live performances.
 
+For the purposes of this project, I chose to use music files from my own
+personal collection. Unfortunately, that means this project isn't exactly
+reproducible as the files are not open-source. That said, the software used
+for processing and visualizing music files are open-source.
+
+In the following subsections, I will cover how exactly I collected my data,
+what the music file processing software looks like, and how I organized the
+data for visualization.
+
+\subsection{Music Files}
+
+Fortunately, I had quite the collection of songs from iTunes purchases
+over the years. In particular, I had 4,194 songs spread across 983 folders.
 From there, I had two challenges: choosing which file format to process and
 selecting what data to collect from those files. Of the 4,194 songs, roughly
 1,800 of them were in the M4A format, so I chose to parse that format.
@@ -270,7 +285,7 @@ a result, we obtain a rough idea of loudness over some time period.
 In the following sections, I will discuss how I parsed the M4A files, and how
 I aggregated that data for visualization.
 
-\subsection{File Parsing}
+\subsection{Music File Parsing}
 
 The first major challenge in this project was finding a way to collect
 information from the M4A file format. Unfortunately, I was unable to find a
@@ -335,7 +350,7 @@ by grabbing the first atom which is interpetted by reading the first 8 bytes
 of the file. The first four bytes give the size of the entire atom including
 the 8 byte header. Meanwhile, the second four bytes give the name of the
 atom. From there, the name is used to retrieve the atom-specific parsing function,
-and parsing of that atom begins. From there, the process continues recursively
+and parsing of that atom begins. Naturally, the process continues recursively
 until all atoms are interpetted and stored in a dictionary.
 
 In total, the M4A parsing code is roughly 800 lines of code, yet it is still
@@ -344,7 +359,7 @@ M4A files are in many cases compressed. To account for this setback, I leveraged
 a Python library called pydub which uses FFmpeg to parse audio files of many
 formats including M4A \cite{Robert:2018:API}.
 
-\subsection{Data Aggregation}
+\subsection{Music Data Aggregation}
 
 Being able to parse an M4A file and being able to use that data for visualization
 are two separate challenges. As a result, I had to find a way to aggregate the

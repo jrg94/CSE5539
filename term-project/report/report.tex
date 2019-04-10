@@ -329,6 +329,15 @@ standard \cite{Apple:2016:QuickTime}. Some atoms contain atoms, so parsing can
 be challenging. Fortunately, Python makes it relatively easy to read and parse
 byte streams. The challenge was properly mapping each atom based on the standard.
 
+In terms of design, the M4A file parsing script, called m4a\_parse.py, defines
+a function for each atom defined in the specification. Then, the script begins
+by grabbing the first atom which is interpetted by reading the first 8 bytes
+of the file. The first four bytes give the size of the entire atom including
+the 8 byte header. Meanwhile, the second four bytes give the name of the
+atom. From there, the name is used to retrieve the atom-specific parsing function,
+and parsing of that atom begins. From there, the process continues recursively
+until all atoms are interpetted and stored in a dictionary.
+
 In total, the M4A parsing code is roughly 800 lines of code, yet it is still
 incomplete. In particular, I was unable to parse the actual audio data as
 M4A files are in many cases compressed. To account for this setback, I leveraged

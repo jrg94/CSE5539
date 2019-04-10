@@ -496,7 +496,7 @@ alternative and rock.
   \midrule
     Alternative & 448 & yes\\
     Rock & 368 & yes \\
-    None & 353 & yes \\
+    None & 353 & no \\
     Pop & 207 & yes \\
     Jazz & 130 & yes \\
     Soundtrack & 107 & yes \\
@@ -519,10 +519,11 @@ alternative and rock.
 
 To encode genres in later plots, I chose to use color. Unfortunately, D3 no
 longer supports color pallets larger than 12 distinct colors, so I was forced
-to filter the data set by the 12 most frequent genres in the dataset. As a
-result, there are about 12 data points missing from \autoref{fig:duration}
-and \autoref{fig:dBFS}. In particular, the vocal, dance, hip-hop, and
-instrumental genres have not been included. 
+to filter the data set by the 12 most frequent genres in the dataset. That said,
+the D3 maintainers made a good choice removing the larger color pallets since
+humans can only track so many simulataneous colors. Regardless, there are about
+12 data points missing from \autoref{fig:duration} and \autoref{fig:dBFS}. In
+particular, the vocal, dance, hip-hop, and instrumental genres have not been included.
 
 Since songs lacking genre data provide no useful insight in a genre comparative
 study, I chose to exclude all files with None tags for genre. In total, I had

@@ -241,7 +241,10 @@ something like:
 \[ 20 * log_{10}( | sample | / reference ) \]
 
 where sample represents the sample value and reference represents the maximum
-possible amplitude.
+possible amplitude. Based on this equation, it's clear that the closer the sample
+is to the reference value, the closer the overall equation trends toward zero.
+As a result, dBFS is typically given as a negative number where values closer
+to zero indicate louder samples. 
 
 In the following sections, I'll discuss how I parsed the M4A files, and how
 I aggregated that data for visualization.

@@ -244,9 +244,23 @@ where sample represents the sample value and reference represents the maximum
 possible amplitude. Based on this equation, it's clear that the closer the sample
 is to the reference value, the closer the overall equation trends toward zero.
 As a result, dBFS is typically given as a negative number where values closer
-to zero indicate louder samples. 
+to zero indicate louder samples.
 
-In the following sections, I'll discuss how I parsed the M4A files, and how
+Another helpful measurement is root-mean-square, which as the name implies, gives
+us the square root of the mean square, or more formally:
+
+\[ \sqrt{\frac{1}{n} \sum_{i=1}^{n} x_{i}^2} \]
+
+Here, $x$ is a sample and $n$ is the number of samples. In other words, we
+compute the sum of all the samples squared, divide by the number of samples,
+and calculate the square root of the result. The final number describes the
+effective value of the waveform.
+
+To compute average dBFS, the same equation for peak dBFS can be used. However,
+instead of using an individual sample, we compute the root-mean-square of all samples. As
+a result, we obtain a rough idea of loudness over some time period.
+
+In the following sections, I will discuss how I parsed the M4A files, and how
 I aggregated that data for visualization.
 
 \subsection{File Parsing}

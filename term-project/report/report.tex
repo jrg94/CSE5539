@@ -404,7 +404,17 @@ above. In addition, the MusicFile class provides extended functionality like
 the ability to convert an M4A to a WAV file and the ability to persist the
 parsed atom data to JSON \cite{Grifski:2019:MusicFile}.
 
-Each MusicFile can then be stored and manipulated in an instance of the
+In order to provide all that functionality, the MusicFile object has to be able
+to handle the dictionary data provided by the m4a\_parse.py script. Since the
+dictionary is just a more readable format of the raw binary data of the M4A file,
+the MusicFile object just needs to know the atom hierarchy to obtain the proper
+data. For example, genre can be obtained from the following atom hiearchy:
+data > moov > udta > meta > ilst > gnre. As an added wrinkle, most of the meta
+data leverages numerical codes. For instance, genres are mapped to numbers, so
+there's a separate lookup table for genre strings. For the sake of simplicity,
+I only chose to track all the fields that you can see in the JSON above.
+
+Meanwhile, each MusicFile can then be stored and manipulated in an instance of the
 MusicFileSet class. The MusicFileSet class is essentially a list wrapper, but
 it provides several key functionalities such as \cite{Grifski:2019:MusicFileSet}:
 
